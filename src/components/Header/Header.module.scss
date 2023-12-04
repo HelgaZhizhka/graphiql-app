@@ -1,0 +1,26 @@
+.root {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-index-header);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: opacity .25s ease-in-out;
+
+  &:hover {
+    opacity: .85;
+  }
+}
+
+.logoTitle {
+  margin: 0;
+  font-size: 1.125rem;
+  color: var(--color-brand);
+}
+
+.logoImage {
+  width: 30px;
+}

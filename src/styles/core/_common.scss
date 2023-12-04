@@ -1,0 +1,31 @@
+html {
+  font-size: 100%;
+}
+
+body {
+  background-color: var(--body-bg);
+  font-family: var(--font-family);
+  font-size: 1rem;
+  color: var(--color-text);
+  line-height: var(--line-height);
+}
+
+@include headings {
+  font-family: var(--font-family);
+  font-weight: 600;
+  line-height: var(--line-height);
+  color: var(--color-text);
+  text-transform: capitalize;
+}
+
+
+a {
+  font-weight: 500;
+  color: var(--color-link);
+  text-decoration: inherit;
+  transition: color 0.25s ease-in-out;
+}
+
+a:hover {
+  color: var(--color-link-hover);
+}

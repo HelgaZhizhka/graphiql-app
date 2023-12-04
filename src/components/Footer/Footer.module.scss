@@ -1,0 +1,9 @@
+.root {
+  padding: 20px 0;
+}
+
+.link {
+  &:hover {
+    text-decoration: underline;
+  }
+}
