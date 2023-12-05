@@ -1,4 +1,7 @@
 export enum RoutePaths {
-  HOME = '/',
+  WELCOME = '/',
   ERROR = '*',
+  SIGNIN = 'sign-in',
+  SIGNUP = 'sign-up',
+  MAIN = 'main',
 }
