@@ -1,0 +1,7 @@
+.buttonWrapper {
+  display: flex;
+  gap: 40px;
+  & button {
+    font-size: 25px;
+  }
+}

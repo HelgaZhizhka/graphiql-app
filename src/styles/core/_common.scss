@@ -18,7 +18,6 @@ body {
   text-transform: capitalize;
 }
 
-
 a {
   font-weight: 500;
   color: var(--color-link);
@@ -28,4 +27,10 @@ a {
 
 a:hover {
   color: var(--color-link-hover);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
