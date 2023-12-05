@@ -4,10 +4,12 @@ import styles from './SignIn.module.scss';
 
 const SignIn = () => {
   return (
-    <div className={styles.buttonWrapper}>
-      <button>
-        <Link to={'/'}>BACK</Link>
-      </button>
+    <div className="container">
+      <div className={styles.buttonWrapper}>
+        <button>
+          <Link to={'/'}>BACK</Link>
+        </button>
+      </div>
     </div>
   );
 };
