@@ -60,7 +60,7 @@
 }
 
 .checkbox:hover + .label::before {
-  border: 1px solid var(--color-lightgray);
+  border: 1px solid var(--color-placeholder);
 }
 
 .checkbox:disabled + .label,
@@ -71,7 +71,7 @@
 
 .checkbox:disabled + .label::before,
 .checkbox.disabled + .label::before {
-  border: 1px solid var(--color-light);
+  border: 1px solid var(--color-text);
 }
 
 .checkbox:disabled + .label::after,

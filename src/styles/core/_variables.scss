@@ -4,16 +4,18 @@
   --color-light: #f2f2f2;
   --color-brand: #f6009c;
   --color-link: var(--color-brand);
-  --color-link-hover:  #ba0678;
-  --color-dark: #171c23;
-  --color-lightgray: #999;
+  --color-link-hover: #ba0678;
+  --color-silver: #bebbbb;
+  --color-dogwood: #FAC9B8;
+  --color-violet: #444054;
+  --color-dark-purple: #2F243A;
   --color-error: #b11b1b;
   --color-success: #1bb12b;
-  --body-bg: var(--color-secondary);
+  --body-bg: var(--color-white);
   --component-bg: var(--color-white);
   --color-text: #161616;
-  --color-text-assistive: #525252;
-  --border-color: var(--color-dark);
+  --color-placeholder: #999;
+  --border-color: var(--color-dark-purple);
 
   font-family: Inter, system-ui, Helvetica, Arial, sans-serif;
   line-height: 1.5;
