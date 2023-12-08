@@ -25,11 +25,10 @@ const SignInForm: React.FC = () => {
       }}
     >
       <Form>
-        <Grid container rowSpacing={2} columnSpacing={{ xs: 1 }}>
+        <Grid container maxWidth={400}>
           <Grid item xs={12}>
-            <Typography>SignIn</Typography>
+            <Typography align="center">SignIn</Typography>
           </Grid>
-
           <Grid item xs={12}>
             <FormInputWrapper id="email" name="email" label="Email address" />
           </Grid>

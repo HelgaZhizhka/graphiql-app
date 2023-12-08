@@ -9,12 +9,14 @@ const FormInputWrapper: React.FC<TextFieldProps> = ({ ...props }) => {
     ...field,
     ...props,
     fullWidth: true,
+    margin: 'dense',
+    helperText: meta.touched && meta.error ? meta.error : ' ',
     variant: 'outlined',
   };
 
   if (meta && meta.touched && meta.error) {
     configTextField.error = true;
-    configTextField.helperText = meta.error;
+    // configTextField.helperText = meta.error;
   }
 
   return <TextField {...configTextField} />;
