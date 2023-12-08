@@ -1,15 +1,14 @@
 import { Link } from 'react-router-dom';
-
-import styles from './SignUp.module.scss';
+import { Typography } from '@mui/material';
+import SignUpForm from '@/components/SignUpForm/SignUpForm';
 
 const SignUp = () => {
   return (
     <div className="container">
-      <div className={styles.buttonWrapper}>
-        <button>
-          <Link to={'/'}>BACK</Link>
-        </button>
-      </div>
+      <SignUpForm />
+      <Typography marginTop={1}>
+        Already have an account? <Link to={'/sign-in'}>SIGNIN</Link>
+      </Typography>
     </div>
   );
 };
