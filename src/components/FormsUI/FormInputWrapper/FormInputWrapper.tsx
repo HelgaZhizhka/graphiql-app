@@ -16,7 +16,6 @@ const FormInputWrapper: React.FC<TextFieldProps> = ({ ...props }) => {
 
   if (meta && meta.touched && meta.error) {
     configTextField.error = true;
-    // configTextField.helperText = meta.error;
   }
 
   return <TextField {...configTextField} />;

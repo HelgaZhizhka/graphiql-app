@@ -35,6 +35,9 @@ const SignInForm: React.FC = () => {
           <Grid item xs={12}>
             <FormInputWrapper id="password" name="password" label="Password" type="password" />
           </Grid>
+          <Grid item xs={12} marginBottom={1}>
+            <Typography>Forgot password?</Typography>
+          </Grid>
           <Grid item xs={12}>
             <FormSubmitButton>Sign In</FormSubmitButton>
           </Grid>
