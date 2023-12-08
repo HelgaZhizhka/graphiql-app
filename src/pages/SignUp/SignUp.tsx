@@ -1,15 +1,9 @@
-import { Link } from 'react-router-dom';
-
-import styles from './SignUp.module.scss';
+import SignUpForm from '@/components/SignUpForm/SignUpForm';
 
 const SignUp = () => {
   return (
     <div className="container">
-      <div className={styles.buttonWrapper}>
-        <button>
-          <Link to={'/'}>BACK</Link>
-        </button>
-      </div>
+      <SignUpForm />
     </div>
   );
 };
