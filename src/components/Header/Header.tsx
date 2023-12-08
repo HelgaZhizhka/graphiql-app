@@ -8,7 +8,7 @@ const Header: React.FC = () => (
   <header className={styles.root}>
     <div className={`${styles.container} container`}>
       <NavLink
-        to={RoutePaths.HOME}
+        to={RoutePaths.WELCOME}
         className={({ isActive }) => (isActive ? `${styles.logo} ${styles.active}` : '')}
       >
         <img className={styles.logoImage} src={logo} alt="GraphQL" width="30" />
