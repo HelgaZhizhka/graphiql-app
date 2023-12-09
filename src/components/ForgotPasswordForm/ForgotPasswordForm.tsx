@@ -5,17 +5,15 @@ import { signInValidationSchema } from '@/utils/validation';
 import { FormInputWrapper } from '@/components/FormsUI/FormInputWrapper';
 import { FormSubmitButton } from '@/components/FormsUI/FormSubmitButton';
 
-interface SignInFormValues {
+interface ForgotPasswordValues {
   email: string;
-  password: string;
 }
 
-const initialValues: SignInFormValues = {
+const initialValues: ForgotPasswordValues = {
   email: '',
-  password: '',
 };
 
-const SignInForm: React.FC = () => (
+const ForgotPassword: React.FC = () => (
   <Formik
     initialValues={{ ...initialValues }}
     validationSchema={signInValidationSchema}
@@ -25,10 +23,9 @@ const SignInForm: React.FC = () => (
   >
     <Form>
       <FormInputWrapper id="email" name="email" label="Email address" />
-      <FormInputWrapper id="password" name="password" label="Password" type="password" />
-      <FormSubmitButton>Sign In</FormSubmitButton>
+      <FormSubmitButton>Send</FormSubmitButton>
     </Form>
   </Formik>
 );
 
-export default SignInForm;
+export default ForgotPassword;

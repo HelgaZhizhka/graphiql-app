@@ -14,12 +14,13 @@
   --body-bg: var(--color-white);
   --component-bg: var(--color-white);
   --color-text: #161616;
+  --color-title: var(--color-dark-purple);
   --color-placeholder: #999;
   --border-color: var(--color-dark-purple);
 
-  font-family: Inter, system-ui, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --font-family: 'Source Sans 3', Helvetica, Arial, sans-serif;
+  --line-height: 1.5;
+  --font-weight: 400;
 
   color-scheme: light dark;
   color: var(--color-text);
@@ -39,5 +40,6 @@
     --component-bg: #312f2f;
     --color-text: rgba(255, 255, 255, 0.87);
     --border-color: var(--color-light);
+    --color-title: var(--color-dogwood);
   }
 }

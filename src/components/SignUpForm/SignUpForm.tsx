@@ -1,54 +1,41 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
-import { Grid, Typography } from '@mui/material';
-import FormSubmitButton from '../FormsUI/FormSubmitButton/FormSubmitButton';
-import FormInputWrapper from '../FormsUI/FormInputWrapper/FormInputWrapper';
-import { sugnUpValidationSchema } from '../../utils/validation';
+
+import { signUpValidationSchema } from '@/utils/validation';
+import FormSubmitButton from '@/components/FormsUI/FormSubmitButton/FormSubmitButton';
+import FormInputWrapper from '@/components/FormsUI/FormInputWrapper/FormInputWrapper';
 
 interface SignUpFormValues {
   email: string;
   password: string;
-  confirmpassword: string;
+  confirmPassword: string;
 }
 
 const initialValues: SignUpFormValues = {
   email: '',
   password: '',
-  confirmpassword: '',
+  confirmPassword: '',
 };
 
 const SignUpForm: React.FC = () => {
   return (
     <Formik
       initialValues={{ ...initialValues }}
-      validationSchema={sugnUpValidationSchema}
+      validationSchema={signUpValidationSchema}
       onSubmit={(values) => {
         console.log('submit', values);
       }}
     >
       <Form>
-        <Grid container maxWidth={400}>
-          <Grid item xs={12}>
-            <Typography align="center">SignUp</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <FormInputWrapper id="email" name="email" label="Email address" />
-          </Grid>
-          <Grid item xs={12}>
-            <FormInputWrapper id="password" name="password" label="Password" type="password" />
-          </Grid>
-          <Grid item xs={12}>
-            <FormInputWrapper
-              id="confirmpassword"
-              name="confirmpassword"
-              label="Comfirm Password"
-              type="password"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormSubmitButton>Sign Up</FormSubmitButton>
-          </Grid>
-        </Grid>
+        <FormInputWrapper id="email" name="email" label="Email address" />
+        <FormInputWrapper id="password" name="password" label="Password" type="password" />
+        <FormInputWrapper
+          id="confirmPassword"
+          name="confirmPassword"
+          label="Confirm Password"
+          type="password"
+        />
+        <FormSubmitButton>Sign Up</FormSubmitButton>
       </Form>
     </Formik>
   );

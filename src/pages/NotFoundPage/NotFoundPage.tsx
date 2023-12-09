@@ -1,27 +1,21 @@
-import { Link, useRouteError } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 
 import { RoutePaths } from '@/routes/routes.enum';
+import { CenteredTypography } from '@/components/CenteredTypography';
 import styles from './NotFoundPage.module.scss';
 
-interface Error {
-  message: string;
-  status?: number;
-}
-
-const NotFoundPage: React.FC = () => {
-  const error = useRouteError() as Error;
-
-  return (
-    <div className={styles.root}>
-      {error.status && <h1 className={styles.title}>{error.status}</h1>}
-      <p className={styles.subtitle}>Sorry, there&apos;s nothing here 🥲</p>
-      {error.message && <p>{error.message}</p>}
-      <Link className={styles.link} to={RoutePaths.HOME}>
-        Go to home page
-      </Link>
-    </div>
-  );
-};
+const NotFoundPage: React.FC = () => (
+  <Container maxWidth="sm" sx={{ p: '40px 0' }} className={styles.root}>
+    <Box mt={2} className={styles.title}>
+      401
+    </Box>
+    <CenteredTypography variant="h4">Sorry, there&apos;s nothing here 🥲</CenteredTypography>
+    <Link to={RoutePaths.WELCOME} className={styles.link}>
+      Back
+    </Link>
+  </Container>
+);
 
 export default NotFoundPage;

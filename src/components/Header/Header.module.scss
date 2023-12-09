@@ -1,26 +1,22 @@
-.root {
-  position: sticky;
-  top: 0;
-  z-index: var(--z-index-header);
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  transition: opacity .25s ease-in-out;
+.link {
+  margin-right: 10px;
+  padding: 6px 8px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--color-brand);
+  color: var(--color-brand);
+  border-radius: 4px;
+  transition: background-color .25s ease-in-out, border-color .25s ease-in-out, color .25s ease-in-out;
 
   &:hover {
-    opacity: .85;
+    background-color: var(--color-brand);
+    border-color: var(--color-brand);
+    color: var(--color-light);
   }
 }
 
-.logoTitle {
-  margin: 0;
-  font-size: 1.125rem;
-  color: var(--color-brand);
-}
-
-.logoImage {
-  width: 30px;
+.active {
+  background-color: var(--color-brand);
+  border-color: var(--color-brand);
+  color: var(--color-light);
 }
