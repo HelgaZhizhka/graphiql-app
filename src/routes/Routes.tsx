@@ -1,13 +1,13 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { RoutePaths } from './routes.enum';
-
 import { Layout } from '@/components/Layout';
 import { Home } from '@/pages/Home';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { Main } from '@/pages/Main';
 import { SignIn } from '@/pages/SignIn';
 import { SignUp } from '@/pages/SignUp';
+import { ForgotPassword } from '@/pages/ForgotPassword';
+import { RoutePaths } from './routes.enum';
 
 const routes = [
   {
@@ -24,12 +24,20 @@ const routes = [
         element: <Main />,
       },
       {
-        path: RoutePaths.SIGNIN,
+        path: RoutePaths.SIGN_IN,
         element: <SignIn />,
       },
       {
-        path: RoutePaths.SIGNUP,
+        path: RoutePaths.SIGN_UP,
         element: <SignUp />,
+      },
+      {
+        path: RoutePaths.FORGOT_PASSWORD,
+        element: <ForgotPassword />,
+      },
+      {
+        path: '*',
+        element: <NotFoundPage />,
       },
     ],
   },

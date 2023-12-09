@@ -1,16 +1,23 @@
 import { Link } from 'react-router-dom';
-import { Typography } from '@mui/material';
-import SignUpForm from '@/components/SignUpForm/SignUpForm';
+import Container from '@mui/material/Container';
 
-const SignUp = () => {
-  return (
-    <div className="container">
-      <SignUpForm />
-      <Typography marginTop={1}>
-        Already have an account? <Link to={'/sign-in'}>SIGNIN</Link>
-      </Typography>
-    </div>
-  );
-};
+import { RoutePaths } from '@/routes/routes.enum';
+import { CenteredTypography } from '@/components/CenteredTypography';
+import { SignUpForm } from '@/components/SignUpForm';
+
+const SignUp = () => (
+  <Container maxWidth="sm">
+    <CenteredTypography mt={4} mb={2} variant="h4">
+      Sign Up
+    </CenteredTypography>
+    <SignUpForm />
+    <CenteredTypography mt={2}>
+      Already have an account?{' '}
+      <Link to={RoutePaths.SIGN_IN} className="link">
+        Sign In
+      </Link>
+    </CenteredTypography>
+  </Container>
+);
 
 export default SignUp;

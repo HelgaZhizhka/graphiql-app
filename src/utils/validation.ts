@@ -11,10 +11,10 @@ const signInValidationSchema = Yup.object().shape({
     .required('Password is a required field'),
 });
 
-const sugnUpValidationSchema = signInValidationSchema.shape({
-  confirmpassword: Yup.string()
+const signUpValidationSchema = signInValidationSchema.shape({
+  confirmPassword: Yup.string()
     .oneOf([Yup.ref('password')], 'Passwords must match')
     .required('Password confirmation is required'),
 });
 
-export { signInValidationSchema, sugnUpValidationSchema };
+export { signInValidationSchema, signUpValidationSchema };

@@ -1,16 +1,14 @@
-import { Link } from 'react-router-dom';
+import Container from '@mui/material/Container';
 
-import styles from './Main.module.scss';
+import { CenteredTypography } from '@/components/CenteredTypography';
 
 const Main = () => {
   return (
-    <div className="container">
-      <div className={styles.buttonWrapper}>
-        <button>
-          <Link to={'/'}>BACK</Link>
-        </button>
-      </div>
-    </div>
+    <Container>
+      <CenteredTypography mt={4} variant="h3">
+        Editor
+      </CenteredTypography>
+    </Container>
   );
 };
 

@@ -1,0 +1,20 @@
+.root {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: opacity .25s ease-in-out;
+
+  &:hover {
+    opacity: .85;
+  }
+}
+
+.title {
+  margin: 0;
+  font-size: 1.125rem;
+  color: var(--color-brand);
+}
+
+.image {
+  width: 30px;
+}

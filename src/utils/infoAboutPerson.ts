@@ -1,4 +1,4 @@
-export const info = [
+export const infoAboutPerson = [
   {
     name: 'Tischenko Vladislav',
     role: 'Chief Coordinator',

@@ -3,9 +3,6 @@ html {
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   background-color: var(--body-bg);
   font-family: var(--font-family);
   font-size: 1rem;
@@ -24,7 +21,7 @@ body {
 a {
   font-weight: 500;
   color: var(--color-link);
-  text-decoration: inherit;
+  text-decoration: none;
   transition: color 0.25s ease-in-out;
 }
 
@@ -32,9 +29,26 @@ a:hover {
   color: var(--color-link-hover);
 }
 
-.container {
-  max-width: 1200px;
+.link {
+  margin: 0 5px;
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+
+.text {
+  color: var(--color-text);
+}
+
+.text-brand {
+  color: var(--color-brand);
+}
+
+.app {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  min-height: 100vh;
+}
+
+.footer {
+  margin: auto 0 0 0;
 }
