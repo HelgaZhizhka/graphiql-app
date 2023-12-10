@@ -1,7 +1,10 @@
 {
+  "language": "Lang",
   "welcomePageHeader": "Welcome Page",
   "mainLinkButton": "Main",
-  "singInLinkButton": "Sing In",
-  "singUpLinkButton": "Sing Up",
-  "backLinkButton": " Back"
+  "signOut": "Sign Out",
+  "signIn": "Sign In",
+  "signUp": "Sign Up",
+  "backLinkButton": "Back",
+  "haveAnAccount": "Already have an account?"
 }

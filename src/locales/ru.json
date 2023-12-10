@@ -1,7 +1,9 @@
 {
+  "language": "Язык",
   "welcomePageHeader": "Начальная страница",
   "mainLinkButton": "Главная",
-  "singInLinkButton": "Вход",
-  "singUpLinkButton": "Регистрация",
+  "signOut": "Выйти",
+  "signIn": "Войти",
+  "signUp": "Зарегистрироваться",
   "backLinkButton": "Назад"
 }

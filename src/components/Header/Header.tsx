@@ -9,9 +9,12 @@ import { RoutePaths } from '@/routes/routes.enum';
 import { Logo } from '@/components/Logo';
 import { SelectLanguage } from '@/components/SelectLanguage';
 import styles from './Header.module.scss';
+import { useLocale } from '@/contexts/Locale/LocaleProvider';
 
 const Header: React.FC = () => {
   const [auth] = useState(false);
+  const { state } = useLocale();
+  const { strings } = state;
 
   return (
     <AppBar position="sticky" color="secondary">
@@ -32,7 +35,7 @@ const Header: React.FC = () => {
             >
               Main
             </NavLink>
-            <Button color="inherit">Sign Out</Button>
+            <Button color="inherit">{strings.signOut}</Button>
           </>
         ) : (
           <>
@@ -42,7 +45,7 @@ const Header: React.FC = () => {
                 isActive ? `${styles.link} ${styles.active}` : styles.link
               }
             >
-              Sign In
+              {strings.signIn}
             </NavLink>
             <NavLink
               to={RoutePaths.SIGN_UP}
@@ -50,7 +53,7 @@ const Header: React.FC = () => {
                 isActive ? `${styles.link} ${styles.active}` : styles.link
               }
             >
-              Sign Up
+              {strings.signUp}
             </NavLink>
           </>
         )}

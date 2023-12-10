@@ -12,13 +12,13 @@ const SignUp = () => {
   return (
     <Container maxWidth="sm">
       <CenteredTypography mt={4} mb={2} variant="h4">
-        Sign Up
+        {strings.signUp}
       </CenteredTypography>
       <SignUpForm />
       <CenteredTypography mt={2}>
         Already have an account?{' '}
         <Link to={RoutePaths.SIGN_IN} className="link">
-          {strings.singInLinkButton}
+          {strings.signIn}
         </Link>
       </CenteredTypography>
     </Container>

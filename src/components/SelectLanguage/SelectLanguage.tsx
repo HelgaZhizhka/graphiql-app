@@ -10,7 +10,8 @@ import { REGIONS } from '@/contexts/Locale/constants';
 const SelectLanguage: React.FC = () => {
   const [lang, setLang] = useState(REGIONS.EN);
 
-  const { dispatch } = useLocale();
+  const { state, dispatch } = useLocale();
+  const { strings } = state;
 
   const handleRegionChange = (region: string) => {
     const action = {
@@ -27,7 +28,7 @@ const SelectLanguage: React.FC = () => {
   return (
     <Box mr={2} sx={{ minWidth: 100 }}>
       <FormControl fullWidth>
-        <InputLabel size="small">Lang</InputLabel>
+        <InputLabel size="small">{strings.language}</InputLabel>
         <Select
           size="small"
           labelId="selectLanguage"
