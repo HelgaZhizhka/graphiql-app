@@ -9,5 +9,7 @@
   "haveAnAccount": "Уже есть аккаунт?",
   "email": "Email",
   "password": "Пароль",
-  "confirmPassword": "Подтвердить пароль"
+  "confirmPassword": "Подтвердить пароль",
+  "forgotPassword": "Забыли пароль?",
+  "noAccount": "Еще не зарегистрированы?"
 }

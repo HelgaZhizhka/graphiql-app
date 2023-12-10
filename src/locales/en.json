@@ -9,5 +9,7 @@
   "haveAnAccount": "Already have an account?",
   "email": "Email address",
   "password": "Password",
-  "confirmPassword": "Confirm Password"
+  "confirmPassword": "Confirm Password",
+  "forgotPassword": "Forgot password?",
+  "noAccount": "Need an account?"
 }
