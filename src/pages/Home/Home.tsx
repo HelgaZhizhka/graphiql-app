@@ -1,28 +1,20 @@
-import { Link } from 'react-router-dom';
+import Container from '@mui/material/Container';
 
-import styles from './Home.module.scss';
-import { Box } from '@mui/material';
+import { CenteredTypography } from '@/components/CenteredTypography';
 import { AboutUs } from '@/components/AboutUs';
+import styles from './Home.module.scss';
 
 const Home: React.FC = () => {
   return (
-    <Box className="container">
-      <h1>Welcome page</h1>
-      <div className={styles.buttonWrapper}>
-        <button>
-          <Link to={'main'}>MAIN</Link>
-        </button>
-        <button>
-          <Link to={'sign-in'}>SIGNIN</Link>
-        </button>
-        <button>
-          <Link to={'sign-up'}>SIGNUP</Link>
-        </button>
-      </div>
-      <h2 className={styles.title}>About Us</h2>
-      <h4 className={styles.subTitle}>one for all and all for one!</h4>
+    <Container maxWidth="lg">
+      <CenteredTypography className={styles.title} mt={4} variant="h3">
+        Yes Code Team
+      </CenteredTypography>
+      <CenteredTypography className={styles.subTitle} variant="h5">
+        one for all and all for one!
+      </CenteredTypography>
       <AboutUs />
-    </Box>
+    </Container>
   );
 };
 

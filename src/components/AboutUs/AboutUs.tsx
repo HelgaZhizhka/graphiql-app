@@ -1,42 +1,38 @@
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 
+import { infoAboutPerson } from '@/utils/infoAboutPerson';
 import styles from './AboutUs.module.scss';
-import { info } from './InfoAboutPerson ';
 
-const AboutUs = () => {
-  return (
-    <div className="container">
-      {info.map((person, index) => (
+const AboutUs = () => (
+  <>
+    {infoAboutPerson.map((person, index) => (
+      <div key={index}>
         <Box
-          key={index}
           sx={{
             display: 'flex',
-            m: '20px 0',
-            p: '20px 0',
+            m: '40px 0',
             gap: '60px',
-            alignItems: 'center',
             flexDirection: index % 2 !== 0 ? 'row-reverse' : 'row',
-            borderBottom: '2px solid grey',
             flexWrap: { xs: 'wrap', md: 'nowrap' },
             justifyContent: 'center',
           }}
         >
-          <Box>
-            <Box sx={{ width: { xl: '400px', sm: '400px' } }}>
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                disableRemotePlayback
-                disablePictureInPicture
-                className={index % 2 !== 0 ? styles.personVideoEven : styles.personVideoOdd}
-              >
-                <source src={person.videoSource} type="video/mp4" />
-              </video>
-            </Box>
+          <Box mt={4}>
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              disableRemotePlayback
+              disablePictureInPicture
+              className={index % 2 !== 0 ? styles.personVideoEven : styles.personVideoOdd}
+            >
+              <source src={person.videoSource} type="video/mp4" />
+            </video>
           </Box>
+
           <Box>
             <Box>
               <strong className={styles.name}>{person.name}</strong>
@@ -56,13 +52,14 @@ const AboutUs = () => {
               rel="noopener noreferrer"
             >
               <GitHubIcon className={styles.icon} />
-              {person.name} GitHub Profile
+              {person.name}
             </a>
           </Box>
         </Box>
-      ))}
-    </div>
-  );
-};
+        {index < infoAboutPerson.length - 1 && <Divider />}
+      </div>
+    ))}
+  </>
+);
 
 export default AboutUs;

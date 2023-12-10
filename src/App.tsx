@@ -1,31 +1,17 @@
-import { useLocale } from './contexts/Locale/LocaleProvider';
-import { REGIONS } from './contexts/Locale/constants';
 import { Routes } from '@/routes';
-// import "./styles.css";
+import { ThemeProvider } from '@mui/material/styles';
+
+import { darkTheme, lightTheme } from '@/theme';
 
 const App: React.FC = () => {
-  const { dispatch } = useLocale();
-
-  const handleRegionChange = (region: string) => {
-    const action = {
-      type: 'CHANGE_LOCALE',
-      payload: {
-        region,
-      },
-    };
-
-    dispatch(action);
-  };
+  const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const theme = prefersDarkMode ? darkTheme : lightTheme;
 
   return (
     <div className="App">
-      {Object.keys(REGIONS).map((region) => (
-        <button key={region} onClick={() => handleRegionChange(region)}>
-          {region}
-        </button>
-      ))}
-
-      <Routes />
+      <ThemeProvider theme={theme}>
+        <Routes />
+      </ThemeProvider>
     </div>
   );
 };

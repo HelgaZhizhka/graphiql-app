@@ -1,9 +1,31 @@
 .root {
   padding: 20px 0;
+  text-align: center;
+  background-color: var(--color-violet);
+  color: var(--color-light);
 }
 
-.link {
+.link,
+.linkSecondary {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.linkSecondary {
+  color: var(--color-dogwood);
+
   &:hover {
+    color: var(--color-dogwood);
     text-decoration: underline;
   }
+}
+.icon {
+  margin-right: 5px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
