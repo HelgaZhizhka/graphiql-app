@@ -5,22 +5,16 @@ import {
   LocaleAction,
   LocaleContext,
   Props,
-  REGIONS,
   initialState,
 } from './constants';
 
 const reducer = (state: LocalState, action: LocaleAction) => {
   switch (action.type) {
     case 'CHANGE_LOCALE': {
+      localStorage.setItem('lang', action.payload.region);
       return {
         ...state,
         strings: LOCALE_STRINGS[action.payload.region],
-      };
-    }
-    case 'RESET_LOCALE': {
-      return {
-        ...state,
-        strings: LOCALE_STRINGS[REGIONS.EN],
       };
     }
     default:

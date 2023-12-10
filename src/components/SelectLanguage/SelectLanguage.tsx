@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -6,9 +6,11 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useLocale } from '@/contexts/Locale/LocaleProvider';
 import { REGIONS } from '@/contexts/Locale/constants';
+import LanguageContext from '@/contexts/LanguageContext';
 
 const SelectLanguage: React.FC = () => {
-  const [lang, setLang] = useState(REGIONS.EN);
+  const { language } = useContext(LanguageContext);
+  const [lang, setLang] = useState(language);
 
   const { state, dispatch } = useLocale();
   const { strings } = state;

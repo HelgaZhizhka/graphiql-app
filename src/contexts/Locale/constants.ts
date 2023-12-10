@@ -22,9 +22,12 @@ export type LocalState = typeof initialState;
 export type Props = {
   children: React.ReactNode;
 };
+export const lang = localStorage.getItem('lang')
+  ? (localStorage.getItem('lang') as string)
+  : (REGIONS.EN as string);
 
 export const initialState = {
-  strings: LOCALE_STRINGS[REGIONS.EN],
+  strings: LOCALE_STRINGS[lang!],
 };
 
 export interface LocaleContextType {
