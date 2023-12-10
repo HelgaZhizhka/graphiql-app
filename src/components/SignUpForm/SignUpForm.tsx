@@ -4,6 +4,7 @@ import { Form, Formik } from 'formik';
 import { signUpValidationSchema } from '@/utils/validation';
 import FormSubmitButton from '@/components/FormsUI/FormSubmitButton/FormSubmitButton';
 import FormInputWrapper from '@/components/FormsUI/FormInputWrapper/FormInputWrapper';
+import { useLocale } from '@/contexts/Locale/LocaleProvider';
 
 interface SignUpFormValues {
   email: string;
@@ -18,6 +19,9 @@ const initialValues: SignUpFormValues = {
 };
 
 const SignUpForm: React.FC = () => {
+  const { state } = useLocale();
+  const { strings } = state;
+
   return (
     <Formik
       initialValues={{ ...initialValues }}
@@ -27,15 +31,15 @@ const SignUpForm: React.FC = () => {
       }}
     >
       <Form>
-        <FormInputWrapper id="email" name="email" label="Email address" />
-        <FormInputWrapper id="password" name="password" label="Password" type="password" />
+        <FormInputWrapper id="email" name="email" label={strings.email} />
+        <FormInputWrapper id="password" name="password" label={strings.password} type="password" />
         <FormInputWrapper
           id="confirmPassword"
           name="confirmPassword"
-          label="Confirm Password"
+          label={strings.confirmPassword}
           type="password"
         />
-        <FormSubmitButton>Sign Up</FormSubmitButton>
+        <FormSubmitButton>{strings.signUp}</FormSubmitButton>
       </Form>
     </Formik>
   );

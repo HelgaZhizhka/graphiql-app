@@ -16,7 +16,7 @@ const SignUp = () => {
       </CenteredTypography>
       <SignUpForm />
       <CenteredTypography mt={2}>
-        Already have an account?{' '}
+        {strings.haveAnAccount}{' '}
         <Link to={RoutePaths.SIGN_IN} className="link">
           {strings.signIn}
         </Link>

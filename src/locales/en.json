@@ -6,5 +6,8 @@
   "signIn": "Sign In",
   "signUp": "Sign Up",
   "backLinkButton": "Back",
-  "haveAnAccount": "Already have an account?"
+  "haveAnAccount": "Already have an account?",
+  "email": "Email address",
+  "password": "Password",
+  "confirmPassword": "Confirm Password"
 }

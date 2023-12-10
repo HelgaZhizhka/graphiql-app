@@ -5,5 +5,9 @@
   "signOut": "Выйти",
   "signIn": "Войти",
   "signUp": "Зарегистрироваться",
-  "backLinkButton": "Назад"
+  "backLinkButton": "Назад",
+  "haveAnAccount": "Уже есть аккаунт?",
+  "email": "Email",
+  "password": "Пароль",
+  "confirmPassword": "Подтвердить пароль"
 }
