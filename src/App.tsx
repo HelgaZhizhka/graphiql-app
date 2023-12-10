@@ -8,11 +8,9 @@ const App: React.FC = () => {
   const theme = prefersDarkMode ? darkTheme : lightTheme;
 
   return (
-    <div className="App">
-      <ThemeProvider theme={theme}>
-        <Routes />
-      </ThemeProvider>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Routes />
+    </ThemeProvider>
   );
 };
 
