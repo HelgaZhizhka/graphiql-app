@@ -8,6 +8,7 @@ import { SignIn } from '@/pages/SignIn';
 import { SignUp } from '@/pages/SignUp';
 import { ForgotPassword } from '@/pages/ForgotPassword';
 import { RoutePaths } from './routes.enum';
+import ProtectedRoute from './ProtectedRoute';
 
 const routes = [
   {
@@ -21,7 +22,11 @@ const routes = [
       },
       {
         path: RoutePaths.MAIN,
-        element: <Main />,
+        element: (
+          <ProtectedRoute redirectTo={RoutePaths.WELCOME}>
+            <Main />
+          </ProtectedRoute>
+        ),
       },
       {
         path: RoutePaths.SIGN_IN,

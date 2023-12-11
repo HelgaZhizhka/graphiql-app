@@ -5,6 +5,8 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 
 import { RoutePaths } from '@/routes/routes.enum';
+import { useLocale } from '@/contexts/Locale/LocaleProvider';
+import { useStickyHeader } from '@/hooks/useStickyHeader';
 import { Logo } from '@/components/Logo';
 import { SelectLanguage } from '@/components/SelectLanguage';
 import styles from './Header.module.scss';
@@ -19,52 +21,71 @@ const Header: React.FC = () => {
     logout();
     navigate('/');
   };
+  const { state } = useLocale();
+  const { isSticky, sentinelRef } = useStickyHeader(0.1);
+  const { strings } = state;
 
   return (
-    <AppBar position="sticky" color="secondary">
-      <Toolbar sx={{ width: { lg: '1280px', xs: '100%' }, margin: 'auto' }}>
-        <Box sx={{ flexGrow: 1 }}>
-          <NavLink to={RoutePaths.WELCOME}>
-            <Logo title="GraphiQL" />
-          </NavLink>
-        </Box>
-        <SelectLanguage />
-        {user ? (
-          <>
-            <NavLink
-              to={RoutePaths.MAIN}
-              className={({ isActive }) =>
-                isActive ? `${styles.link} ${styles.active}` : styles.link
-              }
-            >
-              Main
+    <>
+      <div className={styles.sentinel} ref={sentinelRef}></div>
+      <AppBar
+        className={styles.root}
+        position={isSticky ? 'sticky' : 'static'}
+        style={{
+          backgroundColor: isSticky ? 'var(--header-animate-bg)' : 'var(--header-bg)',
+          boxShadow: isSticky ? 'none' : '',
+        }}
+      >
+        <Toolbar
+          sx={{
+            width: { lg: '1280px', xs: '100%' },
+            margin: 'auto',
+            minHeight: { sm: isSticky ? '50px' : '64px' },
+          }}
+        >
+          <Box sx={{ flexGrow: 1 }}>
+            <NavLink to={RoutePaths.WELCOME}>
+              <Logo title="GraphiQL" />
             </NavLink>
-            <Button onClick={() => exit()} color="inherit">
-              Sign Out
-            </Button>
-          </>
-        ) : (
-          <>
-            <NavLink
-              to={RoutePaths.SIGN_IN}
-              className={({ isActive }) =>
-                isActive ? `${styles.link} ${styles.active}` : styles.link
-              }
-            >
-              Sign In
-            </NavLink>
-            <NavLink
-              to={RoutePaths.SIGN_UP}
-              className={({ isActive }) =>
-                isActive ? `${styles.link} ${styles.active}` : styles.link
-              }
-            >
-              Sign Up
-            </NavLink>
-          </>
-        )}
-      </Toolbar>
-    </AppBar>
+          </Box>
+          <SelectLanguage />
+          {user ? (
+            <>
+              <NavLink
+                to={RoutePaths.MAIN}
+                className={({ isActive }) =>
+                  isActive ? `${styles.link} ${styles.active}` : styles.link
+                }
+              >
+                Main
+              </NavLink>
+              <Button onClick={() => exit()} color="inherit">
+                {strings.signOut}
+              </Button>
+            </>
+          ) : (
+            <>
+              <NavLink
+                to={RoutePaths.SIGN_IN}
+                className={({ isActive }) =>
+                  isActive ? `${styles.link} ${styles.active}` : styles.link
+                }
+              >
+                {strings.signIn}
+              </NavLink>
+              <NavLink
+                to={RoutePaths.SIGN_UP}
+                className={({ isActive }) =>
+                  isActive ? `${styles.link} ${styles.active}` : styles.link
+                }
+              >
+                {strings.signUp}
+              </NavLink>
+            </>
+          )}
+        </Toolbar>
+      </AppBar>
+    </>
   );
 };
 

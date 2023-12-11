@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
 import { Form, Formik } from 'formik';
-import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { signUpValidationSchema } from '@/utils/validation';
+import { useLocale } from '@/contexts/Locale/LocaleProvider';
 import FormSubmitButton from '@/components/FormsUI/FormSubmitButton/FormSubmitButton';
 import FormInputWrapper from '@/components/FormsUI/FormInputWrapper/FormInputWrapper';
-import { auth, registerEmail } from '@/services/firebase/firebase';
-import { useNavigate } from 'react-router-dom';
+import { registerEmail } from '@/services/firebase/firebase';
 
 interface SignUpFormValues {
   email: string;
@@ -21,12 +19,8 @@ const initialValues: SignUpFormValues = {
 };
 
 const SignUpForm: React.FC = () => {
-  const navigate = useNavigate();
-  const [user, loading] = useAuthState(auth);
-  useEffect(() => {
-    if (loading) return;
-    if (user) navigate('/main');
-  }, [user, loading]);
+  const { state } = useLocale();
+  const { strings } = state;
 
   return (
     <Formik
@@ -38,15 +32,15 @@ const SignUpForm: React.FC = () => {
       }}
     >
       <Form>
-        <FormInputWrapper id="email" name="email" label="Email address" />
-        <FormInputWrapper id="password" name="password" label="Password" type="password" />
+        <FormInputWrapper id="email" name="email" label={strings.email} />
+        <FormInputWrapper id="password" name="password" label={strings.password} type="password" />
         <FormInputWrapper
           id="confirmPassword"
           name="confirmPassword"
-          label="Confirm Password"
+          label={strings.confirmPassword}
           type="password"
         />
-        <FormSubmitButton>Sign Up</FormSubmitButton>
+        <FormSubmitButton>{strings.signUp}</FormSubmitButton>
       </Form>
     </Formik>
   );

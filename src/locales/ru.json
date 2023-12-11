@@ -1,0 +1,18 @@
+{
+  "language": "Язык",
+  "welcomePageHeader": "Начальная страница",
+  "mainLinkButton": "Главная",
+  "signOut": "Выйти",
+  "signIn": "Войти",
+  "signUp": "Зарегистрироваться",
+  "backLinkButton": "Назад",
+  "haveAnAccount": "Уже есть аккаунт?",
+  "email": "Email",
+  "password": "Пароль",
+  "confirmPassword": "Подтвердить пароль",
+  "forgotPassword": "Забыли пароль?",
+  "noAccount": "Еще не зарегистрированы?",
+  "resetPassword": "Сбросить пароль",
+  "resetPasswordMessage": "Введите адрес электронной почты и мы отправим ссылку для сброса пароля",
+  "send": "Отправить"
+}

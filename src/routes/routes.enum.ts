@@ -3,6 +3,6 @@ export enum RoutePaths {
   ERROR = '*',
   SIGN_IN = '/signin',
   SIGN_UP = '/signup',
-  FORGOT_PASSWORD = '/forgot-password',
+  FORGOT_PASSWORD = '/forgot',
   MAIN = '/main',
 }

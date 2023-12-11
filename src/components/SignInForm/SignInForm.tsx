@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
 import { Form, Formik } from 'formik';
 
 import { signInValidationSchema } from '@/utils/validation';
+import { useLocale } from '@/contexts/Locale/LocaleProvider';
 import { FormInputWrapper } from '@/components/FormsUI/FormInputWrapper';
 import { FormSubmitButton } from '@/components/FormsUI/FormSubmitButton';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useNavigate } from 'react-router-dom';
-import { auth, logInWithEmail } from '@/services/firebase/firebase';
+import { logInWithEmail } from '@/services/firebase/firebase';
 
 interface SignInFormValues {
   email: string;
@@ -19,15 +17,8 @@ const initialValues: SignInFormValues = {
 };
 
 const SignInForm: React.FC = () => {
-  const [user, loading] = useAuthState(auth);
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (loading) {
-      //TODO maybe trigger a loading screen
-      return;
-    }
-    if (user) navigate('/');
-  }, [user, loading]);
+  const { state } = useLocale();
+  const { strings } = state;
 
   return (
     <Formik
@@ -38,9 +29,9 @@ const SignInForm: React.FC = () => {
       }}
     >
       <Form>
-        <FormInputWrapper id="email" name="email" label="Email address" />
-        <FormInputWrapper id="password" name="password" label="Password" type="password" />
-        <FormSubmitButton>Sign In</FormSubmitButton>
+        <FormInputWrapper id="email" name="email" label={strings.email} />
+        <FormInputWrapper id="password" name="password" label={strings.password} type="password" />
+        <FormSubmitButton>{strings.signIn}</FormSubmitButton>
       </Form>
     </Formik>
   );

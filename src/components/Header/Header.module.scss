@@ -1,3 +1,9 @@
+.root {
+  transition:
+    background-color 0.45s ease-in-out,
+    box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms !important;
+}
+
 .link {
   margin-right: 10px;
   padding: 6px 8px;
@@ -6,7 +12,10 @@
   border-color: var(--color-brand);
   color: var(--color-brand);
   border-radius: 4px;
-  transition: background-color .25s ease-in-out, border-color .25s ease-in-out, color .25s ease-in-out;
+  transition:
+    background-color 0.25s ease-in-out,
+    border-color 0.25s ease-in-out,
+    color 0.25s ease-in-out;
 
   &:hover {
     background-color: var(--color-brand);
@@ -19,4 +28,9 @@
   background-color: var(--color-brand);
   border-color: var(--color-brand);
   color: var(--color-light);
+}
+
+.sentinel {
+  height: 2px;
+  width: 100%;
 }
