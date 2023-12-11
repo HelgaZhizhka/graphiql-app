@@ -1,10 +1,10 @@
-import React from 'react';
 import { Form, Formik } from 'formik';
 
 import { signUpValidationSchema } from '@/utils/validation';
 import { useLocale } from '@/contexts/Locale/LocaleProvider';
 import FormSubmitButton from '@/components/FormsUI/FormSubmitButton/FormSubmitButton';
 import FormInputWrapper from '@/components/FormsUI/FormInputWrapper/FormInputWrapper';
+import { registerEmail } from '@/services/firebase/firebase';
 
 interface SignUpFormValues {
   email: string;
@@ -27,7 +27,8 @@ const SignUpForm: React.FC = () => {
       initialValues={{ ...initialValues }}
       validationSchema={signUpValidationSchema}
       onSubmit={(values) => {
-        console.log('submit', values);
+        const name = values.email.split('@')[0];
+        registerEmail(name, values.email, values.password);
       }}
     >
       <Form>

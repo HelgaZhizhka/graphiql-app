@@ -16,7 +16,6 @@ export const useStickyHeader = (threshold = 0.1) => {
 
         debounceTimeoutRef.current = setTimeout(() => {
           setSticky(!entry.isIntersecting);
-          console.log(entry.isIntersecting);
         }, DELAY);
       },
       { threshold }
