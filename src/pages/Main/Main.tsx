@@ -4,7 +4,7 @@ import { CenteredTypography } from '@/components/CenteredTypography';
 
 const Main = () => {
   return (
-    <Container>
+    <Container sx={{ pb: '100px' }}>
       <CenteredTypography mt={4} variant="h3">
         Editor
       </CenteredTypography>

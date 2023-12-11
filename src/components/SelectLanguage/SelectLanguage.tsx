@@ -4,6 +4,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+
 import { useLocale } from '@/contexts/Locale/LocaleProvider';
 import { REGIONS } from '@/contexts/Locale/constants';
 import LanguageContext from '@/contexts/LanguageContext';
