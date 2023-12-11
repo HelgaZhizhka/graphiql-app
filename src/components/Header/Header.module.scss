@@ -1,3 +1,9 @@
+.root {
+  transition:
+    background-color 0.45s ease-in-out,
+    box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms !important;
+}
+
 .link {
   margin-right: 10px;
   padding: 6px 8px;
@@ -22,4 +28,9 @@
   background-color: var(--color-brand);
   border-color: var(--color-brand);
   color: var(--color-light);
+}
+
+.sentinel {
+  height: 2px;
+  width: 100%;
 }

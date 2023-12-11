@@ -2,9 +2,9 @@ import React from 'react';
 import { Form, Formik } from 'formik';
 
 import { signInValidationSchema } from '@/utils/validation';
+import { useLocale } from '@/contexts/Locale/LocaleProvider';
 import { FormInputWrapper } from '@/components/FormsUI/FormInputWrapper';
 import { FormSubmitButton } from '@/components/FormsUI/FormSubmitButton';
-import { useLocale } from '@/contexts/Locale/LocaleProvider';
 
 interface SignInFormValues {
   email: string;

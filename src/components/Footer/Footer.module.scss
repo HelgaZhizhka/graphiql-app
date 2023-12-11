@@ -5,19 +5,16 @@
   color: var(--color-light);
 }
 
-.link,
-.linkSecondary {
+.link {
   margin-left: 5px;
   margin-right: 5px;
 }
-.linkSecondary {
-  color: var(--color-dogwood);
 
-  &:hover {
-    color: var(--color-dogwood);
-    text-decoration: underline;
-  }
+.logo {
+  width: 100px;
+  margin-left: 10px;
 }
+
 .icon {
   margin-right: 5px;
   display: inline-block;
@@ -25,7 +22,5 @@
 }
 
 .title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: var(--color-dogwood);
 }

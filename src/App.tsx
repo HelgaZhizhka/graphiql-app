@@ -1,6 +1,7 @@
-import { Routes } from '@/routes';
 import { ThemeProvider } from '@mui/material/styles';
 
+import { Routes } from '@/routes';
+import { LocaleProvider } from '@/contexts/Locale/LocaleContext';
 import { darkTheme, lightTheme } from '@/theme';
 
 const App: React.FC = () => {
@@ -9,7 +10,9 @@ const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Routes />
+      <LocaleProvider>
+        <Routes />
+      </LocaleProvider>
     </ThemeProvider>
   );
 };

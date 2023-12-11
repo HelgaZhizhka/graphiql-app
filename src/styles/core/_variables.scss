@@ -17,6 +17,8 @@
   --color-title: var(--color-dark-purple);
   --color-placeholder: #999;
   --border-color: var(--color-dark-purple);
+  --header-bg: var(--color-white);
+  --header-animate-bg: var(--color-light);
 
   --font-family: 'Source Sans 3', Helvetica, Arial, sans-serif;
   --line-height: 1.5;
@@ -41,5 +43,7 @@
     --color-text: rgba(255, 255, 255, 0.87);
     --border-color: var(--color-light);
     --color-title: var(--color-dogwood);
+    --header-bg: var(--color-violet);
+    --header-animate-bg: var(--color-dark-purple);
   }
 }

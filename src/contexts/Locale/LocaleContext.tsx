@@ -1,4 +1,4 @@
-import React, { ReactNode, useReducer } from 'react';
+import { ReactNode, useReducer } from 'react';
 import {
   LOCALE_STRINGS,
   LocalState,
