@@ -9,16 +9,18 @@ import { RoutePaths } from '@/routes/routes.enum';
 import { useLocale } from '@/contexts/Locale/LocaleProvider';
 import { CenteredTypography } from '@/components/CenteredTypography';
 import { SignUpForm } from '@/components/SignUpForm';
+import { Alert } from '@mui/material';
 
 const SignUp = () => {
   const { state } = useLocale();
   const { strings } = state;
   const navigate = useNavigate();
-  const [user, loading] = useAuthState(auth);
+  const [user, loading, error] = useAuthState(auth);
   useEffect(() => {
     if (loading) return;
-    if (user) navigate('/main');
-  }, [user, loading]);
+    if (user) navigate(RoutePaths.MAIN);
+  }, [user, loading, error]);
+
   return (
     <Container maxWidth="sm" sx={{ p: '40px 0 100px' }}>
       <CenteredTypography mt={2} mb={2} variant="h4">
@@ -31,6 +33,7 @@ const SignUp = () => {
           {strings.signIn}
         </Link>
       </CenteredTypography>
+      {error && <Alert>Problem</Alert>}
     </Container>
   );
 };

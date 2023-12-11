@@ -19,21 +19,27 @@ const initialValues: SignInFormValues = {
 const SignInForm: React.FC = () => {
   const { state } = useLocale();
   const { strings } = state;
-
   return (
-    <Formik
-      initialValues={{ ...initialValues }}
-      validationSchema={signInValidationSchema}
-      onSubmit={(values) => {
-        logInWithEmail(values.email, values.password);
-      }}
-    >
-      <Form>
-        <FormInputWrapper id="email" name="email" label={strings.email} />
-        <FormInputWrapper id="password" name="password" label={strings.password} type="password" />
-        <FormSubmitButton>{strings.signIn}</FormSubmitButton>
-      </Form>
-    </Formik>
+    <>
+      <Formik
+        initialValues={{ ...initialValues }}
+        validationSchema={signInValidationSchema}
+        onSubmit={(values) => {
+          logInWithEmail(values.email, values.password);
+        }}
+      >
+        <Form>
+          <FormInputWrapper id="email" name="email" label={strings.email} />
+          <FormInputWrapper
+            id="password"
+            name="password"
+            label={strings.password}
+            type="password"
+          />
+          <FormSubmitButton>{strings.signIn}</FormSubmitButton>
+        </Form>
+      </Formik>
+    </>
   );
 };
 

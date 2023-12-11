@@ -1,3 +1,6 @@
+import store from '@/store';
+import { setError } from '@/store/slices/errorSlice';
+
 import { FirebaseError, initializeApp } from 'firebase/app';
 import {
   getAuth,
@@ -26,7 +29,7 @@ export const logInWithEmail = async (email: string, password: string) => {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (err: unknown) {
     if (err instanceof FirebaseError) {
-      console.error(err);
+      store.dispatch(setError(err.message));
     } else {
       console.error(err);
     }
@@ -45,7 +48,7 @@ export const registerEmail = async (name: string, email: string, password: strin
     });
   } catch (err: unknown) {
     if (err instanceof FirebaseError) {
-      console.error(err);
+      store.dispatch(setError(err.message));
     } else {
       console.error(err);
     }
@@ -57,7 +60,7 @@ export const resetPassword = async (email: string) => {
     await sendPasswordResetEmail(auth, email);
   } catch (err: unknown) {
     if (err instanceof FirebaseError) {
-      console.error(err);
+      store.dispatch(setError(err.message));
     } else {
       console.error(err);
     }

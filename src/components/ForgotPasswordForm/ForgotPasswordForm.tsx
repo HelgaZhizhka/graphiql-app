@@ -1,10 +1,13 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
 
-import { signInValidationSchema } from '@/utils/validation';
+// import { signInValidationSchema } from '@/utils/validation';
 import { useLocale } from '@/contexts/Locale/LocaleProvider';
 import { FormInputWrapper } from '@/components/FormsUI/FormInputWrapper';
 import { FormSubmitButton } from '@/components/FormsUI/FormSubmitButton';
+import { resetPassword } from '@/services/firebase/firebase';
+import { useNavigate } from 'react-router-dom';
+import { RoutePaths } from '@/routes/routes.enum';
 
 interface ForgotPasswordValues {
   email: string;
@@ -17,13 +20,16 @@ const initialValues: ForgotPasswordValues = {
 const ForgotPassword: React.FC = () => {
   const { state } = useLocale();
   const { strings } = state;
+  const navigate = useNavigate();
 
   return (
     <Formik
       initialValues={{ ...initialValues }}
-      validationSchema={signInValidationSchema}
+      //TODO: Доделать валидацию
+      // validationSchema={signInValidationSchema}
       onSubmit={(values) => {
-        console.log('submit', values);
+        resetPassword(values.email);
+        navigate(RoutePaths.WELCOME);
       }}
     >
       <Form>
