@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Formik } from 'formik';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { signUpValidationSchema } from '@/utils/validation';
 import FormSubmitButton from '@/components/FormsUI/FormSubmitButton/FormSubmitButton';
 import FormInputWrapper from '@/components/FormsUI/FormInputWrapper/FormInputWrapper';
+import { auth, registerEmail } from '@/services/firebase/firebase';
+import { useNavigate } from 'react-router-dom';
 
 interface SignUpFormValues {
   email: string;
@@ -18,12 +21,20 @@ const initialValues: SignUpFormValues = {
 };
 
 const SignUpForm: React.FC = () => {
+  const navigate = useNavigate();
+  const [user, loading] = useAuthState(auth);
+  useEffect(() => {
+    if (loading) return;
+    if (user) navigate('/main');
+  }, [user, loading]);
+
   return (
     <Formik
       initialValues={{ ...initialValues }}
       validationSchema={signUpValidationSchema}
       onSubmit={(values) => {
-        console.log('submit', values);
+        const name = values.email.split('@')[0];
+        registerEmail(name, values.email, values.password);
       }}
     >
       <Form>

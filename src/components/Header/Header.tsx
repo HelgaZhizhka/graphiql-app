@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
@@ -9,9 +8,17 @@ import { RoutePaths } from '@/routes/routes.enum';
 import { Logo } from '@/components/Logo';
 import { SelectLanguage } from '@/components/SelectLanguage';
 import styles from './Header.module.scss';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth, logout } from '@/services/firebase/firebase';
 
 const Header: React.FC = () => {
-  const [auth] = useState(false);
+  const [user] = useAuthState(auth);
+  const navigate = useNavigate();
+  const exit = () => {
+    console.log(user);
+    logout();
+    navigate('/');
+  };
 
   return (
     <AppBar position="sticky" color="secondary">
@@ -22,7 +29,7 @@ const Header: React.FC = () => {
           </NavLink>
         </Box>
         <SelectLanguage />
-        {auth ? (
+        {user ? (
           <>
             <NavLink
               to={RoutePaths.MAIN}
@@ -32,7 +39,9 @@ const Header: React.FC = () => {
             >
               Main
             </NavLink>
-            <Button color="inherit">Sign Out</Button>
+            <Button onClick={() => exit()} color="inherit">
+              Sign Out
+            </Button>
           </>
         ) : (
           <>
