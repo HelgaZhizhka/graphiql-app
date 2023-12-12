@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import errorReducer from './slices/errorSlice';
+import messageReducer from './slices/messageSlice';
 
 const store = configureStore({
   reducer: {
-    error: errorReducer,
+    message: messageReducer,
   },
 });
 

@@ -4,7 +4,7 @@ import { useLocale } from '@/contexts/Locale/LocaleProvider';
 import { CenteredTypography } from '@/components/CenteredTypography';
 import { ForgotPasswordForm } from '@/components/ForgotPasswordForm';
 
-const ForgotPassword = () => {
+const ForgotPassword: React.FC = () => {
   const { state } = useLocale();
   const { strings } = state;
 

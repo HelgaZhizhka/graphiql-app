@@ -1,6 +1,4 @@
-import store from '@/store';
-import { setError } from '@/store/slices/errorSlice';
-
+import { getFirestore, addDoc, collection } from 'firebase/firestore';
 import { FirebaseError, initializeApp } from 'firebase/app';
 import {
   getAuth,
@@ -9,7 +7,9 @@ import {
   signOut,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
-import { getFirestore, addDoc, collection } from 'firebase/firestore';
+
+import store from '@/store';
+import { setError, setSuccess } from '@/store/slices/messageSlice';
 
 export const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -27,9 +27,11 @@ export const db = getFirestore(app);
 export const logInWithEmail = async (email: string, password: string) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
+    store.dispatch(setSuccess('login'));
   } catch (err: unknown) {
     if (err instanceof FirebaseError) {
-      store.dispatch(setError(err.message));
+      console.log(err);
+      store.dispatch(setError(err.code));
     } else {
       console.error(err);
     }
@@ -46,9 +48,10 @@ export const registerEmail = async (name: string, email: string, password: strin
       authProvider: 'local',
       email,
     });
+    store.dispatch(setSuccess('registration'));
   } catch (err: unknown) {
     if (err instanceof FirebaseError) {
-      store.dispatch(setError(err.message));
+      store.dispatch(setError(err.code));
     } else {
       console.error(err);
     }
@@ -58,9 +61,10 @@ export const registerEmail = async (name: string, email: string, password: strin
 export const resetPassword = async (email: string) => {
   try {
     await sendPasswordResetEmail(auth, email);
+    store.dispatch(setSuccess('reset'));
   } catch (err: unknown) {
     if (err instanceof FirebaseError) {
-      store.dispatch(setError(err.message));
+      store.dispatch(setError(err.code));
     } else {
       console.error(err);
     }

@@ -1,11 +1,10 @@
 {
   "language": "Lang",
-  "welcomePageHeader": "Welcome Page",
-  "mainLinkButton": "Main",
+  "welcomeLink": "Welcome",
+  "mainLink": "Main",
   "signOut": "Sign Out",
   "signIn": "Sign In",
   "signUp": "Sign Up",
-  "backLinkButton": "Back",
   "haveAnAccount": "Already have an account?",
   "email": "Email address",
   "password": "Password",
@@ -14,5 +13,7 @@
   "noAccount": "Need an account?",
   "resetPassword": "Reset your password",
   "resetPasswordMessage": "Enter your email address and we will send you a link to reset your password.",
-  "send": "Send"
+  "send": "Send",
+  "created": "Created in",
+  "copyright": "All rights reserved"
 }

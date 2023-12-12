@@ -2,9 +2,9 @@ import { Form, Formik } from 'formik';
 
 import { signUpValidationSchema } from '@/utils/validation';
 import { useLocale } from '@/contexts/Locale/LocaleProvider';
+import { registerEmail } from '@/services/firebase/firebase';
 import FormSubmitButton from '@/components/FormsUI/FormSubmitButton/FormSubmitButton';
 import FormInputWrapper from '@/components/FormsUI/FormInputWrapper/FormInputWrapper';
-import { registerEmail } from '@/services/firebase/firebase';
 
 interface SignUpFormValues {
   email: string;

@@ -1,11 +1,10 @@
 {
   "language": "Язык",
-  "welcomePageHeader": "Начальная страница",
-  "mainLinkButton": "Главная",
+  "welcomeLink": "Добро пожаловать",
+  "mainLink": "Главная",
   "signOut": "Выйти",
   "signIn": "Войти",
   "signUp": "Зарегистрироваться",
-  "backLinkButton": "Назад",
   "haveAnAccount": "Уже есть аккаунт?",
   "email": "Email",
   "password": "Пароль",
@@ -14,5 +13,7 @@
   "noAccount": "Еще не зарегистрированы?",
   "resetPassword": "Сбросить пароль",
   "resetPasswordMessage": "Введите адрес электронной почты и мы отправим ссылку для сброса пароля",
-  "send": "Отправить"
+  "send": "Отправить",
+  "created": "Создано в",
+  "copyright": "Все права зарегистрированы"
 }

@@ -1,4 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
@@ -6,24 +7,28 @@ import Box from '@mui/material/Box';
 
 import { RoutePaths } from '@/routes/routes.enum';
 import { useLocale } from '@/contexts/Locale/LocaleProvider';
-import { useStickyHeader } from '@/hooks/useStickyHeader';
+import { useStickyHeader } from '@/hooks';
+import { auth, logout } from '@/services/firebase/firebase';
+import { title } from '@/utils/constants';
 import { Logo } from '@/components/Logo';
 import { SelectLanguage } from '@/components/SelectLanguage';
 import styles from './Header.module.scss';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, logout } from '@/services/firebase/firebase';
 
 const Header: React.FC = () => {
-  const [user] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
-  const exit = () => {
-    console.log(user);
-    logout();
-    navigate('/');
-  };
   const { state } = useLocale();
   const { isSticky, sentinelRef } = useStickyHeader(0.1);
   const { strings } = state;
+
+  const exit = () => {
+    logout();
+    navigate(RoutePaths.WELCOME);
+  };
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <>
@@ -44,8 +49,9 @@ const Header: React.FC = () => {
           }}
         >
           <Box sx={{ flexGrow: 1 }}>
-            <NavLink to={RoutePaths.WELCOME}>
-              <Logo title="GraphiQL" />
+            <NavLink to={RoutePaths.WELCOME} className={styles.logo}>
+              <h1 className={styles.logoTitle}>{strings.welcomeLink}</h1>
+              <Logo title={title} />
             </NavLink>
           </Box>
           <SelectLanguage />
@@ -57,9 +63,9 @@ const Header: React.FC = () => {
                   isActive ? `${styles.link} ${styles.active}` : styles.link
                 }
               >
-                Main
+                {strings.mainLink}
               </NavLink>
-              <Button onClick={() => exit()} color="inherit">
+              <Button onClick={exit} color="primary">
                 {strings.signOut}
               </Button>
             </>

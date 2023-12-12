@@ -1,6 +1,7 @@
-import { auth } from '@/services/firebase/firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { Navigate } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
+
+import { auth } from '@/services/firebase/firebase';
 
 type Props = {
   redirectTo: string;

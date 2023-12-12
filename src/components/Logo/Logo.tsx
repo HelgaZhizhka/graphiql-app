@@ -7,10 +7,10 @@ type Props = {
 };
 
 const Logo: React.FC<Props> = ({ title, className }) => (
-  <div className={`${styles.root} ${className}`}>
+  <span className={`${styles.root} ${className}`}>
+    <span className={styles.title}>{title}</span>
     <img className={styles.image} src={logo} alt={title} width="30" />
-    <h1 className={styles.title}>{title}</h1>
-  </div>
+  </span>
 );
 
 export default Logo;
