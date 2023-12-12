@@ -1,10 +1,6 @@
-import { createContext, ReactNode, useReducer } from 'react';
+import { createContext, useReducer } from 'react';
 
 import { LOCALE_STRINGS, initialState } from './constants';
-
-type Props = {
-  children: React.ReactNode;
-};
 
 type LocalState = typeof initialState;
 
@@ -34,7 +30,7 @@ const reducer = (state: LocalState, action: LocaleAction) => {
 
 export const LocaleContext = createContext<LocaleContextType | undefined>(undefined);
 
-export const LocaleProvider: React.FC<{ children: ReactNode }> = ({ children }: Props) => {
+export const LocaleProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const contextValue = {

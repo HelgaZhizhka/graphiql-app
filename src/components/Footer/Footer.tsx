@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
-import { infoAboutPerson } from '@/utils/infoAboutPerson';
+import { infoAboutPerson } from '@/utils/constants';
 import { useLocale } from '@/contexts/Locale/LocaleProvider';
 import { CenteredTypography } from '@/components/CenteredTypography';
 import rsLogo from '@/assets/images/rsSchool.svg';

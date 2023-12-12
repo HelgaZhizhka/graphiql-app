@@ -9,7 +9,7 @@ import { RoutePaths } from '@/routes/routes.enum';
 import { useLocale } from '@/contexts/Locale/LocaleProvider';
 import { useStickyHeader } from '@/hooks';
 import { auth, logout } from '@/services/firebase/firebase';
-import { title } from '@/utils/constants';
+import { TITLE } from '@/utils/constants';
 import { Logo } from '@/components/Logo';
 import { SelectLanguage } from '@/components/SelectLanguage';
 import styles from './Header.module.scss';
@@ -51,7 +51,7 @@ const Header: React.FC = () => {
           <Box sx={{ flexGrow: 1 }}>
             <NavLink to={RoutePaths.WELCOME} className={styles.logo}>
               <h1 className={styles.logoTitle}>{strings.welcomeLink}</h1>
-              <Logo title={title} />
+              <Logo title={TITLE} />
             </NavLink>
           </Box>
           <SelectLanguage />

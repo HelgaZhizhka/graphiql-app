@@ -2,7 +2,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 
-import { infoAboutPerson } from '@/utils/infoAboutPerson';
+import { infoAboutPerson } from '@/utils/constants';
 import styles from './AboutUs.module.scss';
 
 const AboutUs: React.FC = () => (

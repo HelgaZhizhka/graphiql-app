@@ -6,7 +6,7 @@ type ContextType = {
 };
 
 const LanguageContext = createContext<ContextType>({
-  language: lang!,
+  language: lang,
 });
 
 export default LanguageContext;

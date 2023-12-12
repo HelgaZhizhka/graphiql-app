@@ -1,16 +1,12 @@
 import { Form, Formik } from 'formik';
 
 import { signUpValidationSchema } from '@/utils/validation';
+import { SignUpFormValues } from '@/utils/interfaces';
 import { useLocale } from '@/contexts/Locale/LocaleProvider';
 import { registerEmail } from '@/services/firebase/firebase';
 import FormSubmitButton from '@/components/FormsUI/FormSubmitButton/FormSubmitButton';
 import FormInputWrapper from '@/components/FormsUI/FormInputWrapper/FormInputWrapper';
-
-interface SignUpFormValues {
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+import { PasswordStrengthMeter } from '@/components/FormsUI/PasswordStrengthMeter';
 
 const initialValues: SignUpFormValues = {
   email: '',
@@ -31,17 +27,25 @@ const SignUpForm: React.FC = () => {
         registerEmail(name, values.email, values.password);
       }}
     >
-      <Form>
-        <FormInputWrapper id="email" name="email" label={strings.email} />
-        <FormInputWrapper id="password" name="password" label={strings.password} type="password" />
-        <FormInputWrapper
-          id="confirmPassword"
-          name="confirmPassword"
-          label={strings.confirmPassword}
-          type="password"
-        />
-        <FormSubmitButton>{strings.signUp}</FormSubmitButton>
-      </Form>
+      {({ values }) => (
+        <Form>
+          <FormInputWrapper id="email" name="email" label={strings.email} />
+          <FormInputWrapper
+            id="password"
+            name="password"
+            label={strings.password}
+            type="password"
+          />
+          {values.password && <PasswordStrengthMeter />}
+          <FormInputWrapper
+            id="confirmPassword"
+            name="confirmPassword"
+            label={strings.confirmPassword}
+            type="password"
+          />
+          <FormSubmitButton>{strings.signUp}</FormSubmitButton>
+        </Form>
+      )}
     </Formik>
   );
 };
