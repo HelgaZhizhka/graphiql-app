@@ -24,8 +24,11 @@ const errorMessages: Record<string, Record<string, string>> = {
   },
 };
 
-const signInValidationSchema = Yup.object().shape({
+const emailValidationSchema = Yup.object().shape({
   email: Yup.string().email(errorMessages[lang].email).required(errorMessages[lang].emailRequired),
+});
+
+const signInValidationSchema = emailValidationSchema.shape({
   password: Yup.string()
     .matches(/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=!])(?=\S+$).{8,}$/, {
       message: errorMessages[lang].password,
@@ -40,4 +43,4 @@ const signUpValidationSchema = signInValidationSchema.shape({
     .required(errorMessages[lang].passwordsMatchRequired),
 });
 
-export { signInValidationSchema, signUpValidationSchema };
+export { emailValidationSchema, signInValidationSchema, signUpValidationSchema };

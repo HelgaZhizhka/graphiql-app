@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
 
-// import { signInValidationSchema } from '@/utils/validation';
+import { emailValidationSchema } from '@/utils/validation';
 import { useLocale } from '@/contexts/Locale/LocaleProvider';
 import { FormInputWrapper } from '@/components/FormsUI/FormInputWrapper';
 import { FormSubmitButton } from '@/components/FormsUI/FormSubmitButton';
@@ -25,8 +25,7 @@ const ForgotPassword: React.FC = () => {
   return (
     <Formik
       initialValues={{ ...initialValues }}
-      //TODO: Доделать валидацию
-      // validationSchema={signInValidationSchema}
+      validationSchema={emailValidationSchema}
       onSubmit={(values) => {
         resetPassword(values.email);
         navigate(RoutePaths.WELCOME);
