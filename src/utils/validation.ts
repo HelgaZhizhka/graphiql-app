@@ -1,5 +1,6 @@
-import { lang } from '@/contexts/Locale/constants';
 import * as Yup from 'yup';
+
+import { lang } from '@/contexts/Locale/constants';
 
 const errorMessages: Record<string, Record<string, string>> = {
   EN: {

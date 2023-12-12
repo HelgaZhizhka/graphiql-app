@@ -1,14 +1,29 @@
+import { lazy } from 'react';
+import { Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { Layout } from '@/components/Layout';
-import { Home } from '@/pages/Home';
+import { Loader } from '@/components/Loader';
+import { AuthHandler } from '@/components/AuthHandler';
 import { NotFoundPage } from '@/pages/NotFoundPage';
-import { Main } from '@/pages/Main';
-import { SignIn } from '@/pages/SignIn';
-import { SignUp } from '@/pages/SignUp';
-import { ForgotPassword } from '@/pages/ForgotPassword';
 import { RoutePaths } from './routes.enum';
 import ProtectedRoute from './ProtectedRoute';
+
+const Home = lazy(async () => ({
+  default: (await import('@/pages/Home')).Home,
+}));
+const Main = lazy(async () => ({
+  default: (await import('@/pages/Main')).Main,
+}));
+const SignIn = lazy(async () => ({
+  default: (await import('@/pages/SignIn')).SignIn,
+}));
+const SignUp = lazy(async () => ({
+  default: (await import('@/pages/SignUp')).SignUp,
+}));
+const ForgotPassword = lazy(async () => ({
+  default: (await import('@/pages/ForgotPassword')).ForgotPassword,
+}));
 
 const routes = [
   {
@@ -30,18 +45,30 @@ const routes = [
       },
       {
         path: RoutePaths.SIGN_IN,
-        element: <SignIn />,
+        element: (
+          <AuthHandler>
+            <SignIn />
+          </AuthHandler>
+        ),
       },
       {
         path: RoutePaths.SIGN_UP,
-        element: <SignUp />,
+        element: (
+          <AuthHandler>
+            <SignUp />
+          </AuthHandler>
+        ),
       },
       {
         path: RoutePaths.FORGOT_PASSWORD,
-        element: <ForgotPassword />,
+        element: (
+          <AuthHandler>
+            <ForgotPassword />
+          </AuthHandler>
+        ),
       },
       {
-        path: '*',
+        path: RoutePaths.ERROR,
         element: <NotFoundPage />,
       },
     ],
@@ -50,6 +77,10 @@ const routes = [
 
 const router = createBrowserRouter(routes);
 
-const Routes = () => <RouterProvider router={router} />;
+const Routes = () => (
+  <Suspense fallback={<Loader />}>
+    <RouterProvider router={router} />
+  </Suspense>
+);
 
 export default Routes;

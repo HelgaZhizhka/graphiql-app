@@ -12,7 +12,6 @@ import LanguageContext from '@/contexts/LanguageContext';
 const SelectLanguage: React.FC = () => {
   const { language } = useContext(LanguageContext);
   const [lang, setLang] = useState(language);
-
   const { state, dispatch } = useLocale();
   const { strings } = state;
 

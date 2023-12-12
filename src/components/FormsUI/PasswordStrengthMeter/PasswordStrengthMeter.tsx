@@ -4,8 +4,9 @@ import Typography from '@mui/material/Typography';
 import { useFormikContext } from 'formik';
 
 import { testingPasswordStrength } from '@/utils/passwordStrength';
+import { SignUpFormValues } from '@/utils/interfaces';
 import { useLocale } from '@/contexts/Locale/LocaleProvider';
-import { SignUpFormValues } from '@/components/SignUpForm/SignUpForm';
+import styles from './PasswordStrengthMeter.module.scss';
 
 const PasswordStrengthMeter: React.FC = () => {
   const { state } = useLocale();
@@ -20,17 +21,14 @@ const PasswordStrengthMeter: React.FC = () => {
     setStrength(testingPasswordStrength(password));
   }, [password]);
 
+  const color = strength === 10 ? 'success' : 'warning';
+  const message = strength === 10 ? strings.strongPassword : strings.weakPassword;
+
   return (
-    <div>
-      <LinearProgress
-        variant="determinate"
-        value={strength * 10}
-        color={strength === 10 ? 'success' : 'warning'}
-      />
-      <Typography color="secondary">
-        {strength === 10 ? `${strings.strongPassword}` : `${strings.weakPassword}`}
-      </Typography>
-    </div>
+    <>
+      <LinearProgress variant="determinate" value={strength * 10} color={color} />
+      <Typography className={styles[color]}>{message} </Typography>
+    </>
   );
 };
 

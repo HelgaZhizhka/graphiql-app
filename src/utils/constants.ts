@@ -1,3 +1,5 @@
+export const TITLE = 'GraphiQL';
+
 export const infoAboutPerson = [
   {
     name: 'Tischenko Vladislav',

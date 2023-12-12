@@ -11,6 +11,7 @@
   --color-dark-purple: #2f243a;
   --color-error: #b11b1b;
   --color-success: #1bb12b;
+  --color-warning: #b1751b;
   --body-bg: var(--color-white);
   --component-bg: var(--color-white);
   --color-text: #161616;
@@ -34,6 +35,7 @@
   -webkit-text-size-adjust: 100%;
 
   --z-index-header: 100;
+  --z-index-loader: 200;
 }
 
 @media (prefers-color-scheme: dark) {

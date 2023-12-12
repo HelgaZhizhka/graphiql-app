@@ -9,7 +9,7 @@ import styles from './NotFoundPage.module.scss';
 const NotFoundPage: React.FC = () => (
   <Container maxWidth="sm" sx={{ p: '40px 0 100px' }} className={styles.root}>
     <Box mt={2} className={styles.title}>
-      401
+      404
     </Box>
     <CenteredTypography variant="h4">Sorry, there&apos;s nothing here 🥲</CenteredTypography>
     <Link to={RoutePaths.WELCOME} className={styles.link}>

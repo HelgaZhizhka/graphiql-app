@@ -2,24 +2,24 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 
-import { infoAboutPerson } from '@/utils/infoAboutPerson';
+import { infoAboutPerson } from '@/utils/constants';
 import styles from './AboutUs.module.scss';
 
-const AboutUs = () => (
+const AboutUs: React.FC = () => (
   <>
     {infoAboutPerson.map((person, index) => (
       <div key={index}>
         <Box
           sx={{
             display: 'flex',
-            m: '40px 0',
-            gap: '60px',
+            m: { md: '40px 0' },
+            gap: { md: '60px', xs: '20px' },
             flexDirection: index % 2 !== 0 ? 'row-reverse' : 'row',
             flexWrap: { xs: 'wrap', md: 'nowrap' },
             justifyContent: 'center',
           }}
         >
-          <Box mt={4}>
+          <Box mt={2}>
             <video
               autoPlay
               loop

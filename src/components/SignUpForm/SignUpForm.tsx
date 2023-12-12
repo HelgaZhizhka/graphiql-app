@@ -1,17 +1,12 @@
 import { Form, Formik } from 'formik';
 
 import { signUpValidationSchema } from '@/utils/validation';
+import { SignUpFormValues } from '@/utils/interfaces';
 import { useLocale } from '@/contexts/Locale/LocaleProvider';
+import { registerEmail } from '@/services/firebase/firebase';
 import FormSubmitButton from '@/components/FormsUI/FormSubmitButton/FormSubmitButton';
 import FormInputWrapper from '@/components/FormsUI/FormInputWrapper/FormInputWrapper';
-import { registerEmail } from '@/services/firebase/firebase';
-import { PasswordStrengthMeter } from '../FormsUI/PasswordStrengthMeter';
-
-export interface SignUpFormValues {
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+import { PasswordStrengthMeter } from '@/components/FormsUI/PasswordStrengthMeter';
 
 const initialValues: SignUpFormValues = {
   email: '',
