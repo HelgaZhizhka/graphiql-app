@@ -25,7 +25,6 @@ const ForgotPassword: React.FC = () => {
   return (
     <Formik
       initialValues={{ ...initialValues }}
-      //TODO: Доделать валидацию
       validationSchema={emailValidationSchema}
       onSubmit={(values) => {
         resetPassword(values.email);
