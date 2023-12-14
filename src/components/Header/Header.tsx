@@ -26,71 +26,74 @@ const Header: React.FC = () => {
     navigate(RoutePaths.WELCOME);
   };
 
+  const classHeader = isSticky ? `${styles.root} sticky` : styles.root;
+
+  if (loading) {
+    return null;
+  }
+
   return (
     <>
       <div className={styles.sentinel} ref={sentinelRef}></div>
-      {loading ? (
-        <span></span>
-      ) : (
-        <AppBar
-          className={styles.root}
-          position={isSticky ? 'sticky' : 'static'}
-          style={{
-            backgroundColor: isSticky ? 'var(--header-animate-bg)' : 'var(--header-bg)',
-            boxShadow: isSticky ? 'none' : '',
+      <AppBar
+        data-testid="header"
+        className={classHeader}
+        position={isSticky ? 'sticky' : 'static'}
+        style={{
+          backgroundColor: isSticky ? 'var(--header-animate-bg)' : 'var(--header-bg)',
+          boxShadow: isSticky ? 'none' : '',
+        }}
+      >
+        <Toolbar
+          sx={{
+            width: { lg: '1280px', xs: '100%' },
+            margin: 'auto',
+            minHeight: { sm: isSticky ? '50px' : '64px' },
           }}
         >
-          <Toolbar
-            sx={{
-              width: { lg: '1280px', xs: '100%' },
-              margin: 'auto',
-              minHeight: { sm: isSticky ? '50px' : '64px' },
-            }}
-          >
-            <Box sx={{ flexGrow: 1 }}>
-              <NavLink to={RoutePaths.WELCOME} className={styles.logo}>
-                <h1 className={styles.logoTitle}>{strings.welcomeLink}</h1>
-                <Logo title={TITLE} />
+          <Box sx={{ flexGrow: 1 }}>
+            <NavLink to={RoutePaths.WELCOME} className={styles.logo}>
+              <h1 className={styles.logoTitle}>{strings.welcomeLink}</h1>
+              <Logo title={TITLE} />
+            </NavLink>
+          </Box>
+          <SelectLanguage />
+          {user ? (
+            <>
+              <NavLink
+                to={RoutePaths.MAIN}
+                className={({ isActive }) =>
+                  isActive ? `${styles.link} ${styles.active}` : styles.link
+                }
+              >
+                {strings.mainLink}
               </NavLink>
-            </Box>
-            <SelectLanguage />
-            {user ? (
-              <>
-                <NavLink
-                  to={RoutePaths.MAIN}
-                  className={({ isActive }) =>
-                    isActive ? `${styles.link} ${styles.active}` : styles.link
-                  }
-                >
-                  {strings.mainLink}
-                </NavLink>
-                <Button onClick={exit} color="primary">
-                  {strings.signOut}
-                </Button>
-              </>
-            ) : (
-              <>
-                <NavLink
-                  to={RoutePaths.SIGN_IN}
-                  className={({ isActive }) =>
-                    isActive ? `${styles.link} ${styles.active}` : styles.link
-                  }
-                >
-                  {strings.signIn}
-                </NavLink>
-                <NavLink
-                  to={RoutePaths.SIGN_UP}
-                  className={({ isActive }) =>
-                    isActive ? `${styles.link} ${styles.active}` : styles.link
-                  }
-                >
-                  {strings.signUp}
-                </NavLink>
-              </>
-            )}
-          </Toolbar>
-        </AppBar>
-      )}
+              <Button onClick={exit} color="primary">
+                {strings.signOut}
+              </Button>
+            </>
+          ) : (
+            <>
+              <NavLink
+                to={RoutePaths.SIGN_IN}
+                className={({ isActive }) =>
+                  isActive ? `${styles.link} ${styles.active}` : styles.link
+                }
+              >
+                {strings.signIn}
+              </NavLink>
+              <NavLink
+                to={RoutePaths.SIGN_UP}
+                className={({ isActive }) =>
+                  isActive ? `${styles.link} ${styles.active}` : styles.link
+                }
+              >
+                {strings.signUp}
+              </NavLink>
+            </>
+          )}
+        </Toolbar>
+      </AppBar>
     </>
   );
 };
