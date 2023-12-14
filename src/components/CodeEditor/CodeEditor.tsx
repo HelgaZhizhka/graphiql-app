@@ -22,9 +22,7 @@ const CodeEditor: React.FC<Props> = ({ initialValue, onChange, readOnly = false 
       value={initialValue}
       onChange={(code) => handleChange(code as string)}
       options={{
-        inlineSuggest: { enabled: true },
         fontSize: 16,
-        formatOnType: true,
         readOnly: readOnly,
       }}
     />
