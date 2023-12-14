@@ -6,6 +6,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import styles from './EditorTabs.module.scss';
+import { CodeEditor } from '../CodeEditor';
 
 interface Props {
   index: number;
@@ -19,7 +20,19 @@ const TabPanel: React.FC<Props> = ({ children, value, index, ...other }) => (
   </div>
 );
 
-const EditorTabs: React.FC = () => {
+type PropsEditorTabs = {
+  initialVariables: string;
+  initialHeaders: string;
+  onChangeVariables(code: string): void;
+  onChangeHeaders(code: string): void;
+};
+
+const EditorTabs: React.FC<PropsEditorTabs> = ({
+  onChangeVariables,
+  onChangeHeaders,
+  initialVariables,
+  initialHeaders,
+}) => {
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);
 
@@ -50,10 +63,10 @@ const EditorTabs: React.FC = () => {
       {open && (
         <div className={styles.panel}>
           <TabPanel value={value} index={0}>
-            Query Variables
+            <CodeEditor initialValue={initialVariables} onChange={onChangeVariables} />
           </TabPanel>
           <TabPanel value={value} index={1}>
-            HTTP Headers
+            <CodeEditor initialValue={initialHeaders} onChange={onChangeHeaders} />
           </TabPanel>
         </div>
       )}

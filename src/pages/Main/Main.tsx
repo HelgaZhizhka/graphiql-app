@@ -16,6 +16,9 @@ import styles from './Main.module.scss';
 const Main: React.FC = () => {
   const [apiUrl, setApiUrl] = useState('');
   const [editorHeight, setEditorHeight] = useState(400);
+  const [code, setCode] = useState('');
+  const [variables, setVariables] = useState('');
+  const [headers, setHeaders] = useState('');
   const dispatch = useAppDispatch();
   const [fetchSchema, { error }] = useLazyFetchSchemaQuery();
 
@@ -39,6 +42,21 @@ const Main: React.FC = () => {
     //TODO send query
   };
 
+  const handleChangeEditor = (code: string) => {
+    setCode(code);
+    console.log(code);
+  };
+
+  const handleChangeVariables = (code: string) => {
+    setVariables(code);
+    console.log(code);
+  };
+
+  const handleChangeHeaders = (code: string) => {
+    setHeaders(code);
+    console.log(code);
+  };
+
   return (
     <div className={styles.root}>
       <div className={styles.input}>
@@ -54,11 +72,16 @@ const Main: React.FC = () => {
             Send query
           </Button>
           <div className={styles.editor} style={{ height: `${editorHeight}px` }}>
-            <CodeEditor initialValue="" />
+            <CodeEditor initialValue={code} onChange={handleChangeEditor} />
           </div>
           <ResizableDivider direction="horizontal" onResize={handleResizeDivider} />
           <div className={styles.tabs}>
-            <EditorTabs />
+            <EditorTabs
+              initialVariables={variables}
+              initialHeaders={headers}
+              onChangeVariables={handleChangeVariables}
+              onChangeHeaders={handleChangeHeaders}
+            />
           </div>
         </div>
         <div className={styles.col}>
