@@ -1,0 +1,23 @@
+.root {
+  position: relative;
+}
+
+.container {
+  min-height: calc(100vh - 380px);
+
+  @media all and (min-width: 768px) {
+    display: flex;
+  }
+}
+
+.col {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  background-color: var(--component-bg);
+  padding: 5px 10px;
+}

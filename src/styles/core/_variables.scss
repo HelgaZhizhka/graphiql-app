@@ -36,6 +36,8 @@
 
   --z-index-header: 100;
   --z-index-loader: 200;
+  --z-index-sidebar: 300;
+  --z-index-modal: 400;
 }
 
 @media (prefers-color-scheme: dark) {
