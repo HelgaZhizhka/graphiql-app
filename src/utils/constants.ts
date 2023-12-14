@@ -1,3 +1,4 @@
+import { darkTheme, lightTheme } from '@/theme';
 export const TITLE = 'GraphiQL';
 
 export const infoAboutPerson = [
@@ -95,3 +96,6 @@ export const infoAboutPerson = [
     gitHubLink: 'https://github.com/HelgaZhizhka',
   },
 ];
+
+export const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+export const theme = prefersDarkMode ? darkTheme : lightTheme;
