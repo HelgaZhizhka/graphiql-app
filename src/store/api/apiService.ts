@@ -12,7 +12,9 @@ export const apiService = createApi({
         url: apiUrl,
         method: 'POST',
         body: {
+          operationName: 'IntrospectionQuery',
           query: introspectionQuery,
+          variables: {},
         },
         headers: {
           'Content-Type': 'application/json',
@@ -22,7 +24,21 @@ export const apiService = createApi({
         return response.data;
       },
     }),
+    sendQuery: builder.mutation({
+      query: ({ apiUrl, query, variables = {}, operationName = null }) => ({
+        url: apiUrl,
+        method: 'POST',
+        body: {
+          operationName,
+          variables,
+          query,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+    }),
   }),
 });
 
-export const { useFetchSchemaQuery, useLazyFetchSchemaQuery } = apiService;
+export const { useFetchSchemaQuery, useLazyFetchSchemaQuery, useSendQueryMutation } = apiService;
