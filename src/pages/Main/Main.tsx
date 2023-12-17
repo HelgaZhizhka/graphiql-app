@@ -1,8 +1,9 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 
-import { useAppDispatch } from '@/hooks';
+import { useAppDispatch, useResizableHeight, useResizableWidth } from '@/hooks';
+import { parseVariables } from '@/utils/parseVariables';
 import { setError } from '@/store/slices/messageSlice';
 import { useLazyFetchSchemaQuery, useSendQueryMutation } from '@/store/api/apiService';
 import { setLoading, setSchema } from '@/store/slices/schemaSlice';
@@ -14,9 +15,15 @@ import { ResizableDivider } from '@/components/ResizableDivider';
 import styles from './Main.module.scss';
 
 const Main: React.FC = () => {
+  const { editorHeight, tabsHeight, handleResizeHeight } = useResizableHeight(300, 50, 50, 400);
+  const { editorWidth, responseWidth, handleResizeWidth } = useResizableWidth(
+    window.innerWidth / 2,
+    window.innerWidth / 2,
+    50,
+    window.innerWidth - 150
+  );
   const [sendQuery] = useSendQueryMutation();
   const [apiUrl, setApiUrl] = useState('');
-  const [editorHeight, setEditorHeight] = useState(400);
   const [code, setCode] = useState('');
   const [variables, setVariables] = useState('');
   const [headers, setHeaders] = useState('');
@@ -36,16 +43,24 @@ const Main: React.FC = () => {
     }
   };
 
-  const handleResizeDivider = useCallback((delta: number) => {
-    setEditorHeight((prevHeight) => prevHeight + delta);
-  }, []);
-
   const handleSendQuery = async () => {
     try {
-      const responseData = await sendQuery({ apiUrl, query: code }).unwrap();
+      const parsedVariables = parseVariables(variables);
+
+      if (parsedVariables === null) {
+        //TODO show error
+        return;
+      }
+
+      const responseData = await sendQuery({
+        apiUrl,
+        query: code,
+        variables: parsedVariables,
+      }).unwrap();
       setResponse(JSON.stringify(responseData, null, 2));
     } catch (err: unknown) {
       console.error(err);
+      //TODO show error
     }
     console.log({ apiUrl, code, variables });
   };
@@ -75,24 +90,25 @@ const Main: React.FC = () => {
       </div>
       <SideBar />
       <div className={styles.container}>
-        <div className={styles.col}>
+        <div className={styles.col} style={{ width: `${editorWidth}px` }}>
           <Button variant="outlined" onClick={handleSendQuery}>
             Send query
           </Button>
           <div className={styles.editor} style={{ height: `${editorHeight}px` }}>
             <CodeEditor initialValue={code} onChange={handleChangeEditor} />
           </div>
-          <ResizableDivider direction="horizontal" onResize={handleResizeDivider} />
-          <div className={styles.tabs}>
+          <ResizableDivider direction="horizontal" onResize={handleResizeHeight} />
+          <div className={styles.tabs} style={{ height: `${tabsHeight}px` }}>
             <EditorTabs
-              initialVariables={variables}
-              initialHeaders={headers}
+              initialVariables={`${variables}`}
+              initialHeaders={`${headers}`}
               onChangeVariables={handleChangeVariables}
               onChangeHeaders={handleChangeHeaders}
             />
           </div>
         </div>
-        <div className={styles.col}>
+        <ResizableDivider direction="vertical" onResize={handleResizeWidth} />
+        <div className={styles.col} style={{ width: `${responseWidth}px` }}>
           <CodeEditor initialValue={`${response}`} readOnly={true} />
         </div>
       </div>
