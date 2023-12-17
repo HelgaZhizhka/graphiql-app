@@ -42,9 +42,15 @@ const Main: React.FC = () => {
 
   const handleSendQuery = async () => {
     try {
-      const responseData = await sendQuery({ apiUrl, query: code }).unwrap();
-      setResponse(JSON.stringify(responseData, null, 2));
-    } catch (err: unknown) {
+      const responseData = await sendQuery({ apiUrl, query: code });
+      if ('data' in responseData) {
+        setResponse(JSON.stringify(responseData.data, null, 2));
+      } else if ('data' in responseData.error) {
+        setResponse(JSON.stringify(responseData.error.data, null, 2));
+      } else {
+        console.error('Unexpected response:', responseData);
+      }
+    } catch (err) {
       console.error(err);
     }
     console.log({ apiUrl, code, variables });
@@ -52,17 +58,17 @@ const Main: React.FC = () => {
 
   const handleChangeEditor = (code: string) => {
     setCode(code);
-    console.log(code);
+    // console.log(code);
   };
 
   const handleChangeVariables = (code: string) => {
     setVariables(code);
-    console.log(code);
+    // console.log(code);
   };
 
   const handleChangeHeaders = (code: string) => {
     setHeaders(code);
-    console.log(code);
+    // console.log(code);
   };
 
   return (
