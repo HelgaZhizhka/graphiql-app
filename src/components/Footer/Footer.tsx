@@ -17,32 +17,33 @@ const Footer: React.FC = () => {
   return (
     <footer className={`footer ${styles.root}`}>
       <Container maxWidth="lg">
-        <CenteredTypography>
-          <span className={styles.title}>
-            Yes Code
-            <img className={styles.logoTeam} src={logoTeam} alt="Yes Code Team" />
-          </span>
-        </CenteredTypography>
-        {infoAboutPerson.map((person) => (
-          <a
-            className={styles.link}
-            href={person.gitHubLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            key={person.name}
-          >
-            <GitHubIcon className={styles.icon} />
-            {person.name}
-          </a>
-        ))}
-        <Divider sx={{ margin: '10px 0 20px' }} />
-        <Typography mb={2}>
-          {strings.created} 2023
+        <div className={styles.col}>
+          <Typography>{strings.created} 2023 ©</Typography>
+          <CenteredTypography>
+            <span className={styles.title}>
+              Yes Code
+              <img className={styles.logoTeam} src={logoTeam} alt="Yes Code Team" />
+            </span>
+          </CenteredTypography>
           <a href="https://rs.school/react/" target="_blank" rel="noopener noreferrer">
             <img className={styles.logo} src={rsLogo} alt="RS School" />
           </a>
-        </Typography>
-        <Typography>© {strings.copyright}.</Typography>
+        </div>
+        <Divider sx={{ margin: '10px 0 20px' }} />
+        <div className={styles.contacts}>
+          {infoAboutPerson.map((person) => (
+            <a
+              className={styles.link}
+              href={person.gitHubLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              key={person.name}
+            >
+              <GitHubIcon className={styles.icon} />
+              {person.name}
+            </a>
+          ))}
+        </div>
       </Container>
     </footer>
   );

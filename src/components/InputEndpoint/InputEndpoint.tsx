@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { Formik, Form } from 'formik';
 import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
+import { urlValidationSchema } from '@/utils/validation';
+import { ClearButton } from '@/components/FormsUI/ClearButton';
 import styles from './InputEndpoint.module.scss';
 
 type Props = {
@@ -8,32 +11,37 @@ type Props = {
   onSubmit(value: string): void;
 };
 
-const InputEndpoint: React.FC<Props> = ({ initialValue, onSubmit }) => {
-  const [value, setValue] = useState(initialValue);
-
-  //TODO validation url input
-
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = ({ target: { value } }) => {
-    setValue(value);
-  };
-
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
-    event.preventDefault();
-    onSubmit(value);
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <TextField
-        className={styles.root}
-        value={value}
-        label="Type api"
-        variant="outlined"
-        onChange={handleChange}
-        size="small"
-      />
-    </form>
-  );
-};
+const InputEndpoint: React.FC<Props> = ({ initialValue, onSubmit }) => (
+  <Formik
+    initialValues={{ url: initialValue }}
+    validationSchema={urlValidationSchema}
+    onSubmit={(values) => {
+      onSubmit(values.url);
+    }}
+  >
+    {({ values, handleChange, handleBlur, touched, errors }) => (
+      <Form>
+        <div className={styles.root}>
+          <TextField
+            className={styles.input}
+            name="url"
+            label="Type API"
+            variant="outlined"
+            value={values.url}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.url && !!errors.url}
+            helperText={touched.url && errors.url}
+            size="small"
+          />
+          <Button type="submit" variant="contained" disabled={!values.url || !!errors.url}>
+            Connect
+          </Button>
+          {values.url && <ClearButton />}
+        </div>
+      </Form>
+    )}
+  </Formik>
+);
 
 export default InputEndpoint;
