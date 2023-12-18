@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 
 import { useAppDispatch } from '@/hooks';
 import { setError } from '@/store/slices/messageSlice';
-import { useLazyFetchSchemaQuery } from '@/store/api/apiService';
+import { useLazyFetchSchemaQuery, useSendQueryMutation } from '@/store/api/apiService';
 import { setLoading, setSchema } from '@/store/slices/schemaSlice';
 import { SideBar } from '@/components/SideBar';
 import { InputEndpoint } from '@/components/InputEndpoint';
@@ -16,11 +16,13 @@ import { Box } from '@mui/material';
 import { handlePrettifyCode } from '@/utils/handlePrettifyCode';
 
 const Main: React.FC = () => {
+  const [sendQuery] = useSendQueryMutation();
   const [apiUrl, setApiUrl] = useState('');
   const [editorHeight, setEditorHeight] = useState(400);
   const [code, setCode] = useState('');
   const [variables, setVariables] = useState('');
   const [headers, setHeaders] = useState('');
+  const [response, setResponse] = useState('');
   const dispatch = useAppDispatch();
   const [fetchSchema, { error }] = useLazyFetchSchemaQuery();
 
@@ -40,21 +42,35 @@ const Main: React.FC = () => {
     setEditorHeight((prevHeight) => prevHeight + delta);
   }, []);
 
-  const handleSendQuery = () => {
-    //TODO send query
+  const handleSendQuery = async () => {
+    try {
+      const responseData = await sendQuery({ apiUrl, query: code });
+      if ('data' in responseData) {
+        setResponse(JSON.stringify(responseData.data, null, 2));
+      } else if ('data' in responseData.error) {
+        setResponse(JSON.stringify(responseData.error.data, null, 2));
+      } else {
+        console.error('Unexpected response:', responseData);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    console.log({ apiUrl, code, variables });
   };
 
   const handleChangeEditor = (code: string) => {
     setCode(code);
+    // console.log(code);
   };
 
   const handleChangeVariables = (code: string) => {
     setVariables(code);
+    // console.log(code);
   };
 
   const handleChangeHeaders = (code: string) => {
     setHeaders(code);
-    console.log(code);
+    // console.log(code);
   };
 
   return (
@@ -91,7 +107,7 @@ const Main: React.FC = () => {
           </div>
         </div>
         <div className={styles.col}>
-          <CodeEditor initialValue="" readOnly={true} />
+          <CodeEditor initialValue={`${response}`} readOnly={true} />
         </div>
       </div>
     </div>
