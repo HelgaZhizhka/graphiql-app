@@ -12,6 +12,8 @@ import { CodeEditor } from '@/components/CodeEditor';
 import { EditorTabs } from '@/components/EditorTabs';
 import { ResizableDivider } from '@/components/ResizableDivider';
 import styles from './Main.module.scss';
+import { Box } from '@mui/material';
+import { handlePrettifyCode } from '@/utils/handlePrettifyCode';
 
 const Main: React.FC = () => {
   const [sendQuery] = useSendQueryMutation();
@@ -82,11 +84,17 @@ const Main: React.FC = () => {
       <SideBar />
       <div className={styles.container}>
         <div className={styles.col}>
-          <Button variant="outlined" onClick={handleSendQuery}>
-            Send query
-          </Button>
+          <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
+            <Button variant="outlined" onClick={() => handlePrettifyCode(code, setCode)}>
+              prettify
+            </Button>
+            <Button variant="outlined" onClick={handleSendQuery}>
+              Send query
+            </Button>
+          </Box>
+
           <div className={styles.editor} style={{ height: `${editorHeight}px` }}>
-            <CodeEditor initialValue={code} onChange={handleChangeEditor} />
+            <CodeEditor initialValue={`${code}`} onChange={handleChangeEditor} />
           </div>
           <ResizableDivider direction="horizontal" onResize={handleResizeDivider} />
           <div className={styles.tabs}>
