@@ -24,6 +24,7 @@ const CodeEditor: React.FC<Props> = ({ initialValue, onChange, readOnly = false 
       options={{
         fontSize: 16,
         readOnly: readOnly,
+        minimap: { enabled: false },
       }}
     />
   );
