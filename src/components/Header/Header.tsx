@@ -28,10 +28,6 @@ const Header: React.FC = () => {
 
   const classHeader = isSticky ? `${styles.root} sticky` : styles.root;
 
-  if (loading) {
-    return null;
-  }
-
   return (
     <>
       <div className={styles.sentinel} ref={sentinelRef}></div>
@@ -58,7 +54,7 @@ const Header: React.FC = () => {
             </NavLink>
           </Box>
           <SelectLanguage />
-          {user ? (
+          {user && !loading ? (
             <>
               <NavLink
                 to={RoutePaths.MAIN}

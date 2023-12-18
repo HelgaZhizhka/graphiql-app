@@ -3,21 +3,58 @@
 }
 
 .container {
-  min-height: calc(100vh - 380px);
-
-  @media all and (min-width: 768px) {
+  @media screen and (min-width: 1024px) {
     display: flex;
+    flex-direction: row;
+    height: calc(100vh - 320px);
   }
 }
 
 .col {
-  flex: 1;
-  position: relative;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 }
 
 .input {
   background-color: var(--component-bg);
   padding: 5px 10px;
+}
+
+.editor {
+  position: relative;
+
+  @media screen and (max-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.tabs {
+  position: relative;
+  flex-grow: 1;
+
+  @media screen and (max-width: 1024px) {
+    height: 100px;
+  }
+}
+
+.col,
+.editor {
+  @media screen and (max-width: 1024px) {
+    min-height: 200px;
+
+    > section {
+      flex-grow: 1;
+    }
+  }
+}
+
+.col,
+.editor,
+.tabs {
+  @media screen and (max-width: 1024px) {
+    width: 100% !important;
+    height: auto !important;
+  }
 }

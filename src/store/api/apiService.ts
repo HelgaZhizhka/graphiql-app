@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { IntrospectionQuery } from 'graphql';
-
-import { introspectionQuery } from './introspectionQuery';
+import { getIntrospectionQuery } from 'graphql';
 
 export const apiService = createApi({
   reducerPath: 'api',
@@ -11,11 +10,7 @@ export const apiService = createApi({
       query: (apiUrl) => ({
         url: apiUrl,
         method: 'POST',
-        body: {
-          operationName: 'IntrospectionQuery',
-          query: introspectionQuery,
-          variables: {},
-        },
+        body: JSON.stringify({ query: getIntrospectionQuery() }),
         headers: {
           'Content-Type': 'application/json',
         },
