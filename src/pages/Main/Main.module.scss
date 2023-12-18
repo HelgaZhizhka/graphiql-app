@@ -23,6 +23,7 @@
 
 .editor {
   position: relative;
+  padding-right: 80px;
 
   @media screen and (max-width: 1024px) {
     display: flex;
@@ -33,6 +34,8 @@
 .tabs {
   position: relative;
   flex-grow: 1;
+  z-index: 11;
+  background-color: var(--component-bg);
 
   @media screen and (max-width: 1024px) {
     height: 100px;
@@ -57,4 +60,19 @@
     width: 100% !important;
     height: auto !important;
   }
+}
+
+.btnSend,
+.btnPretty {
+  position: absolute;
+  z-index: 10;
+  right: 5px;
+}
+
+.btnSend {
+  top: 50px;
+}
+
+.btnPretty {
+  top: 5px;
 }
