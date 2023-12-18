@@ -48,6 +48,9 @@ const Main: React.FC = () => {
   const handleSendQuery = async () => {
     try {
       const parsedVariables = parseVariables(variables);
+      const parsedHeaders = parseVariables(headers);
+
+      console.log(parsedHeaders);
 
       if (parsedVariables === null) {
         //TODO show error
@@ -58,6 +61,7 @@ const Main: React.FC = () => {
         apiUrl,
         query: code,
         variables: parsedVariables,
+        headers: parsedHeaders,
       });
       if ('data' in responseData) {
         setResponse(JSON.stringify(responseData.data, null, 2));
