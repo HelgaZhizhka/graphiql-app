@@ -1,8 +1,10 @@
 import { useCallback, useState } from 'react';
+import { IntrospectionQuery } from 'graphql';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 
 import { useAppDispatch } from '@/hooks';
+import { Writable } from '@/utils/types';
 import { setError } from '@/store/slices/messageSlice';
 import { useLazyFetchSchemaQuery, useSendQueryMutation } from '@/store/api/apiService';
 import { setLoading, setSchema } from '@/store/slices/schemaSlice';
@@ -29,7 +31,7 @@ const Main: React.FC = () => {
     dispatch(setLoading(true));
     try {
       const schemaData = await fetchSchema(newApiUrl).unwrap();
-      dispatch(setSchema(schemaData));
+      dispatch(setSchema(schemaData as Writable<IntrospectionQuery>));
       dispatch(setLoading(false));
     } catch (err: unknown) {
       dispatch(setError(err?.toString()));

@@ -1,11 +1,15 @@
 import { useAppSelector } from '@/hooks';
 
 const SchemaExplorer: React.FC = () => {
-  const schema = useAppSelector((state) => state.schema.schema);
+  const transformedSchema = useAppSelector((state) => state.schema.transformedSchema);
 
-  console.log(schema);
+  console.log(transformedSchema);
 
-  return <div>coming soon</div>;
+  return (
+    <div>
+      <h2>Schema Explorer</h2>
+    </div>
+  );
 };
 
 export default SchemaExplorer;
