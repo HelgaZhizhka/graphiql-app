@@ -12,6 +12,7 @@ const errorMessages: Record<string, Record<string, string>> = {
     passwordsMatch: 'Passwords must match',
     passwordsMatchRequired: 'Введите подтверждение пароля',
     required: 'This field is required',
+    invalidUrl: 'Invalid URL',
   },
   RU: {
     email: 'Неверный адрес электронной почты',
@@ -22,8 +23,15 @@ const errorMessages: Record<string, Record<string, string>> = {
     passwordsMatch: 'Пароли должны совпадать',
     passwordsMatchRequired: 'Введите подтверждение пароля',
     required: 'Это поле обязательно',
+    invalidUrl: 'Неверный URL',
   },
 };
+
+const urlRegex = /^(https?:\/\/)?(localhost|[\w-]+(\.[\w-]+)+)(:\d+)?(\/[\w- .\/?%&=]*)?$/;
+
+const urlValidationSchema = Yup.object().shape({
+  url: Yup.string().matches(urlRegex, errorMessages[lang].invalidUrl),
+});
 
 const emailValidationSchema = Yup.object().shape({
   email: Yup.string().email(errorMessages[lang].email).required(errorMessages[lang].emailRequired),
@@ -44,4 +52,9 @@ const signUpValidationSchema = signInValidationSchema.shape({
     .required(errorMessages[lang].passwordsMatchRequired),
 });
 
-export { emailValidationSchema, signInValidationSchema, signUpValidationSchema };
+export {
+  urlValidationSchema,
+  emailValidationSchema,
+  signInValidationSchema,
+  signUpValidationSchema,
+};
