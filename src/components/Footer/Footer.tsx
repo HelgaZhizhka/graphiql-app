@@ -3,16 +3,17 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
-import { infoAboutPerson } from '@/utils/constants';
 import { useLocale } from '@/contexts/Locale/LocaleProvider';
 import { CenteredTypography } from '@/components/CenteredTypography';
 import rsLogo from '@/assets/images/rsSchool.svg';
 import logoTeam from '@/assets/images/logoTeam.png';
 import styles from './Footer.module.scss';
+import { Person } from '@/utils/interfaces';
 
 const Footer: React.FC = () => {
   const { state } = useLocale();
   const { strings } = state;
+  const persons: Person[] = strings.persons as Person[];
 
   return (
     <footer className={`footer ${styles.root}`}>
@@ -23,7 +24,7 @@ const Footer: React.FC = () => {
             <img className={styles.logoTeam} src={logoTeam} alt="Yes Code Team" />
           </span>
         </CenteredTypography>
-        {infoAboutPerson.map((person) => (
+        {persons.map((person) => (
           <a
             className={styles.link}
             href={person.gitHubLink}
