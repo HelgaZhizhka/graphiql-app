@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { IntrospectionQuery } from 'graphql';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
@@ -7,6 +8,7 @@ import CodeIcon from '@mui/icons-material/Code';
 import { useAppDispatch, useResizableHeight, useResizableWidth } from '@/hooks';
 import { parseVariables } from '@/utils/parseVariables';
 import { handlePrettifyCode } from '@/utils/handlePrettifyCode';
+import { Writable } from '@/utils/types';
 import { setError } from '@/store/slices/messageSlice';
 import { useLazyFetchSchemaQuery, useSendQueryMutation } from '@/store/api/apiService';
 import { setSchema } from '@/store/slices/schemaSlice';
@@ -16,6 +18,7 @@ import { CodeEditor } from '@/components/CodeEditor';
 import { EditorTabs } from '@/components/EditorTabs';
 import { ResizableDivider } from '@/components/ResizableDivider';
 import styles from './Main.module.scss';
+import { FetchError } from '@/utils/interfaces';
 
 const Main: React.FC = () => {
   const { editorHeight, tabsHeight, handleResizeHeight } = useResizableHeight(300, 50, 50, 400);
@@ -38,9 +41,16 @@ const Main: React.FC = () => {
     setApiUrl(newApiUrl);
     try {
       const schemaData = await fetchSchema(newApiUrl).unwrap();
-      dispatch(setSchema(schemaData));
+      dispatch(setSchema(schemaData as Writable<IntrospectionQuery>));
     } catch (err: unknown) {
-      dispatch(setError('fetchSchema'));
+      if (typeof err === 'object' && err !== null && 'error' in err) {
+        const fetchError = err as FetchError;
+        if (fetchError.error === 'TypeError: Failed to fetch') {
+          dispatch(setError('fetchCORS'));
+        } else {
+          dispatch(setError('fetchSchema'));
+        }
+      }
       console.error(err);
     }
   };

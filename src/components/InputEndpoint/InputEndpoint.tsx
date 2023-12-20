@@ -25,7 +25,7 @@ const InputEndpoint: React.FC<Props> = ({ initialValue, onSubmit }) => (
           <TextField
             className={styles.input}
             name="url"
-            label="Type API"
+            label="Type API with Cors support"
             variant="outlined"
             value={values.url}
             onChange={handleChange}

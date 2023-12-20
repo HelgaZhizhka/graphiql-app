@@ -13,3 +13,7 @@ export interface Person {
   videoSource: string;
   gitHubLink: string;
 }
+
+export interface FetchError {
+  error: string;
+}

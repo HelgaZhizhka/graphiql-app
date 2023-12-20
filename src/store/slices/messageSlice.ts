@@ -23,6 +23,7 @@ const messages: Messages = {
       network: 'An error occurred. Please try again later.',
       unknown: 'Unknown error occurred. Please try again later.',
       fetchSchema: 'API endpoint not found',
+      fetchCORS: 'The API request failed. Make sure that CORS is support by your API.',
       fetchQuery: 'Error sending query',
       parsingError: 'Error parsing variable / header field',
       emptyQuery: 'Query is incorrect',
@@ -49,6 +50,7 @@ const messages: Messages = {
       network: 'Произошла ошибка. Пожалуйста, попробуйте позже.',
       unknown: 'Произошла неизвестная ошибка. Пожалуйста, попробуйте позже.',
       fetchSchema: 'API endpoint не найден',
+      fetchCORS: 'Не удалось выполнить запрос API. Убедитесь, что CORS поддерживается вашим API.',
       fetchQuery: 'Ошибка отправки запроса',
       parsingError: 'Ошибка парсинга поля переменных / заголовка',
       emptyQuery: 'Запрос некорректен',
@@ -79,6 +81,7 @@ type MessageTypes = {
     unknown: string;
     fetchSchema: string;
     fetchQuery: string;
+    fetchCORS: string;
     parsingError: string;
     emptyQuery: string;
   };
@@ -123,6 +126,8 @@ const getErrorMessage = (code: string) => {
       return messages[language].error.fetchSchema;
     case 'fetchQuery':
       return messages[language].error.fetchQuery;
+    case 'fetchCORS':
+      return messages[language].error.fetchCORS;
     case 'parsingError':
       return messages[language].error.parsingError;
     case 'emptyQuery':
