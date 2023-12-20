@@ -3,26 +3,55 @@
 }
 
 .button {
-  position: absolute;
-  top: 100px;
-  left: -60px;
+  position: fixed;
+  top: 50%;
+  margin-top: -40px;
+  right: 0;
+  transform: rotate(-90deg) translateY(20px);
+  transition: transform 0.3s ease-in-out;
   z-index: var(--z-index-sidebar);
-  transform: rotate(-90deg);
 }
 
 .panel {
   position: fixed;
   top: 0;
   right: 0;
-  bottom: 0;
   width: 300px;
+  height: 100vh;
   background-color: var(--component-bg);
   transform: translateX(100%);
   transition: transform 0.3s ease-in-out;
-  // overflow-y: auto;
+  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.2);
   z-index: var(--z-index-sidebar);
 }
 
 .open {
-  transform: translateX(0);
+
+  .button {
+    transform: rotate(-90deg) translateY(-280px);
+  }
+
+  .panel {
+    transform: translateX(0);
+  }
+}
+
+.panelBody {
+  padding: 10px 10px 20px;
+  height: calc(100% - 45px);
+  overflow-y: auto;
+}
+
+.panelHeader {
+  position: relative;
+  padding: 10px;
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
 }

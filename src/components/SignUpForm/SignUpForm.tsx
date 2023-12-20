@@ -1,4 +1,9 @@
+import { useState } from 'react';
 import { Form, Formik } from 'formik';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import { signUpValidationSchema } from '@/utils/validation';
 import { SignUpFormValues } from '@/utils/interfaces';
@@ -17,6 +22,8 @@ const initialValues: SignUpFormValues = {
 const SignUpForm: React.FC = () => {
   const { state } = useLocale();
   const { strings } = state;
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
     <Formik
@@ -27,21 +34,45 @@ const SignUpForm: React.FC = () => {
         registerEmail(name, values.email, values.password);
       }}
     >
-      {({ values }) => (
-        <Form>
+      {({ values, handleSubmit }) => (
+        <Form onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}>
           <FormInputWrapper id="email" name="email" label={strings.email} />
           <FormInputWrapper
             id="password"
             name="password"
             label={strings.password}
-            type="password"
+            type={showPassword ? 'text' : 'password'}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => setShowPassword(!showPassword)}
+                    onMouseDown={(e) => e.preventDefault()}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           {values.password && <PasswordStrengthMeter />}
           <FormInputWrapper
             id="confirmPassword"
             name="confirmPassword"
             label={strings.confirmPassword}
-            type="password"
+            type={showConfirmPassword ? 'text' : 'password'}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    onMouseDown={(e) => e.preventDefault()}
+                  >
+                    {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           <FormSubmitButton>{strings.signUp}</FormSubmitButton>
         </Form>

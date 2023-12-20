@@ -1,76 +1,104 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { IntrospectionQuery } from 'graphql';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
+import SendIcon from '@mui/icons-material/Send';
+import CodeIcon from '@mui/icons-material/Code';
 
-import { useAppDispatch } from '@/hooks';
+import { useAppDispatch, useResizableHeight, useResizableWidth } from '@/hooks';
+import { parseVariables } from '@/utils/parseVariables';
+import { handlePrettifyCode } from '@/utils/handlePrettifyCode';
 import { Writable } from '@/utils/types';
 import { setError } from '@/store/slices/messageSlice';
 import { useLazyFetchSchemaQuery, useSendQueryMutation } from '@/store/api/apiService';
-import { setLoading, setSchema } from '@/store/slices/schemaSlice';
+import { setSchema } from '@/store/slices/schemaSlice';
 import { SideBar } from '@/components/SideBar';
 import { InputEndpoint } from '@/components/InputEndpoint';
 import { CodeEditor } from '@/components/CodeEditor';
 import { EditorTabs } from '@/components/EditorTabs';
 import { ResizableDivider } from '@/components/ResizableDivider';
 import styles from './Main.module.scss';
+import { FetchError } from '@/utils/interfaces';
 
 const Main: React.FC = () => {
-  const [sendQuery] = useSendQueryMutation();
+  const { editorHeight, tabsHeight, handleResizeHeight } = useResizableHeight(300, 50, 50, 400);
+  const { editorWidth, responseWidth, handleResizeWidth } = useResizableWidth(
+    window.innerWidth / 2,
+    window.innerWidth / 2,
+    50,
+    window.innerWidth - 150
+  );
   const [apiUrl, setApiUrl] = useState('');
-  const [editorHeight, setEditorHeight] = useState(400);
   const [code, setCode] = useState('');
   const [variables, setVariables] = useState('');
   const [headers, setHeaders] = useState('');
   const [response, setResponse] = useState('');
   const dispatch = useAppDispatch();
-  const [fetchSchema, { error }] = useLazyFetchSchemaQuery();
+  const [sendQuery] = useSendQueryMutation();
+  const [fetchSchema] = useLazyFetchSchemaQuery();
 
   const handleApiSubmit = async (newApiUrl: string) => {
     setApiUrl(newApiUrl);
-    dispatch(setLoading(true));
     try {
       const schemaData = await fetchSchema(newApiUrl).unwrap();
       dispatch(setSchema(schemaData as Writable<IntrospectionQuery>));
-      dispatch(setLoading(false));
     } catch (err: unknown) {
-      dispatch(setError(err?.toString()));
+      if (typeof err === 'object' && err !== null && 'error' in err) {
+        const fetchError = err as FetchError;
+        if (fetchError.error === 'TypeError: Failed to fetch') {
+          dispatch(setError('fetchCORS'));
+        } else {
+          dispatch(setError('fetchSchema'));
+        }
+      }
+      console.error(err);
     }
   };
 
-  const handleResizeDivider = useCallback((delta: number) => {
-    setEditorHeight((prevHeight) => prevHeight + delta);
-  }, []);
-
   const handleSendQuery = async () => {
     try {
-      const responseData = await sendQuery({ apiUrl, query: code });
+      const parsedVariables = parseVariables(variables);
+      const parsedHeaders = parseVariables(headers);
+
+      if (parsedVariables === null) {
+        dispatch(setError('parsingError'));
+        return;
+      }
+
+      const responseData = await sendQuery({
+        apiUrl,
+        query: code,
+        variables: parsedVariables,
+        headers: parsedHeaders,
+      });
+
       if ('data' in responseData) {
         setResponse(JSON.stringify(responseData.data, null, 2));
       } else if ('data' in responseData.error) {
-        setResponse(JSON.stringify(responseData.error.data, null, 2));
+        if (!responseData.error.data) {
+          dispatch(setError('fetchQuery'));
+        } else {
+          setResponse(JSON.stringify(responseData.error.data, null, 2));
+        }
       } else {
         console.error('Unexpected response:', responseData);
       }
     } catch (err) {
+      dispatch(setError('fetchQuery'));
       console.error(err);
     }
-    console.log({ apiUrl, code, variables });
   };
 
   const handleChangeEditor = (code: string) => {
     setCode(code);
-    // console.log(code);
   };
 
   const handleChangeVariables = (code: string) => {
     setVariables(code);
-    // console.log(code);
   };
 
   const handleChangeHeaders = (code: string) => {
     setHeaders(code);
-    // console.log(code);
   };
 
   return (
@@ -78,29 +106,43 @@ const Main: React.FC = () => {
       <div className={styles.input}>
         <Container>
           <InputEndpoint onSubmit={handleApiSubmit} initialValue={apiUrl} />
-          {error && <div>Error loading schema: {error.toString()}</div>}
         </Container>
       </div>
       <SideBar />
       <div className={styles.container}>
-        <div className={styles.col}>
-          <Button variant="outlined" onClick={handleSendQuery}>
-            Send query
-          </Button>
+        <div className={styles.col} style={{ width: `${editorWidth}px` }}>
           <div className={styles.editor} style={{ height: `${editorHeight}px` }}>
-            <CodeEditor initialValue={code} onChange={handleChangeEditor} />
+            <Button
+              className={styles.btnPretty}
+              variant="outlined"
+              onClick={() => handlePrettifyCode(code, setCode)}
+              disabled={!code}
+            >
+              <CodeIcon />
+            </Button>
+            <Button
+              className={styles.btnSend}
+              variant="outlined"
+              onClick={handleSendQuery}
+              disabled={!code || !apiUrl}
+            >
+              <SendIcon />
+            </Button>
+
+            <CodeEditor initialValue={`${code}`} onChange={handleChangeEditor} />
           </div>
-          <ResizableDivider direction="horizontal" onResize={handleResizeDivider} />
-          <div className={styles.tabs}>
+          <ResizableDivider direction="horizontal" onResize={handleResizeHeight} />
+          <div className={styles.tabs} style={{ height: `${tabsHeight}px` }}>
             <EditorTabs
-              initialVariables={variables}
-              initialHeaders={headers}
+              initialVariables={`${variables}`}
+              initialHeaders={`${headers}`}
               onChangeVariables={handleChangeVariables}
               onChangeHeaders={handleChangeHeaders}
             />
           </div>
         </div>
-        <div className={styles.col}>
+        <ResizableDivider direction="vertical" onResize={handleResizeWidth} />
+        <div className={styles.col} style={{ width: `${responseWidth}px` }}>
           <CodeEditor initialValue={`${response}`} readOnly={true} />
         </div>
       </div>

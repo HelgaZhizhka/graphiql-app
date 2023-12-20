@@ -22,6 +22,11 @@ const messages: Messages = {
       tooManyRequests: 'Too many requests. Please try again later.',
       network: 'An error occurred. Please try again later.',
       unknown: 'Unknown error occurred. Please try again later.',
+      fetchSchema: 'API endpoint not found',
+      fetchCORS: 'The API request failed. Make sure that CORS is support by your API.',
+      fetchQuery: 'Error sending query',
+      parsingError: 'Error parsing variable / header field',
+      emptyQuery: 'Query is incorrect',
     },
   },
   RU: {
@@ -44,6 +49,11 @@ const messages: Messages = {
       tooManyRequests: 'Слишком много запросов. Пожалуйста, попробуйте позже.',
       network: 'Произошла ошибка. Пожалуйста, попробуйте позже.',
       unknown: 'Произошла неизвестная ошибка. Пожалуйста, попробуйте позже.',
+      fetchSchema: 'API endpoint не найден',
+      fetchCORS: 'Не удалось выполнить запрос API. Убедитесь, что CORS поддерживается вашим API.',
+      fetchQuery: 'Ошибка отправки запроса',
+      parsingError: 'Ошибка парсинга поля переменных / заголовка',
+      emptyQuery: 'Запрос некорректен',
     },
   },
 };
@@ -69,6 +79,11 @@ type MessageTypes = {
     tooManyRequests: string;
     network: string;
     unknown: string;
+    fetchSchema: string;
+    fetchQuery: string;
+    fetchCORS: string;
+    parsingError: string;
+    emptyQuery: string;
   };
 };
 
@@ -107,6 +122,16 @@ const getErrorMessage = (code: string) => {
       return messages[language].error.network;
     case 'auth/too-many-requests':
       return messages[language].error.tooManyRequests;
+    case 'fetchSchema':
+      return messages[language].error.fetchSchema;
+    case 'fetchQuery':
+      return messages[language].error.fetchQuery;
+    case 'fetchCORS':
+      return messages[language].error.fetchCORS;
+    case 'parsingError':
+      return messages[language].error.parsingError;
+    case 'emptyQuery':
+      return messages[language].error.emptyQuery;
     default:
       return messages[language].error.unknown;
   }

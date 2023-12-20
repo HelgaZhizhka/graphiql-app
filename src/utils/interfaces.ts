@@ -3,3 +3,7 @@ export interface SignUpFormValues {
   password: string;
   confirmPassword: string;
 }
+
+export interface FetchError {
+  error: string;
+}

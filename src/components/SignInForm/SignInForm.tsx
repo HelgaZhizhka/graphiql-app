@@ -1,4 +1,9 @@
+import { useState } from 'react';
 import { Form, Formik } from 'formik';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import { signInValidationSchema } from '@/utils/validation';
 import { useLocale } from '@/contexts/Locale/LocaleProvider';
@@ -19,20 +24,40 @@ const initialValues: SignInFormValues = {
 const SignInForm: React.FC = () => {
   const { state } = useLocale();
   const { strings } = state;
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <Formik
       initialValues={{ ...initialValues }}
       validationSchema={signInValidationSchema}
-      onSubmit={(values) => {
-        logInWithEmail(values.email, values.password);
+      onSubmit={async (values) => {
+        await logInWithEmail(values.email, values.password);
       }}
     >
-      <Form>
-        <FormInputWrapper id="email" name="email" label={strings.email} />
-        <FormInputWrapper id="password" name="password" label={strings.password} type="password" />
-        <FormSubmitButton>{strings.signIn}</FormSubmitButton>
-      </Form>
+      {({ handleSubmit }) => (
+        <Form onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}>
+          <FormInputWrapper id="email" name="email" label={strings.email} />
+          <FormInputWrapper
+            id="password"
+            name="password"
+            label={strings.password}
+            type={showPassword ? 'text' : 'password'}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => setShowPassword(!showPassword)}
+                    onMouseDown={(e) => e.preventDefault()}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <FormSubmitButton>{strings.signIn}</FormSubmitButton>
+        </Form>
+      )}
     </Formik>
   );
 };
