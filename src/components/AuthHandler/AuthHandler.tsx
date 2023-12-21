@@ -12,7 +12,7 @@ const AuthHandler: React.FC<React.PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     if (!loading && user) {
-      navigate(RoutePaths.WELCOME);
+      navigate(RoutePaths.MAIN);
     }
   }, [user, loading, navigate]);
 
