@@ -20,7 +20,7 @@ export const apiService = createApi({
       },
     }),
     sendQuery: builder.mutation({
-      query: ({ apiUrl, query, variables = {}, operationName = null }) => ({
+      query: ({ apiUrl, query, variables = {}, operationName = null, headers = {} }) => ({
         url: apiUrl,
         method: 'POST',
         body: {
@@ -29,6 +29,7 @@ export const apiService = createApi({
           query,
         },
         headers: {
+          ...headers,
           'Content-Type': 'application/json',
         },
       }),
