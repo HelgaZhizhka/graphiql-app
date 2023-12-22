@@ -2,55 +2,51 @@ import { useAppSelector } from '@/hooks';
 
 import styles from './SchemaExplorer.module.scss';
 
-const SchemaExplorer: React.FC = () => {
-  const printSchema = useAppSelector((state) => state.schema.printSchema);
-  const parseSchemaString = () => {
-    return printSchema
-      .split(/[\n,]+/)
-      .filter((line) => {
-        const trimmedLine = line.trim();
+const formatSchemaString = (schemaString: string) => {
+  const lines = schemaString.split(/\n/);
+  return lines.map((line, index) => {
+    if (line.includes('"""')) {
+      const description = line.replace(/"""/g, '').trim();
+
+      const isTypeDefinition = description.startsWith('type ');
+
+      if (isTypeDefinition) {
         return (
-          !trimmedLine.startsWith('schema') &&
-          !trimmedLine.startsWith('query: Root') &&
-          trimmedLine !== '}'
+          <div key={index} style={{ fontWeight: '700' }}>
+            {description}
+          </div>
         );
-      })
-      .map((line, index) => {
-        const cleanedLine = line.replace(/"""/g, '');
+      } else {
+        return (
+          <div key={index} style={{ fontStyle: 'italic' }}>
+            {description}
+          </div>
+        );
+      }
+    } else {
+      return (
+        <pre className={styles.pre} key={index}>
+          {line}
+        </pre>
+      );
+    }
+  });
+};
 
-        if (
-          cleanedLine.startsWith('type Query') ||
-          cleanedLine.startsWith('type Mutation') ||
-          cleanedLine.startsWith('type Subscription')
-        ) {
-          return (
-            <div key={index} style={{ fontWeight: 'bold', fontSize: 'larger' }}>
-              {cleanedLine}
-            </div>
-          );
-        } else if (cleanedLine.startsWith('type ')) {
-          return (
-            <div key={index} style={{ fontWeight: 'bold' }}>
-              {cleanedLine}
-            </div>
-          );
-        } else if (cleanedLine.includes(':')) {
-          return (
-            <div key={index} style={{ marginLeft: '1rem' }}>
-              {cleanedLine}
-            </div>
-          );
-        } else {
-          return (
-            <pre className={styles.pre} key={index}>
-              {cleanedLine}
-            </pre>
-          );
-        }
-      });
-  };
+type Props = {
+  isLoading: boolean;
+};
 
-  return <div className={styles.root}>{parseSchemaString()}</div>;
+const SchemaExplorer: React.FC<Props> = ({ isLoading }) => {
+  const printSchema = useAppSelector((state) => state.schema.printSchema);
+
+  if (isLoading) {
+    return <div>Schema coming soon...</div>;
+  }
+
+  const formateSchemaString = formatSchemaString(printSchema);
+
+  return <div className={styles.root}>{formateSchemaString}</div>;
 };
 
 export default SchemaExplorer;

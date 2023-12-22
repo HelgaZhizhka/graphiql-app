@@ -9,9 +9,10 @@ import styles from './InputEndpoint.module.scss';
 type Props = {
   initialValue: string;
   onSubmit(value: string): void;
+  onClear(): void;
 };
 
-const InputEndpoint: React.FC<Props> = ({ initialValue, onSubmit }) => (
+const InputEndpoint: React.FC<Props> = ({ initialValue, onSubmit, onClear }) => (
   <Formik
     initialValues={{ url: initialValue }}
     validationSchema={urlValidationSchema}
@@ -37,7 +38,7 @@ const InputEndpoint: React.FC<Props> = ({ initialValue, onSubmit }) => (
           <Button type="submit" variant="contained" disabled={!values.url || !!errors.url}>
             Connect
           </Button>
-          {values.url && <ClearButton />}
+          {values.url && <ClearButton onClear={onClear} />}
         </div>
       </Form>
     )}

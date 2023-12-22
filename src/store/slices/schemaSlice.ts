@@ -22,8 +22,12 @@ const schemaSlice = createSlice({
       const buildedSchema = buildClientSchema(state.schema);
       state.printSchema = printSchema(buildedSchema);
     },
+    clearSchema: (state) => {
+      state.schema = {} as Writable<IntrospectionQuery>;
+      state.printSchema = '';
+    },
   },
 });
 
-export const { setSchema } = schemaSlice.actions;
+export const { setSchema, clearSchema } = schemaSlice.actions;
 export default schemaSlice.reducer;
