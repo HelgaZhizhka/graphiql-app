@@ -4,11 +4,16 @@ import IconButton from '@mui/material/IconButton';
 
 import styles from './ClearButton.module.scss';
 
-const ClearButton: React.FC = () => {
+type Props = {
+  onClear(): void;
+};
+
+const ClearButton: React.FC<Props> = ({ onClear }) => {
   const { setFieldValue } = useFormikContext();
 
   const handleClear = () => {
     setFieldValue('url', '');
+    onClear();
   };
 
   return (

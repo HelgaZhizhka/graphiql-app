@@ -11,7 +11,7 @@ import { handlePrettifyCode } from '@/utils/handlePrettifyCode';
 import { Writable } from '@/utils/types';
 import { setError } from '@/store/slices/messageSlice';
 import { useLazyFetchSchemaQuery, useSendQueryMutation } from '@/store/api/apiService';
-import { setSchema } from '@/store/slices/schemaSlice';
+import { setSchema, clearSchema } from '@/store/slices/schemaSlice';
 import { SideBar } from '@/components/SideBar';
 import { InputEndpoint } from '@/components/InputEndpoint';
 import { CodeEditor } from '@/components/CodeEditor';
@@ -35,7 +35,17 @@ const Main: React.FC = () => {
   const [response, setResponse] = useState('');
   const dispatch = useAppDispatch();
   const [sendQuery] = useSendQueryMutation();
-  const [fetchSchema] = useLazyFetchSchemaQuery();
+  const [fetchSchema, { isLoading }] = useLazyFetchSchemaQuery();
+
+  const resetData = () => {
+    setCode('');
+    setVariables('');
+    setHeaders('');
+    setResponse('');
+    dispatch(clearSchema());
+  };
+
+  const isSchemaLoading = isLoading || !apiUrl;
 
   const handleApiSubmit = async (newApiUrl: string) => {
     setApiUrl(newApiUrl);
@@ -51,6 +61,7 @@ const Main: React.FC = () => {
           dispatch(setError('fetchSchema'));
         }
       }
+      resetData();
       console.error(err);
     }
   };
@@ -60,7 +71,7 @@ const Main: React.FC = () => {
       const parsedVariables = parseVariables(variables);
       const parsedHeaders = parseVariables(headers);
 
-      if (parsedVariables === null) {
+      if (parsedVariables === null || parsedHeaders === null) {
         dispatch(setError('parsingError'));
         return;
       }
@@ -86,7 +97,13 @@ const Main: React.FC = () => {
     } catch (err) {
       dispatch(setError('fetchQuery'));
       console.error(err);
+      resetData();
     }
+  };
+
+  const handleClearUrl = () => {
+    setApiUrl('');
+    resetData();
   };
 
   const handleChangeEditor = (code: string) => {
@@ -105,10 +122,14 @@ const Main: React.FC = () => {
     <div className={styles.root}>
       <div className={styles.input}>
         <Container>
-          <InputEndpoint onSubmit={handleApiSubmit} initialValue={apiUrl} />
+          <InputEndpoint
+            initialValue={apiUrl}
+            onSubmit={handleApiSubmit}
+            onClear={handleClearUrl}
+          />
         </Container>
       </div>
-      <SideBar />
+      <SideBar isLoading={isSchemaLoading} />
       <div className={styles.container}>
         <div className={styles.col} style={{ width: `${editorWidth}px` }}>
           <div className={styles.editor} style={{ height: `${editorHeight}px` }}>
