@@ -10,7 +10,10 @@ const errorMessages: Record<string, Record<string, string>> = {
       'Password must contain at least one digit, one uppercase letter, one lowercase letter, and one special character',
     passwordRequired: 'Password is a required field',
     passwordsMatch: 'Passwords must match',
-    passwordsMatchRequired: 'Введите подтверждение пароля',
+    passwordsMatchRequired: 'Confirm password',
+    passwordMinLength: 'Password must more that 8 symbols',
+    passwordMaxLength: 'Password must not be more that 64 symbols',
+    passwordTrailingSpaces: 'Password must not begin or end with a space',
     required: 'This field is required',
     invalidUrl: 'Invalid URL',
   },
@@ -22,6 +25,9 @@ const errorMessages: Record<string, Record<string, string>> = {
     passwordRequired: 'Пароль обязательное поле',
     passwordsMatch: 'Пароли должны совпадать',
     passwordsMatchRequired: 'Введите подтверждение пароля',
+    passwordMinLength: 'Пароль должен быть не менее 8 символов',
+    passwordMaxLength: 'Пароль не должен быть больше 64 символов',
+    passwordTrailingSpaces: 'Пароль не должен начинаться или заканчиваться пробелом',
     required: 'Это поле обязательно',
     invalidUrl: 'Неверный URL',
   },
@@ -39,10 +45,20 @@ const emailValidationSchema = Yup.object().shape({
 
 const signInValidationSchema = emailValidationSchema.shape({
   password: Yup.string()
-    .matches(/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=!])(?=\S+$).{8,}$/, {
-      message: errorMessages[lang].password,
-      excludeEmptyString: true,
-    })
+    .min(8, errorMessages[lang].passwordMinLength)
+    .max(64, errorMessages[lang].passwordMaxLength)
+    .test(
+      'no-leading-trailing-spaces',
+      errorMessages[lang].passwordTrailingSpaces,
+      (value) => value === undefined || value.trim() === value
+    )
+    .matches(
+      /^(?=.*\d)(?=.*[A-ZА-ЯЁ])(?=.*[a-zа-яё])(?=.*[@#$%^&+=! !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~])(?=\S+$).{8,64}$/,
+      {
+        message: errorMessages[lang].password,
+        excludeEmptyString: true,
+      }
+    )
     .required(errorMessages[lang].passwordRequired),
 });
 
