@@ -1,9 +1,9 @@
-import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { render, screen } from '@testing-library/react';
 import { LocaleContext } from '@/contexts/Locale/LocaleContext';
 import { LOCALE_STRINGS, REGIONS } from '@/contexts/Locale/constants';
-import Footer from './Footer';
 import { JSX } from 'react/jsx-runtime';
+import Footer from './Footer';
 
 const mockLocaleContextValue = {
   state: {

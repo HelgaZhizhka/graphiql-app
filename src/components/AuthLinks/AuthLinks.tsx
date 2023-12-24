@@ -28,7 +28,7 @@ const AuthLinks: React.FC<Props> = ({ type = 'button' }) => {
   if (user) {
     return (
       <>
-        <NavLink className={styles.link} to={RoutePaths.MAIN}>
+        <NavLink className={styles.headLink} to={RoutePaths.MAIN}>
           {strings.mainLink}
         </NavLink>
         <Button onClick={exit} color="primary">
