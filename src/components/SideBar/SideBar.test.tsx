@@ -1,14 +1,20 @@
-import { screen, render, fireEvent } from '@testing-library/react';
-import SideBar from './SideBar';
 import '@testing-library/jest-dom';
+import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
+
+import { server } from '@/__tests__/server';
 import store from '@/store';
+import SideBar from './SideBar';
 
 describe('Testing SideBar Component', () => {
+  beforeAll(() => server.listen());
+  afterEach(() => server.resetHandlers());
+  afterAll(() => server.close());
+
   it('renders component with closed panel by default', () => {
     const { asFragment, container } = render(
       <Provider store={store}>
-        <SideBar />
+        <SideBar isLoading={false} />
       </Provider>
     );
     expect(asFragment()).toMatchSnapshot();
@@ -16,43 +22,49 @@ describe('Testing SideBar Component', () => {
     expect(panel).toHaveLength(1);
   });
 
-  it('opens panel when "Schema" button is clicked', () => {
+  it('opens panel when "Schema" button is clicked', async () => {
     render(
       <Provider store={store}>
-        <SideBar />
+        <SideBar isLoading={false} />
       </Provider>
     );
-    const button = screen.getByText('Schema');
+    const button = screen.getByText(/Schema/i);
     fireEvent.click(button);
-    const panel = screen.getByText('Documentation Explorer');
-    expect(panel).toBeInTheDocument();
+
+    await waitFor(() => {
+      const panel = screen.getByText(/Documentation Explorer/i);
+      expect(panel).toBeInTheDocument();
+    });
   });
 
   it('closes panel when "Close" button is clicked', () => {
     render(
       <Provider store={store}>
-        <SideBar />
+        <SideBar isLoading={false} />
       </Provider>
     );
-    const button = screen.getByText('Schema');
+    const button = screen.getByText(/Schema/i);
     fireEvent.click(button);
     const closeButton = screen.getByLabelText('close');
     fireEvent.click(closeButton);
-    const panel = screen.queryByText('Documentation Explorer');
+    const panel = screen.queryByText(/Documentation Explorer/i);
     expect(panel).not.toBeInTheDocument();
   });
 
-  it('displays correct text in the panel', () => {
+  it('displays correct text in the panel', async () => {
     render(
       <Provider store={store}>
-        <SideBar />
+        <SideBar isLoading={false} />
       </Provider>
     );
-    const button = screen.getByText('Schema');
+    const button = screen.getByText(/Schema/i);
     fireEvent.click(button);
-    const textInPanel = screen.getByText(
-      'A GraphQL schema provides a root type for each kind of operation.'
-    );
-    expect(textInPanel).toBeInTheDocument();
+
+    await waitFor(() => {
+      const textInPanel = screen.getByText(
+        'A GraphQL schema provides a root type for each kind of operation.'
+      );
+      expect(textInPanel).toBeInTheDocument();
+    });
   });
 });
