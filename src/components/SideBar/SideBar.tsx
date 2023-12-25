@@ -21,7 +21,7 @@ type Props = {
 
 const SideBar: React.FC<Props> = ({ isLoading }) => {
   const [open, setOpen] = useState(false);
-  console.log(isLoading);
+
   const handleClick = () => {
     setOpen(!open);
   };

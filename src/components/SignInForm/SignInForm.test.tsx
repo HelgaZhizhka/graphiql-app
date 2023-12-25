@@ -1,5 +1,5 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
 import { logInWithEmail } from '@/services/firebase/firebase';
 import { LocaleProvider } from '@/contexts/Locale/LocaleContext';

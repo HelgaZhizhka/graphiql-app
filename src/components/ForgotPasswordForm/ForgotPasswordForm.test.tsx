@@ -1,6 +1,6 @@
+import '@testing-library/jest-dom';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import '@testing-library/jest-dom';
 
 import { resetPassword } from '@/services/firebase/firebase';
 import { LocaleProvider } from '@/contexts/Locale/LocaleContext';

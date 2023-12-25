@@ -9,11 +9,14 @@ import { AuthLinks } from '@/components/AuthLinks';
 const Home: React.FC = () => {
   return (
     <Container maxWidth="lg" sx={{ p: '40px 0 100px' }}>
-      <Box sx={{ textAlign: 'right' }}>
+      <CenteredTypography className={styles.heading} mt={2} mb={2} variant="h2" color="purple">
+        Welcome to GRAPHIQL
+      </CenteredTypography>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <AuthLinks type="link" />
       </Box>
-      <CenteredTypography className={styles.title} mt={2} variant="h3">
-        Yes Code Team
+      <CenteredTypography className={styles.title} mt={10} variant="h3">
+        Project created by team Yes Code
       </CenteredTypography>
       <CenteredTypography className={styles.subTitle} variant="h5">
         one for all and all for one!

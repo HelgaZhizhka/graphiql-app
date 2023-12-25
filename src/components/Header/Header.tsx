@@ -1,14 +1,11 @@
 import { NavLink } from 'react-router-dom';
-// import { useAuthState } from 'react-firebase-hooks/auth';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-// import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 
 import { RoutePaths } from '@/routes/routes.enum';
 import { useLocale } from '@/contexts/Locale/LocaleProvider';
 import { useStickyHeader } from '@/hooks';
-// import { auth, logout } from '@/services/firebase/firebase';
 import { TITLE } from '@/utils/constants';
 import { Logo } from '@/components/Logo';
 import { AuthLinks } from '@/components/AuthLinks';
