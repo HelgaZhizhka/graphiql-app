@@ -45,8 +45,14 @@ const emailValidationSchema = Yup.object().shape({
 
 const signInValidationSchema = emailValidationSchema.shape({
   password: Yup.string()
-    .min(8, errorMessages[lang].passwordMinLength)
-    .max(64, errorMessages[lang].passwordMaxLength)
+    .matches(/^[\s\S]{8,}$/u, {
+      message: errorMessages[lang].passwordMinLength,
+      excludeEmptyString: true,
+    })
+    .matches(/^[\s\S]{0,64}$/u, {
+      message: errorMessages[lang].passwordMaxLength,
+      excludeEmptyString: true,
+    })
     .test(
       'no-leading-trailing-spaces',
       errorMessages[lang].passwordTrailingSpaces,
@@ -59,6 +65,7 @@ const signInValidationSchema = emailValidationSchema.shape({
         excludeEmptyString: true,
       }
     )
+
     .required(errorMessages[lang].passwordRequired),
 });
 
