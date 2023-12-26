@@ -53,7 +53,7 @@ const signInValidationSchema = emailValidationSchema.shape({
       (value) => value === undefined || value.trim() === value
     )
     .matches(
-      /^(?=.*\d)(?=.*[A-ZА-ЯЁ])(?=.*[a-zа-яё])(?=.*[@#$%^&+=! !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~])(?=\S+$).{8,64}$/,
+      /^(?=.*\d)(?=.*\p{Lu})(?=.*\p{Ll})(?=.*[@#$%^&+=! !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~])(?=\S+$)/u,
       {
         message: errorMessages[lang].password,
         excludeEmptyString: true,
