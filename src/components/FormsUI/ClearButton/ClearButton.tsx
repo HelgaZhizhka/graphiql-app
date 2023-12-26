@@ -17,7 +17,13 @@ const ClearButton: React.FC<Props> = ({ onClear }) => {
   };
 
   return (
-    <IconButton aria-label="delete" color="primary" className={styles.root} onClick={handleClear}>
+    <IconButton
+      data-testid="Close"
+      aria-label="delete"
+      color="primary"
+      className={styles.root}
+      onClick={handleClear}
+    >
       <CloseIcon />
     </IconButton>
   );
