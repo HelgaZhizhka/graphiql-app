@@ -1,25 +1,14 @@
-import { useState, lazy, Suspense } from 'react';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 
+import { SchemaExplorer } from '@/components/SchemaExplorer';
 import { CenteredTypography } from '@/components/CenteredTypography';
-import { DELAY } from '@/utils/constants';
 import styles from './SideBar.module.scss';
 
-const SchemaExplorer = lazy(async () => {
-  await new Promise((resolve) => setTimeout(resolve, DELAY));
-  return {
-    default: (await import('@/components/SchemaExplorer')).SchemaExplorer,
-  };
-});
-
-type Props = {
-  isLoading: boolean;
-};
-
-const SideBar: React.FC<Props> = ({ isLoading }) => {
+const SideBar: React.FC = () => {
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
@@ -53,9 +42,7 @@ const SideBar: React.FC<Props> = ({ isLoading }) => {
               <Typography mb={2}>
                 A GraphQL schema provides a root type for each kind of operation.
               </Typography>
-              <Suspense fallback={<div>Schema coming soon...</div>}>
-                <SchemaExplorer isLoading={isLoading} />
-              </Suspense>
+              <SchemaExplorer />
             </div>
           </>
         )}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { lazy, Suspense, useReducer } from 'react';
 import { IntrospectionQuery } from 'graphql';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
@@ -9,16 +9,24 @@ import { useAppDispatch, useResizableHeight, useResizableWidth } from '@/hooks';
 import { parseVariables } from '@/utils/parseVariables';
 import { handlePrettifyCode } from '@/utils/handlePrettifyCode';
 import { Writable } from '@/utils/types';
+import { FetchError } from '@/utils/interfaces';
 import { setError } from '@/store/slices/messageSlice';
 import { useLazyFetchSchemaQuery, useSendQueryMutation } from '@/store/api/apiService';
 import { setSchema, clearSchema } from '@/store/slices/schemaSlice';
-import { SideBar } from '@/components/SideBar';
 import { InputEndpoint } from '@/components/InputEndpoint';
 import { CodeEditor } from '@/components/CodeEditor';
 import { EditorTabs } from '@/components/EditorTabs';
 import { ResizableDivider } from '@/components/ResizableDivider';
+import { mainReducer, initialState, MainState, MainAction } from './MainReducer';
 import styles from './Main.module.scss';
-import { FetchError } from '@/utils/interfaces';
+
+const SideBar = lazy(async () => ({
+  default: (await import('@/components/SideBar')).SideBar,
+}));
+
+const InputEndpointMemo = React.memo(InputEndpoint);
+const CodeEditorMemo = React.memo(CodeEditor);
+const EditorTabsMemo = React.memo(EditorTabs);
 
 const Main: React.FC = () => {
   const { editorHeight, tabsHeight, handleResizeHeight } = useResizableHeight(300, 50, 50, 400);
@@ -28,27 +36,20 @@ const Main: React.FC = () => {
     50,
     window.innerWidth - 150
   );
-  const [apiUrl, setApiUrl] = useState('');
-  const [code, setCode] = useState('');
-  const [variables, setVariables] = useState('');
-  const [headers, setHeaders] = useState('');
-  const [response, setResponse] = useState('');
+  const [state, mainDispatch] = useReducer<React.Reducer<MainState, MainAction>>(
+    mainReducer,
+    initialState
+  );
+  const { apiUrl, code, variables, headers, response } = state;
+
   const dispatch = useAppDispatch();
   const [sendQuery] = useSendQueryMutation();
   const [fetchSchema, { isLoading }] = useLazyFetchSchemaQuery();
 
-  const resetData = () => {
-    setCode('');
-    setVariables('');
-    setHeaders('');
-    setResponse('');
-    dispatch(clearSchema());
-  };
-
-  const isSchemaLoading = isLoading || !apiUrl;
+  const isSchemaLoading = isLoading || !state.apiUrl;
 
   const handleApiSubmit = async (newApiUrl: string) => {
-    setApiUrl(newApiUrl);
+    mainDispatch({ type: 'SET_API_URL', payload: newApiUrl });
     try {
       const schemaData = await fetchSchema(newApiUrl).unwrap();
       dispatch(setSchema(schemaData as Writable<IntrospectionQuery>));
@@ -61,7 +62,8 @@ const Main: React.FC = () => {
           dispatch(setError('fetchSchema'));
         }
       }
-      resetData();
+      mainDispatch({ type: 'RESET_DATA' });
+      dispatch(clearSchema());
       console.error(err);
     }
   };
@@ -84,12 +86,14 @@ const Main: React.FC = () => {
       });
 
       if ('data' in responseData) {
-        setResponse(JSON.stringify(responseData.data, null, 2));
+        const response = JSON.stringify(responseData.data, null, 2);
+        mainDispatch({ type: 'SET_RESPONSE', payload: response });
       } else if ('data' in responseData.error) {
         if (!responseData.error.data) {
           dispatch(setError('fetchQuery'));
         } else {
-          setResponse(JSON.stringify(responseData.error.data, null, 2));
+          const error = JSON.stringify(responseData.error.data, null, 2);
+          mainDispatch({ type: 'SET_RESPONSE', payload: error });
         }
       } else {
         console.error('Unexpected response:', responseData);
@@ -97,46 +101,50 @@ const Main: React.FC = () => {
     } catch (err) {
       dispatch(setError('fetchQuery'));
       console.error(err);
-      resetData();
+      mainDispatch({ type: 'RESET_DATA' });
+      dispatch(clearSchema());
     }
   };
 
   const handleClearUrl = () => {
-    setApiUrl('');
-    resetData();
+    mainDispatch({ type: 'SET_API_URL', payload: '' });
+    mainDispatch({ type: 'RESET_DATA' });
+    dispatch(clearSchema());
   };
 
   const handleChangeEditor = (code: string) => {
-    setCode(code);
+    mainDispatch({ type: 'SET_CODE', payload: code });
   };
 
   const handleChangeVariables = (code: string) => {
-    setVariables(code);
+    mainDispatch({ type: 'SET_VARIABLES', payload: code });
   };
 
   const handleChangeHeaders = (code: string) => {
-    setHeaders(code);
+    mainDispatch({ type: 'SET_HEADERS', payload: code });
   };
 
   return (
     <div className={styles.root}>
       <div className={styles.input}>
         <Container>
-          <InputEndpoint
+          <InputEndpointMemo
             initialValue={apiUrl}
             onSubmit={handleApiSubmit}
             onClear={handleClearUrl}
           />
         </Container>
       </div>
-      <SideBar isLoading={isSchemaLoading} />
+      <Suspense fallback={<div>Schema is coming soon...</div>}>
+        {!isSchemaLoading && <SideBar />}
+      </Suspense>
       <div className={styles.container}>
         <div className={styles.col} style={{ width: `${editorWidth}px` }}>
           <div className={styles.editor} style={{ height: `${editorHeight}px` }}>
             <Button
               className={styles.btnPretty}
               variant="outlined"
-              onClick={() => handlePrettifyCode(code, setCode)}
+              onClick={() => handlePrettifyCode(code, mainDispatch)}
               disabled={!code}
             >
               <CodeIcon />
@@ -150,11 +158,11 @@ const Main: React.FC = () => {
               <SendIcon />
             </Button>
 
-            <CodeEditor initialValue={`${code}`} onChange={handleChangeEditor} />
+            <CodeEditorMemo initialValue={`${code}`} onChange={handleChangeEditor} />
           </div>
           <ResizableDivider direction="horizontal" onResize={handleResizeHeight} />
           <div className={styles.tabs} style={{ height: `${tabsHeight}px` }}>
-            <EditorTabs
+            <EditorTabsMemo
               initialVariables={`${variables}`}
               initialHeaders={`${headers}`}
               onChangeVariables={handleChangeVariables}
@@ -164,7 +172,7 @@ const Main: React.FC = () => {
         </div>
         <ResizableDivider direction="vertical" onResize={handleResizeWidth} />
         <div className={styles.col} style={{ width: `${responseWidth}px` }}>
-          <CodeEditor initialValue={`${response}`} readOnly={true} />
+          <CodeEditorMemo initialValue={`${response}`} readOnly={true} />
         </div>
       </div>
     </div>

@@ -1,3 +1,5 @@
+import { MainAction } from '@/pages/Main/MainReducer';
+
 const isGraphQLOperation = (str: string) =>
   ['mutation', 'query', 'subscription'].some((keyword) => str.includes(keyword));
 
@@ -6,7 +8,8 @@ const indentWithNewLine = (deep: number, value: string) => `${'  '.repeat(deep) 
 
 export const handlePrettifyCode = (
   code: string,
-  setCode: React.Dispatch<React.SetStateAction<string>>
+  // setCode: React.Dispatch<React.SetStateAction<string>>
+  dispatch: React.Dispatch<MainAction>
 ) => {
   const splitString = code.replace(/\s+/g, ' ').split(/(\{|})/);
   let deep = 0;
@@ -53,5 +56,6 @@ export const handlePrettifyCode = (
     .replace(/:\s+/g, ': ')
     .replace(/(?<=\([^)]*)[ ]{2,}(?=[^()]*\))/g, ' ');
 
-  setCode(result);
+  // setCode(result);
+  dispatch({ type: 'PRETTIFY_CODE', payload: result });
 };

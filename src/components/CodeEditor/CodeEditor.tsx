@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { Editor, useMonaco } from '@monaco-editor/react';
+import { Editor } from '@monaco-editor/react';
 import { useTheme } from '@mui/material';
 
 type Props = {
@@ -10,26 +9,11 @@ type Props = {
 
 const CodeEditor: React.FC<Props> = ({ initialValue, onChange, readOnly = false }) => {
   const theme = useTheme();
-  const monaco = useMonaco();
   const handleChange = (value: string) => {
     onChange && onChange(value);
   };
 
-  useEffect(() => {
-    if (monaco) {
-      monaco.editor.defineTheme('customTheme', {
-        base: 'vs',
-        inherit: true,
-        rules: [],
-        colors: {
-          'editorGutter.background': '#f5f5f5',
-          'editor.background': '#f6f8fa',
-        },
-      });
-    }
-  }, [monaco]);
-
-  const themeEditor = theme.palette.mode === 'dark' ? 'vs-dark' : 'customTheme';
+  const themeEditor = theme.palette.mode === 'dark' ? 'vs-dark' : 'vs-light';
 
   return (
     <Editor
@@ -40,6 +24,8 @@ const CodeEditor: React.FC<Props> = ({ initialValue, onChange, readOnly = false 
       options={{
         fontSize: 16,
         readOnly: readOnly,
+        tabSize: 2,
+        insertSpaces: true,
         minimap: { enabled: false },
       }}
     />
