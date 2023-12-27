@@ -1,6 +1,6 @@
 .root {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 5px;
   transition: opacity 0.25s ease-in-out;
 
@@ -12,7 +12,12 @@
 .title {
   margin: 0;
   font-size: 1.125rem;
+  line-height: 1;
   color: var(--color-brand);
+
+  @media screen and (max-width: 419px) {
+    display: none;
+  }
 }
 
 .image {

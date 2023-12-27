@@ -46,7 +46,7 @@ const Main: React.FC = () => {
   const [sendQuery] = useSendQueryMutation();
   const [fetchSchema, { isLoading }] = useLazyFetchSchemaQuery();
 
-  const isSchemaLoading = isLoading || !state.apiUrl;
+  const isSchemaLoading = isLoading || !apiUrl;
 
   const handleApiSubmit = async (newApiUrl: string) => {
     mainDispatch({ type: 'SET_API_URL', payload: newApiUrl });

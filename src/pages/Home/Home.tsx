@@ -8,7 +8,7 @@ import { AuthLinks } from '@/components/AuthLinks';
 
 const Home: React.FC = () => {
   return (
-    <Container maxWidth="lg" sx={{ p: '40px 0 100px' }}>
+    <Container maxWidth="lg" sx={{ p: '40px 20px 100px' }}>
       <CenteredTypography className={styles.heading} mt={2} mb={2} variant="h2" color="purple">
         Welcome to GRAPHIQL
       </CenteredTypography>
