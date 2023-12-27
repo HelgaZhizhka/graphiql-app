@@ -45,7 +45,6 @@ const emailValidationSchema = Yup.object().shape({
       message: errorMessages[lang].email,
       excludeEmptyString: true,
     })
-    // .email(errorMessages[lang].email)
     .required(errorMessages[lang].emailRequired),
 });
 
