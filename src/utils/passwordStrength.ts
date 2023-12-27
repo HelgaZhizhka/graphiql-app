@@ -1,9 +1,9 @@
-const atLeastMinimumLength = (password: string) => new RegExp(/(?=.{8,})/).test(password);
-const atLeastOneUppercaseLetter = (password: string) => new RegExp(/(?=.*?[A-Z])/).test(password);
-const atLeastOneLowercaseLetter = (password: string) => new RegExp(/(?=.*?[a-z])/).test(password);
-const atLeastOneNumber = (password: string) => new RegExp(/(?=.*?[0-9])/).test(password);
+const atLeastMinimumLength = (password: string) => new RegExp(/(?=.{8,})/u).test(password);
+const atLeastOneUppercaseLetter = (password: string) => new RegExp(/(?=.*?\p{Lu})/u).test(password);
+const atLeastOneLowercaseLetter = (password: string) => new RegExp(/(?=.*?\p{Ll})/u).test(password);
+const atLeastOneNumber = (password: string) => new RegExp(/(?=.*?[0-9])/u).test(password);
 const atLeastOneSpecialChar = (password: string) =>
-  new RegExp(/(?=.*?[#?!@$ %^&*-])/).test(password);
+  new RegExp(/(?=.*?[@#$%^&+=! !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~])/).test(password);
 
 export const testingPasswordStrength = (password?: string) => {
   if (!password) return 0;
