@@ -40,7 +40,13 @@ const urlValidationSchema = Yup.object().shape({
 });
 
 const emailValidationSchema = Yup.object().shape({
-  email: Yup.string().email(errorMessages[lang].email).required(errorMessages[lang].emailRequired),
+  email: Yup.string()
+    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, {
+      message: errorMessages[lang].email,
+      excludeEmptyString: true,
+    })
+    // .email(errorMessages[lang].email)
+    .required(errorMessages[lang].emailRequired),
 });
 
 const signInValidationSchema = emailValidationSchema.shape({
