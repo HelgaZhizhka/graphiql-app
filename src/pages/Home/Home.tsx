@@ -12,10 +12,17 @@ const Home: React.FC = () => {
       <CenteredTypography className={styles.heading} mt={2} mb={2} variant="h2" color="purple">
         Welcome to GRAPHIQL
       </CenteredTypography>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', sm: 'row' },
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
         <AuthLinks type="link" />
       </Box>
-      <CenteredTypography className={styles.title} mt={10} variant="h3">
+      <CenteredTypography className={styles.title} mt={4} variant="h3">
         Project created by team Yes Code
       </CenteredTypography>
       <CenteredTypography className={styles.subTitle} variant="h5">

@@ -1,69 +1,45 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback } from 'react';
 
-export const useResizableHeight = (
-  initialEditorHeight: number,
-  initialTabsHeight: number,
-  minHeight: number = 50,
-  maxHeightInput: number
-) => {
-  const totalHeight = useMemo(
-    () => initialEditorHeight + initialTabsHeight,
-    [initialEditorHeight, initialTabsHeight]
-  );
-  const maxHeight = useMemo(
-    () => maxHeightInput || totalHeight - minHeight,
-    [maxHeightInput, totalHeight, minHeight]
-  );
-
-  const [heights, setHeights] = useState({
-    editorHeight: initialEditorHeight,
-    tabsHeight: initialTabsHeight,
-  });
+export const useResizableHeight = (minHeightPercent = 20, maxHeightPercent = 80) => {
+  const [editorHeightPercent, setEditorHeightPercent] = useState(50);
 
   const handleResizeHeight = useCallback(
-    (delta: number) => {
-      setHeights(({ editorHeight }) => {
-        const newEditorHeight = Math.min(Math.max(editorHeight + delta, minHeight), maxHeight);
-        const newTabsHeight = totalHeight - newEditorHeight;
-        return { editorHeight: newEditorHeight, tabsHeight: newTabsHeight };
+    (deltaY: number, containerHeight: number) => {
+      setEditorHeightPercent((prevHeightPercent) => {
+        const deltaPercent = (deltaY / containerHeight) * 100;
+        const newHeightPercent = Math.min(
+          Math.max(prevHeightPercent + deltaPercent, minHeightPercent),
+          maxHeightPercent
+        );
+        return newHeightPercent;
       });
     },
-    [minHeight, maxHeight, totalHeight]
+    [minHeightPercent, maxHeightPercent]
   );
 
-  return { ...heights, handleResizeHeight };
+  const tabsHeightPercent = 100 - editorHeightPercent;
+
+  return { editorHeightPercent, tabsHeightPercent, handleResizeHeight };
 };
 
-export const useResizableWidth = (
-  initialEditorWidth: number,
-  initialResponseWidth: number,
-  minWidth: number = 50,
-  maxWidthInput: number
-) => {
-  const totalWidth = useMemo(
-    () => initialEditorWidth + initialResponseWidth,
-    [initialEditorWidth, initialResponseWidth]
-  );
-  const maxWidth = useMemo(
-    () => maxWidthInput || totalWidth - minWidth,
-    [maxWidthInput, totalWidth, minWidth]
-  );
-
-  const [widths, setWidths] = useState({
-    editorWidth: initialEditorWidth,
-    responseWidth: initialResponseWidth,
-  });
+export const useResizableWidth = (minWidthPercent = 20, maxWidthPercent = 90) => {
+  const [editorWidthPercent, setEditorWidthPercent] = useState(50);
 
   const handleResizeWidth = useCallback(
-    (delta: number) => {
-      setWidths(({ editorWidth }) => {
-        const newEditorWidth = Math.min(Math.max(editorWidth + delta, minWidth), maxWidth);
-        const newResponseWidth = totalWidth - newEditorWidth;
-        return { editorWidth: newEditorWidth, responseWidth: newResponseWidth };
+    (deltaX: number, containerWidth: number) => {
+      setEditorWidthPercent((prevWidthPercent) => {
+        const deltaPercent = (deltaX / containerWidth) * 100;
+        const newWidthPercent = Math.min(
+          Math.max(prevWidthPercent + deltaPercent, minWidthPercent),
+          maxWidthPercent
+        );
+        return newWidthPercent;
       });
     },
-    [minWidth, maxWidth, totalWidth]
+    [minWidthPercent, maxWidthPercent]
   );
 
-  return { ...widths, handleResizeWidth };
+  const responseWidthPercent = 100 - editorWidthPercent;
+
+  return { editorWidthPercent, responseWidthPercent, handleResizeWidth };
 };

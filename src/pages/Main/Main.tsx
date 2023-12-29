@@ -1,4 +1,5 @@
 import React, { lazy, Suspense, useReducer } from 'react';
+import { useMediaQuery, useTheme } from '@mui/material';
 import { IntrospectionQuery } from 'graphql';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
@@ -29,13 +30,11 @@ const CodeEditorMemo = React.memo(CodeEditor);
 const EditorTabsMemo = React.memo(EditorTabs);
 
 const Main: React.FC = () => {
-  const { editorHeight, tabsHeight, handleResizeHeight } = useResizableHeight(300, 50, 50, 400);
-  const { editorWidth, responseWidth, handleResizeWidth } = useResizableWidth(
-    window.innerWidth / 2,
-    window.innerWidth / 2,
-    50,
-    window.innerWidth - 150
-  );
+  const { editorHeightPercent, tabsHeightPercent, handleResizeHeight } = useResizableHeight();
+  const { editorWidthPercent, responseWidthPercent, handleResizeWidth } = useResizableWidth();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+
   const [state, mainDispatch] = useReducer<React.Reducer<MainState, MainAction>>(
     mainReducer,
     initialState
@@ -139,8 +138,14 @@ const Main: React.FC = () => {
         {!isSchemaLoading && <SideBar />}
       </Suspense>
       <div className={styles.container}>
-        <div className={styles.col} style={{ width: `${editorWidth}px` }}>
-          <div className={styles.editor} style={{ height: `${editorHeight}px` }}>
+        <div
+          className={styles.col}
+          style={!isSmallScreen ? { width: `${editorWidthPercent}%` } : {}}
+        >
+          <div
+            className={styles.editor}
+            style={!isSmallScreen ? { height: `${editorHeightPercent}%` } : {}}
+          >
             <Button
               className={styles.btnPretty}
               variant="outlined"
@@ -160,8 +165,18 @@ const Main: React.FC = () => {
 
             <CodeEditorMemo initialValue={`${code}`} onChange={handleChangeEditor} />
           </div>
-          <ResizableDivider direction="horizontal" onResize={handleResizeHeight} />
-          <div className={styles.tabs} style={{ height: `${tabsHeight}px` }}>
+          {!isSmallScreen && (
+            <ResizableDivider
+              direction="horizontal"
+              onResize={(deltaY: number, containerHeight: number) =>
+                handleResizeHeight(deltaY, containerHeight)
+              }
+            />
+          )}
+          <div
+            className={styles.tabs}
+            style={!isSmallScreen ? { height: `${tabsHeightPercent}%` } : {}}
+          >
             <EditorTabsMemo
               initialVariables={`${variables}`}
               initialHeaders={`${headers}`}
@@ -170,8 +185,22 @@ const Main: React.FC = () => {
             />
           </div>
         </div>
-        <ResizableDivider direction="vertical" onResize={handleResizeWidth} />
-        <div className={styles.col} style={{ width: `${responseWidth}px` }}>
+        {!isSmallScreen && (
+          <ResizableDivider
+            direction="vertical"
+            onResize={(deltaX: number, containerWidth: number) =>
+              handleResizeWidth(deltaX, containerWidth)
+            }
+          />
+        )}
+        <div
+          className={styles.col}
+          style={
+            !isSmallScreen
+              ? { width: `${responseWidthPercent}%` }
+              : { height: '300px', marginBottom: '20px' }
+          }
+        >
           <CodeEditorMemo initialValue={`${response}`} readOnly={true} />
         </div>
       </div>

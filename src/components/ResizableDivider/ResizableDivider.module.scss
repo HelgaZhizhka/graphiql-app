@@ -1,7 +1,7 @@
 .root {
   transition: opacity 0.35s ease-in-out;
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1023px) {
     display: none;
   }
 }

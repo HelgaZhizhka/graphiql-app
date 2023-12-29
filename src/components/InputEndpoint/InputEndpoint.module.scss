@@ -4,5 +4,9 @@
 }
 
 .input {
-  flex: 1
+  flex: 1;
+
+  input {
+    padding-right: 30px !important;
+  }
 }

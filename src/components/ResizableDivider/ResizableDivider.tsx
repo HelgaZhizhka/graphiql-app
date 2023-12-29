@@ -3,7 +3,7 @@ import { useRef, useState, useCallback } from 'react';
 import styles from './ResizableDivider.module.scss';
 
 type Props = {
-  onResize(delta: number): void;
+  onResize(delta: number, containerSize: number): void;
   direction: 'horizontal' | 'vertical';
 };
 
@@ -14,15 +14,22 @@ const ResizableDivider: React.FC<Props> = ({ onResize, direction }) => {
     direction === 'vertical' ? styles.vertical : styles.horizontal
   }`;
 
+  const getContainerSize = useCallback(() => {
+    const container = dividerRef.current?.parentElement;
+    return container ? container.getBoundingClientRect() : { width: 0, height: 0 };
+  }, []);
+
   const onDragging = useCallback(
     (event: MouseEvent) => {
       if (!dividerRef.current) return;
 
+      const { width, height } = getContainerSize();
       const delta = direction === 'vertical' ? event.movementX : event.movementY;
+      const containerSize = direction === 'vertical' ? width : height;
 
-      onResize(delta);
+      onResize(delta, containerSize);
     },
-    [direction, onResize]
+    [direction, onResize, getContainerSize]
   );
 
   const stopDragging = useCallback(() => {
