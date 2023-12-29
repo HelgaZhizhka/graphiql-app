@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Form, Formik } from 'formik';
+import { Form, Formik, FormikProps } from 'formik';
 
 import { emailValidationSchema } from '@/utils/validation';
 import { useLocale } from '@/contexts/Locale/LocaleProvider';
@@ -22,14 +22,23 @@ const ForgotPassword: React.FC = () => {
   const { strings } = state;
   const navigate = useNavigate();
 
+  const formikRef = useRef<FormikProps<ForgotPasswordValues>>(null);
+
+  useEffect(() => {
+    if (formikRef.current) {
+      formikRef.current.validateForm();
+    }
+  }, [strings]);
+
   return (
     <Formik
       initialValues={{ ...initialValues }}
-      validationSchema={emailValidationSchema}
+      validationSchema={emailValidationSchema(strings)}
       onSubmit={(values) => {
         resetPassword(values.email);
         navigate(RoutePaths.WELCOME);
       }}
+      innerRef={formikRef}
     >
       <Form>
         <FormInputWrapper id="email" name="email" label={strings.email} />
