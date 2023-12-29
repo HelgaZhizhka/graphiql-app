@@ -10,7 +10,7 @@ describe('InputEndpoint Component', () => {
   const mockOnSubmit = jest.fn();
   const mockOnClear = jest.fn();
 
-  it('renders correctly', () => {
+  it('renders correctly', async () => {
     render(
       <Router>
         <LocaleProvider>
@@ -18,8 +18,11 @@ describe('InputEndpoint Component', () => {
         </LocaleProvider>
       </Router>
     );
-    expect(screen.getByLabelText(/Type API with Cors support/i)).toBeInTheDocument();
-    expect(screen.getByText(/Connect/i)).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(screen.getByLabelText(/Type API with Cors support/i)).toBeInTheDocument();
+      expect(screen.getByText(/Connect/i)).toBeInTheDocument();
+    });
   });
 
   it('calls onSubmit with correct data', async () => {
@@ -36,12 +39,13 @@ describe('InputEndpoint Component', () => {
     });
 
     fireEvent.submit(screen.getByText(/Connect/i));
+
     await waitFor(() => {
       expect(mockOnSubmit).toHaveBeenCalledWith(mockApiUrl);
     });
   });
 
-  it('calls onClear when clear button is clicked', () => {
+  it('calls onClear when clear button is clicked', async () => {
     render(
       <Router>
         <LocaleProvider>
@@ -57,6 +61,9 @@ describe('InputEndpoint Component', () => {
     const clearBtn = screen.getByTestId('Close');
 
     fireEvent.click(clearBtn);
-    expect(mockOnClear).toHaveBeenCalled();
+
+    await waitFor(() => {
+      expect(mockOnClear).toHaveBeenCalled();
+    });
   });
 });
