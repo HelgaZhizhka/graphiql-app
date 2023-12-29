@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Form, Formik } from 'formik';
+import { useEffect, useRef, useState } from 'react';
+import { Form, Formik, FormikProps } from 'formik';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
@@ -25,14 +25,23 @@ const SignUpForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  const formikRef = useRef<FormikProps<SignUpFormValues>>(null);
+
+  useEffect(() => {
+    if (formikRef.current) {
+      formikRef.current.validateForm();
+    }
+  }, [strings]);
+
   return (
     <Formik
       initialValues={{ ...initialValues }}
-      validationSchema={signUpValidationSchema}
+      validationSchema={signUpValidationSchema(strings)}
       onSubmit={(values) => {
         const name = values.email.split('@')[0];
         registerEmail(name, values.email, values.password);
       }}
+      innerRef={formikRef}
     >
       {({ values, handleSubmit }) => (
         <Form onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}>

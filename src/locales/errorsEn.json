@@ -1,0 +1,13 @@
+{
+  "emailValidation": "Invalid email address",
+  "emailRequiredValidation": "Email is a required field",
+  "passwordValidation": "Password must contain at least one digit, one uppercase letter, one lowercase letter, and one special character",
+  "passwordRequiredValidation": "Password is a required field",
+  "passwordsMatchValidation": "Passwords must match",
+  "passwordsMatchRequiredValidation": "Confirm password",
+  "passwordMinLengthValidation": "Password must be more that 8 symbols",
+  "passwordMaxLengthValidation": "Password must not be more that 64 symbols",
+  "passwordTrailingSpacesValidation": "Password must not begin or end with a space",
+  "requiredValidation": "This field is required",
+  "invalidUrlValidation": "Invalid URL"
+}
