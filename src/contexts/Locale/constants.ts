@@ -13,7 +13,8 @@ export const LOCALE_STRINGS = {
   [REGIONS.RU]: { ...ruStrings, ...errorsRu },
 };
 
-export const lang = localStorage.getItem('lang') ?? REGIONS.EN;
+export const getLang = () => localStorage.getItem('lang') ?? REGIONS.EN;
+export const lang = getLang();
 
 export const initialState = {
   strings: LOCALE_STRINGS[lang],

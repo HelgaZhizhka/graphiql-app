@@ -37,10 +37,11 @@ const Header: React.FC = () => {
           sx={{
             width: { lg: '1280px', xs: '100%' },
             margin: 'auto',
+            p: 0,
             minHeight: { sm: isSticky ? '50px' : '64px' },
           }}
         >
-          <Box sx={{ flexGrow: 1 }}>
+          <Box sx={{ flexGrow: 1, ml: '10px', mr: '10px' }}>
             <NavLink to={RoutePaths.WELCOME} className={styles.logo}>
               <h1 className={styles.logoTitle}>{strings.welcomeLink}</h1>
               <Logo title={TITLE} />

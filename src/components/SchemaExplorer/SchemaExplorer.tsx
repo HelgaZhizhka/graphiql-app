@@ -33,15 +33,11 @@ const formatSchemaString = (schemaString: string) => {
   });
 };
 
-type Props = {
-  isLoading: boolean;
-};
-
-const SchemaExplorer: React.FC<Props> = ({ isLoading }) => {
+const SchemaExplorer: React.FC = () => {
   const printSchema = useAppSelector((state) => state.schema.printSchema);
 
-  if (isLoading) {
-    return <div>Schema coming soon...</div>;
+  if (!printSchema) {
+    return <div>Schema is coming soon...</div>;
   }
 
   const formateSchemaString = formatSchemaString(printSchema);

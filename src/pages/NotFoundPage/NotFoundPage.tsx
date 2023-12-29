@@ -7,7 +7,7 @@ import { CenteredTypography } from '@/components/CenteredTypography';
 import styles from './NotFoundPage.module.scss';
 
 const NotFoundPage: React.FC = () => (
-  <Container maxWidth="sm" sx={{ p: '40px 0 100px' }} className={styles.root}>
+  <Container maxWidth="sm" sx={{ p: '40px 20px 100px' }} className={styles.root}>
     <Box mt={2} className={styles.title}>
       404
     </Box>

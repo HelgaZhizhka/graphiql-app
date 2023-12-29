@@ -11,7 +11,7 @@ const SignUp: React.FC = () => {
   const { strings } = state;
 
   return (
-    <Container maxWidth="sm" sx={{ p: '40px 0 100px' }}>
+    <Container maxWidth="sm" sx={{ p: '40px 20px 100px' }}>
       <CenteredTypography mt={2} mb={2} variant="h4">
         {strings.signUp}
       </CenteredTypography>

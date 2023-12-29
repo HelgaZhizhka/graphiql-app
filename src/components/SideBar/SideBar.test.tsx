@@ -14,7 +14,7 @@ describe('Testing SideBar Component', () => {
   it('renders component with closed panel by default', () => {
     const { asFragment, container } = render(
       <Provider store={store}>
-        <SideBar isLoading={false} />
+        <SideBar />
       </Provider>
     );
     expect(asFragment()).toMatchSnapshot();
@@ -25,7 +25,7 @@ describe('Testing SideBar Component', () => {
   it('opens panel when "Schema" button is clicked', async () => {
     render(
       <Provider store={store}>
-        <SideBar isLoading={false} />
+        <SideBar />
       </Provider>
     );
     const button = screen.getByText(/Schema/i);
@@ -40,7 +40,7 @@ describe('Testing SideBar Component', () => {
   it('closes panel when "Close" button is clicked', () => {
     render(
       <Provider store={store}>
-        <SideBar isLoading={false} />
+        <SideBar />
       </Provider>
     );
     const button = screen.getByText(/Schema/i);
@@ -54,7 +54,7 @@ describe('Testing SideBar Component', () => {
   it('displays correct text in the panel', async () => {
     render(
       <Provider store={store}>
-        <SideBar isLoading={false} />
+        <SideBar />
       </Provider>
     );
     const button = screen.getByText(/Schema/i);

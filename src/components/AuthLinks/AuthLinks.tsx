@@ -10,6 +10,7 @@ import styles from './AuthLinks.module.scss';
 type Props = {
   type?: 'link' | 'button';
 };
+
 const AuthLinks: React.FC<Props> = ({ type = 'button' }) => {
   const [user, loading] = useAuthState(auth);
   const { strings } = useLocale().state;

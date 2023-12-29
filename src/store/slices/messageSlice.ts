@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { lang } from '@/contexts/Locale/constants';
+import { getLang } from '@/contexts/Locale/constants';
 
 const messages: Messages = {
   EN: {
@@ -58,8 +58,6 @@ const messages: Messages = {
   },
 };
 
-type Language = 'EN' | 'RU';
-
 type MessageTypes = {
   success: {
     login: string;
@@ -88,7 +86,7 @@ type MessageTypes = {
 };
 
 type Messages = {
-  [key in Language]: MessageTypes;
+  [key: string]: MessageTypes;
 };
 
 interface MessageState {
@@ -100,51 +98,50 @@ const initialState: MessageState = {
   message: '',
   messageType: 'info',
 };
-const language = lang as Language;
 
-const getErrorMessage = (code: string) => {
+const getErrorMessage = (code: string, lang: string) => {
   switch (code) {
     case 'auth/invalid-credential':
-      return messages[language].error.invalidCredential;
+      return messages[lang].error.invalidCredential;
     case 'auth/invalid-email':
-      return messages[language].error.invalidEmail;
+      return messages[lang].error.invalidEmail;
     case 'auth/user-disabled':
-      return messages[language].error.userDisabled;
+      return messages[lang].error.userDisabled;
     case 'auth/user-not-found':
-      return messages[language].error.userNotFound;
+      return messages[lang].error.userNotFound;
     case 'auth/wrong-password':
-      return messages[language].error.wrongPassword;
+      return messages[lang].error.wrongPassword;
     case 'auth/weak-password':
-      return messages[language].error.weakPassword;
+      return messages[lang].error.weakPassword;
     case 'auth/email-already-in-use':
-      return messages[language].error.emailAlreadyInUse;
+      return messages[lang].error.emailAlreadyInUse;
     case 'auth/network-request-failed':
-      return messages[language].error.network;
+      return messages[lang].error.network;
     case 'auth/too-many-requests':
-      return messages[language].error.tooManyRequests;
+      return messages[lang].error.tooManyRequests;
     case 'fetchSchema':
-      return messages[language].error.fetchSchema;
+      return messages[lang].error.fetchSchema;
     case 'fetchQuery':
-      return messages[language].error.fetchQuery;
+      return messages[lang].error.fetchQuery;
     case 'fetchCORS':
-      return messages[language].error.fetchCORS;
+      return messages[lang].error.fetchCORS;
     case 'parsingError':
-      return messages[language].error.parsingError;
+      return messages[lang].error.parsingError;
     case 'emptyQuery':
-      return messages[language].error.emptyQuery;
+      return messages[lang].error.emptyQuery;
     default:
-      return messages[language].error.unknown;
+      return messages[lang].error.unknown;
   }
 };
 
-const getSuccessMessage = (code: string) => {
+const getSuccessMessage = (code: string, lang: string) => {
   switch (code) {
     case 'login':
-      return messages[lang as Language].success.login;
+      return messages[lang].success.login;
     case 'registration':
-      return messages[lang as Language].success.registration;
+      return messages[lang].success.registration;
     case 'reset':
-      return messages[lang as Language].success.reset;
+      return messages[lang].success.reset;
     default:
       return 'Success';
   }
@@ -159,11 +156,13 @@ const messageSlice = createSlice({
       state.messageType = action.payload.type || 'info';
     },
     setSuccess: (state, action) => {
-      state.message = getSuccessMessage(action.payload);
+      const lang = getLang();
+      state.message = getSuccessMessage(action.payload, lang);
       state.messageType = 'success';
     },
     setError: (state, action) => {
-      state.message = getErrorMessage(action.payload);
+      const lang = getLang();
+      state.message = getErrorMessage(action.payload, lang);
       state.messageType = 'error';
     },
     clearMessage: (state) => {
