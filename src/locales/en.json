@@ -1,6 +1,9 @@
 {
   "language": "Lang",
   "welcomeLink": "Welcome",
+  "welcomeHeader": "Welcome to GRAPHIQL",
+  "welcomePageCreatersInfo": "Project created by team Yes Code",
+  "teamMotto": "one for all and all for one!",
   "mainLink": "Main",
   "signOut": "Sign Out",
   "signIn": "Sign In",
