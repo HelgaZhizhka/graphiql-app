@@ -1,9 +1,11 @@
 import '@testing-library/jest-dom';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, RenderResult } from '@testing-library/react';
 
 import { registerEmail } from '@/services/firebase/firebase';
 import { LocaleProvider } from '@/contexts/Locale/LocaleContext';
 import SignUpForm from './SignUpForm';
+import { renderWithLocale } from '@/__tests__/localization';
+import { LOCALE_STRINGS } from '@/contexts/Locale/constants';
 
 jest.mock('@/services/firebase/firebase', () => ({
   registerEmail: jest.fn(),
@@ -33,6 +35,77 @@ describe('SignUpForm', () => {
 
     await waitFor(() => {
       expect(registerEmail).toHaveBeenCalledWith('asddsa', 'asddsa@asdsa.com', 'AsdsWe@1112236');
+    });
+  });
+});
+
+describe('validation errors check in EN Locale', () => {
+  let renderedForm: RenderResult<
+    typeof import('@testing-library/dom/types/queries'),
+    HTMLElement,
+    HTMLElement
+  >;
+
+  beforeEach(() => {
+    renderedForm = renderWithLocale(<SignUpForm />, 'EN');
+  });
+
+  it('email validation error should correspond to the EN locale', async () => {
+    const emailInput = renderedForm.getByLabelText(/email/i);
+
+    fireEvent.change(emailInput, { target: { value: 'aa' } });
+    fireEvent.blur(emailInput);
+
+    await waitFor(() => {
+      expect(renderedForm.getByText(`${LOCALE_STRINGS.EN.emailValidation}`)).toBeInTheDocument();
+    });
+  });
+
+  it('password validation error should correspond to the EN locale', async () => {
+    const passwordInput = renderedForm.getByLabelText(/^password$/i);
+
+    fireEvent.change(passwordInput, { target: { value: '' } });
+    fireEvent.blur(passwordInput);
+
+    await waitFor(() => {
+      expect(
+        renderedForm.getByText(`${LOCALE_STRINGS.EN.passwordRequiredValidation}`)
+      ).toBeInTheDocument();
+    });
+  });
+});
+
+describe('validation errors check in RU Locale', () => {
+  let renderedForm: RenderResult<
+    typeof import('@testing-library/dom/types/queries'),
+    HTMLElement,
+    HTMLElement
+  >;
+
+  beforeEach(() => {
+    renderedForm = renderWithLocale(<SignUpForm />, 'RU');
+  });
+
+  it('validation error should correspond to the RU locale', async () => {
+    const emailInput = renderedForm.getByLabelText(/email/i);
+    fireEvent.change(emailInput, { target: { value: 'aa' } });
+    fireEvent.blur(emailInput);
+
+    await waitFor(() => {
+      expect(screen.getByText(`${LOCALE_STRINGS.RU.emailValidation}`)).toBeInTheDocument();
+    });
+  });
+
+  it('password validation error should correspond to the RU locale', async () => {
+    const passwordInput = renderedForm.getByLabelText(/^пароль$/i);
+
+    fireEvent.change(passwordInput, { target: { value: '' } });
+    fireEvent.blur(passwordInput);
+
+    await waitFor(() => {
+      expect(
+        renderedForm.getByText(`${LOCALE_STRINGS.RU.passwordRequiredValidation}`)
+      ).toBeInTheDocument();
     });
   });
 });
