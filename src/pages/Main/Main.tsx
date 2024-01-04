@@ -18,6 +18,7 @@ import { InputEndpoint } from '@/components/InputEndpoint';
 import { CodeEditor } from '@/components/CodeEditor';
 import { EditorTabs } from '@/components/EditorTabs';
 import { ResizableDivider } from '@/components/ResizableDivider';
+import { Loader } from '@/components/Loader';
 import { mainReducer, initialState, MainState, MainAction } from './MainReducer';
 import styles from './Main.module.scss';
 
@@ -134,9 +135,7 @@ const Main: React.FC = () => {
           />
         </Container>
       </div>
-      <Suspense fallback={<div>Schema is coming soon...</div>}>
-        {!isSchemaLoading && <SideBar />}
-      </Suspense>
+      <Suspense fallback={<Loader />}>{!isSchemaLoading && <SideBar />}</Suspense>
       <div className={styles.container}>
         <div
           className={styles.col}
@@ -160,8 +159,9 @@ const Main: React.FC = () => {
               variant="outlined"
               onClick={handleSendQuery}
               disabled={!code || !apiUrl}
+              aria-label="Send"
             >
-              <SendIcon />
+              <SendIcon name="send" />
             </Button>
 
             <CodeEditorMemo initialValue={`${code}`} onChange={handleChangeEditor} />
@@ -202,7 +202,7 @@ const Main: React.FC = () => {
               : { height: '300px', marginBottom: '20px' }
           }
         >
-          <CodeEditorMemo initialValue={`${response}`} readOnly={true} />
+          <CodeEditorMemo initialValue={`${response}`} readOnly={true} data-testid="response" />
         </div>
       </div>
     </div>

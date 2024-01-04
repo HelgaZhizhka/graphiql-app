@@ -1,12 +1,12 @@
+import { useRef, useEffect } from 'react';
 import { Formik, Form, FormikProps } from 'formik';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
 import { urlValidationSchema } from '@/utils/validation';
+import { useLocale } from '@/contexts/Locale/LocaleProvider';
 import { ClearButton } from '@/components/FormsUI/ClearButton';
 import styles from './InputEndpoint.module.scss';
-import { useRef, useEffect } from 'react';
-import { useLocale } from '@/contexts/Locale/LocaleProvider';
 
 type Props = {
   initialValue: string;
@@ -41,7 +41,7 @@ const InputEndpoint: React.FC<Props> = ({ initialValue, onSubmit, onClear }) => 
             <TextField
               className={styles.input}
               name="url"
-              label="Type API with Cors support"
+              label={strings.labelInputApi}
               variant="outlined"
               value={values.url}
               onChange={handleChange}
@@ -51,7 +51,7 @@ const InputEndpoint: React.FC<Props> = ({ initialValue, onSubmit, onClear }) => 
               size="small"
             />
             <Button type="submit" variant="contained" disabled={!values.url || !!errors.url}>
-              Connect
+              {strings.buttonConnect}
             </Button>
             {values.url && <ClearButton onClear={onClear} />}
           </div>

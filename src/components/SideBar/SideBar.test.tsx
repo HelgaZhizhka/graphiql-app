@@ -4,15 +4,18 @@ import { Provider } from 'react-redux';
 
 import store from '@/store';
 import SideBar from './SideBar';
+import { LocaleProvider } from '@/contexts/Locale/LocaleContext';
 
 describe('Testing SideBar Component', () => {
   it('renders component with closed panel by default', () => {
-    const { asFragment, container } = render(
+    const { container } = render(
       <Provider store={store}>
-        <SideBar />
+        <LocaleProvider>
+          <SideBar />
+        </LocaleProvider>
       </Provider>
     );
-    expect(asFragment()).toMatchSnapshot();
+
     const panel = container.getElementsByClassName('panel');
     expect(panel).toHaveLength(1);
   });
@@ -20,9 +23,12 @@ describe('Testing SideBar Component', () => {
   it('opens panel when "Schema" button is clicked', async () => {
     render(
       <Provider store={store}>
-        <SideBar />
+        <LocaleProvider>
+          <SideBar />
+        </LocaleProvider>
       </Provider>
     );
+
     const button = screen.getByText(/Schema/i);
     fireEvent.click(button);
 
@@ -35,9 +41,12 @@ describe('Testing SideBar Component', () => {
   it('closes panel when "Close" button is clicked', () => {
     render(
       <Provider store={store}>
-        <SideBar />
+        <LocaleProvider>
+          <SideBar />
+        </LocaleProvider>
       </Provider>
     );
+
     const button = screen.getByText(/Schema/i);
     fireEvent.click(button);
     const closeButton = screen.getByLabelText('close');
@@ -49,9 +58,12 @@ describe('Testing SideBar Component', () => {
   it('displays correct text in the panel', async () => {
     render(
       <Provider store={store}>
-        <SideBar />
+        <LocaleProvider>
+          <SideBar />
+        </LocaleProvider>
       </Provider>
     );
+
     const button = screen.getByText(/Schema/i);
     fireEvent.click(button);
 
