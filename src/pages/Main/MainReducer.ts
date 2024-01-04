@@ -23,7 +23,11 @@ export const initialState: MainState = {
   response: '',
 };
 
-export const mainReducer = (state: MainState, action: MainAction) => {
+export const mainReducer = (state: MainState | undefined, action: MainAction) => {
+  if (state === undefined) {
+    return initialState;
+  }
+
   switch (action.type) {
     case 'SET_API_URL':
       return { ...state, apiUrl: action.payload };

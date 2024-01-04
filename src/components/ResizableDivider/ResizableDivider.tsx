@@ -44,7 +44,14 @@ const ResizableDivider: React.FC<Props> = ({ onResize, direction }) => {
     document.addEventListener('mouseup', stopDragging);
   }, [onDragging, stopDragging]);
 
-  return <div ref={dividerRef} className={classDivider} onMouseDown={startDragging} />;
+  return (
+    <div
+      ref={dividerRef}
+      className={classDivider}
+      onMouseDown={startDragging}
+      data-testid="separator"
+    />
+  );
 };
 
 export default ResizableDivider;

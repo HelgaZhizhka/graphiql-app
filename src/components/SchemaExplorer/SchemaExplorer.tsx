@@ -1,8 +1,9 @@
 import { useAppSelector } from '@/hooks';
 
+import { useLocale } from '@/contexts/Locale/LocaleProvider';
 import styles from './SchemaExplorer.module.scss';
 
-const formatSchemaString = (schemaString: string) => {
+export const formatSchemaString = (schemaString: string) => {
   const lines = schemaString.split(/\n/);
   return lines.map((line, index) => {
     if (line.includes('"""')) {
@@ -34,10 +35,12 @@ const formatSchemaString = (schemaString: string) => {
 };
 
 const SchemaExplorer: React.FC = () => {
+  const { state } = useLocale();
+  const { strings } = state;
   const printSchema = useAppSelector((state) => state.schema.printSchema);
 
   if (!printSchema) {
-    return <div>Schema is coming soon...</div>;
+    return <div>{strings.comingSoon}...</div>;
   }
 
   const formateSchemaString = formatSchemaString(printSchema);
