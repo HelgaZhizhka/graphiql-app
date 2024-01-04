@@ -1,24 +1,8 @@
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
-import { JSX } from 'react/jsx-runtime';
+import { screen } from '@testing-library/react';
 
-import { LocaleContext } from '@/contexts/Locale/LocaleContext';
-import { LOCALE_STRINGS, REGIONS } from '@/contexts/Locale/constants';
 import Footer from './Footer';
-
-const mockLocaleContextValue = {
-  state: {
-    strings: LOCALE_STRINGS[REGIONS.EN],
-  },
-  dispatch: jest.fn(),
-};
-
-const renderWithLocale = (ui: JSX.Element, locale: keyof typeof REGIONS) => {
-  mockLocaleContextValue.state.strings = LOCALE_STRINGS[REGIONS[locale]];
-  return render(
-    <LocaleContext.Provider value={mockLocaleContextValue}>{ui}</LocaleContext.Provider>
-  );
-};
+import { renderWithLocale } from '@/__tests__/localization';
 
 describe('Localization tests for Footer', () => {
   it('displays info in English', () => {

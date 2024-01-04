@@ -1,6 +1,9 @@
 {
   "language": "Язык",
   "welcomeLink": "Добро пожаловать",
+  "welcomeHeader": "Добро пожаловать в GRAPHIQL",
+  "welcomePageCreatersInfo": "Проект создан командой Yes Code",
+  "teamMotto": "Один за всех и все за одного!",
   "mainLink": "Главная",
   "signOut": "Выйти",
   "signIn": "Войти",
