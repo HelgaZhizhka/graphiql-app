@@ -3,7 +3,7 @@ import { testingPasswordStrength } from '@/utils/passwordStrength';
 describe('testing password strength', () => {
   it('it password', () => {
     expect(testingPasswordStrength()).toBe(0);
-  })
+  });
   it('returns 0 for a password with insufficient strength', () => {
     expect(testingPasswordStrength('abc123')).toBe(0);
   });
@@ -15,4 +15,4 @@ describe('testing password strength', () => {
   it('returns 10 for a strong password', () => {
     expect(testingPasswordStrength('StrongP@sword123')).toBe(10);
   });
-})
+});

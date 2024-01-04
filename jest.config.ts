@@ -12,6 +12,18 @@ const config: Config = {
   preset: 'ts-jest',
   clearMocks: true,
   collectCoverage: true,
+  collectCoverageFrom: [
+    '**/*.{ts,tsx}',
+    '!**/node_modules/**',
+    '!**/vendor/**',
+    '!**/coverage/**',
+    '!**/vite.config.ts',
+    '!**/vite-env.d.ts',
+    '!**/jest.config.ts',
+    '!**/jest.setup.ts',
+    '!**/index.ts',
+    '!services/firebase/firebase.ts',
+  ],
   coverageDirectory: 'coverage',
   transform: {
     '^.+\\.tsx?$': 'ts-jest',

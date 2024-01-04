@@ -12,8 +12,7 @@
     "prepare": "husky install",
     "format:fix": "prettier --write .",
     "test": "jest",
-    "test:coverage": "jest --coverage",
-    "test:coverage:all": "jest --coverage --collectCoverageFrom='src/**/*.{ts,tsx}'"
+    "test:coverage": "jest --coverage"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
