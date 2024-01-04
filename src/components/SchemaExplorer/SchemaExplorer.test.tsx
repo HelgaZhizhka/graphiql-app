@@ -9,6 +9,7 @@ import schemaReducer from '@/store/slices/schemaSlice';
 import { Writable } from '@/utils/types';
 import { LocaleProvider } from '@/contexts/Locale/LocaleContext';
 import { darkTheme } from '@/theme';
+import { formatSchemaString } from './SchemaExplorer';
 import SchemaExplorer from './SchemaExplorer';
 
 describe('SchemaExplorer', () => {
@@ -67,5 +68,33 @@ describe('SchemaExplorer', () => {
     const allFilmsPattern = new RegExp('allFilms: \\[Film\\]', 'i');
     const allFilmsElement = await screen.findByText(allFilmsPattern);
     expect(allFilmsElement).toBeInTheDocument();
+  });
+
+  it('formats schema string correctly', () => {
+    const schemaString = `
+    """
+    type Query {
+      allFilms: [Film]
+    }
+    """
+    type Film {
+      title: String
+      releaseDate: String
+    }
+    `;
+
+    const formattedSchema = formatSchemaString(schemaString);
+
+    const typeQueryPattern = new RegExp('type Query {', 'i');
+    const typeQueryElement = formattedSchema.find(
+      (element) => element.type === 'pre' && typeQueryPattern.test(element.props.children)
+    );
+    expect(typeQueryElement).toBeDefined();
+
+    const allFilmsPattern = new RegExp('allFilms: \\[Film\\]', 'i');
+    const allFilmsElement = formattedSchema.find(
+      (element) => element.type === 'pre' && allFilmsPattern.test(element.props.children)
+    );
+    expect(allFilmsElement).toBeDefined();
   });
 });

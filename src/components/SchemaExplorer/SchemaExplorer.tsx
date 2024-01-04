@@ -3,7 +3,7 @@ import { useAppSelector } from '@/hooks';
 import { useLocale } from '@/contexts/Locale/LocaleProvider';
 import styles from './SchemaExplorer.module.scss';
 
-const formatSchemaString = (schemaString: string) => {
+export const formatSchemaString = (schemaString: string) => {
   const lines = schemaString.split(/\n/);
   return lines.map((line, index) => {
     if (line.includes('"""')) {
