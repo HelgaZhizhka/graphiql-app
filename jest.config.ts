@@ -22,7 +22,6 @@ const config: Config = {
     '!**/jest.config.ts',
     '!**/jest.setup.ts',
     '!**/index.ts',
-    '!services/firebase/firebase.ts',
   ],
   coverageDirectory: 'coverage',
   transform: {
