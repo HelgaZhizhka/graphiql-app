@@ -2,15 +2,10 @@ import '@testing-library/jest-dom';
 import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 
-import { server } from '@/__tests__/server';
 import store from '@/store';
 import SideBar from './SideBar';
 
 describe('Testing SideBar Component', () => {
-  beforeAll(() => server.listen());
-  afterEach(() => server.resetHandlers());
-  afterAll(() => server.close());
-
   it('renders component with closed panel by default', () => {
     const { asFragment, container } = render(
       <Provider store={store}>

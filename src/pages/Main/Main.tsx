@@ -143,6 +143,7 @@ const Main: React.FC = () => {
           style={!isSmallScreen ? { width: `${editorWidthPercent}%` } : {}}
         >
           <div
+            data-testid="editor"
             className={styles.editor}
             style={!isSmallScreen ? { height: `${editorHeightPercent}%` } : {}}
           >

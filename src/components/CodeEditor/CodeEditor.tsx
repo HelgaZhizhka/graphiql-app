@@ -17,6 +17,7 @@ const CodeEditor: React.FC<Props> = ({ initialValue, onChange, readOnly = false 
 
   return (
     <Editor
+      data-testid="editor"
       language="graphql"
       theme={themeEditor}
       value={initialValue}
