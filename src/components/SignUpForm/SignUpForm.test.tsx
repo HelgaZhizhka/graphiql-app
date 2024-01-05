@@ -3,9 +3,9 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
 import { registerEmail } from '@/services/firebase/firebase';
 import { LocaleProvider } from '@/contexts/Locale/LocaleContext';
-import SignUpForm from './SignUpForm';
 import { renderWithLocale } from '@/__tests__/localization';
 import { LOCALE_STRINGS } from '@/contexts/Locale/constants';
+import SignUpForm from './SignUpForm';
 
 jest.mock('@/services/firebase/firebase', () => ({
   registerEmail: jest.fn(),

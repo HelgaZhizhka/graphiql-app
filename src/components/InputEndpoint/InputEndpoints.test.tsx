@@ -3,8 +3,8 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import { LocaleProvider } from '@/contexts/Locale/LocaleContext';
-import InputEndpoint from './InputEndpoint';
 import { mockApiUrl } from '@/__tests__/mockData';
+import InputEndpoint from './InputEndpoint';
 
 describe('InputEndpoint Component', () => {
   const mockOnSubmit = jest.fn();

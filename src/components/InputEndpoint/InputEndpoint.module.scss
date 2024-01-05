@@ -1,6 +1,7 @@
 .root {
   position: relative;
   display: flex;
+  align-items: flex-start;
 }
 
 .input {
@@ -9,4 +10,8 @@
   input {
     padding-right: 30px !important;
   }
+}
+
+.button {
+  min-height: 42px;
 }

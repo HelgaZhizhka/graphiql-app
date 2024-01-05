@@ -3,8 +3,8 @@ import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 
 import store from '@/store';
-import SideBar from './SideBar';
 import { LocaleProvider } from '@/contexts/Locale/LocaleContext';
+import SideBar from './SideBar';
 
 describe('Testing SideBar Component', () => {
   it('renders component with closed panel by default', () => {

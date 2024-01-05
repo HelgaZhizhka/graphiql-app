@@ -6,11 +6,7 @@ const isGraphQLOperation = (str: string) =>
 const indentWithSpaces = (deep: number, value: string) => `${'  '.repeat(deep) + value} `;
 const indentWithNewLine = (deep: number, value: string) => `${'  '.repeat(deep) + value}\n`;
 
-export const handlePrettifyCode = (
-  code: string,
-  // setCode: React.Dispatch<React.SetStateAction<string>>
-  dispatch: React.Dispatch<MainAction>
-) => {
+export const handlePrettifyCode = (code: string, dispatch: React.Dispatch<MainAction>) => {
   const splitString = code.replace(/\s+/g, ' ').split(/(\{|})/);
   let deep = 0;
   let result = '';
@@ -55,7 +51,5 @@ export const handlePrettifyCode = (
     .replace(/}\n\s*\n/g, '}\n')
     .replace(/:\s+/g, ': ')
     .replace(/(?<=\([^)]*)[ ]{2,}(?=[^()]*\))/g, ' ');
-
-  // setCode(result);
   dispatch({ type: 'PRETTIFY_CODE', payload: result });
 };

@@ -50,7 +50,12 @@ const InputEndpoint: React.FC<Props> = ({ initialValue, onSubmit, onClear }) => 
               helperText={touched.url && errors.url}
               size="small"
             />
-            <Button type="submit" variant="contained" disabled={!values.url || !!errors.url}>
+            <Button
+              className={styles.button}
+              type="submit"
+              variant="contained"
+              disabled={!values.url || !!errors.url}
+            >
               {strings.buttonConnect}
             </Button>
             {values.url && <ClearButton onClear={onClear} />}

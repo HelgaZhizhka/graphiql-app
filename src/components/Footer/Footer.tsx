@@ -3,12 +3,12 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
+import { Person } from '@/utils/interfaces';
 import { useLocale } from '@/contexts/Locale/LocaleProvider';
 import { CenteredTypography } from '@/components/CenteredTypography';
 import rsLogo from '@/assets/images/rsSchool.svg';
 import logoTeam from '@/assets/images/logoTeam.png';
 import styles from './Footer.module.scss';
-import { Person } from '@/utils/interfaces';
 
 const Footer: React.FC = () => {
   const { state } = useLocale();

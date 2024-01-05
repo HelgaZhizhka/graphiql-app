@@ -2,9 +2,9 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 
-import styles from './AboutUs.module.scss';
-import { useLocale } from '@/contexts/Locale/LocaleProvider';
 import { Person } from '@/utils/interfaces';
+import { useLocale } from '@/contexts/Locale/LocaleProvider';
+import styles from './AboutUs.module.scss';
 
 const AboutUs: React.FC = () => {
   const { state } = useLocale();
