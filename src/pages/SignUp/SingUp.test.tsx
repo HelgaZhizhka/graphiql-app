@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { render, screen, waitFor } from '@testing-library/react';
 
-import SignIn from './SignIn';
+import SignUp from './SignUp';
 
 import { LOCALE_STRINGS } from '@/contexts/Locale/constants';
 
@@ -13,18 +13,18 @@ jest.mock('@/services/firebase/firebase', () => ({
   resetPassword: jest.fn(),
 }));
 
-describe('Tests for signIn page', () => {
-  it('page render', async () => {
+describe('Tests for signUp page', () => {
+  it('signUp page render', async () => {
     render(
       <Router>
         <LocaleProvider>
-          <SignIn />
+          <SignUp />
         </LocaleProvider>
       </Router>
     );
 
     await waitFor(() => {
-      expect(screen.getByText(`${LOCALE_STRINGS.EN.noAccount}`)).toBeInTheDocument();
+      expect(screen.getByText(`${LOCALE_STRINGS.EN.haveAnAccount}`)).toBeInTheDocument();
     });
   });
 });
