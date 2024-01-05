@@ -124,8 +124,9 @@ describe('Main page', () => {
 
     const variablesTab = screen.getByText(/Variables/i);
     const headersTab = screen.getByText(/Headers/i);
-
-    expect(variablesTab).toBeInTheDocument();
-    expect(headersTab).toBeInTheDocument();
+    await waitFor(() => {
+      expect(variablesTab).toBeInTheDocument();
+      expect(headersTab).toBeInTheDocument();
+    });
   });
 });
