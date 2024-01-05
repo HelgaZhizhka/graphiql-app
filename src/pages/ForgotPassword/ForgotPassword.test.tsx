@@ -1,9 +1,8 @@
 import '@testing-library/jest-dom';
 import { render, screen, waitFor } from '@testing-library/react';
 
-import ForgotPassword from './ForgotPassword';
-
 import { LOCALE_STRINGS } from '@/contexts/Locale/constants';
+import ForgotPassword from './ForgotPassword';
 
 import '@testing-library/jest-dom';
 import { BrowserRouter as Router } from 'react-router-dom';

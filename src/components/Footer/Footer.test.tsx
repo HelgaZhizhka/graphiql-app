@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom';
 import { screen } from '@testing-library/react';
 
-import Footer from './Footer';
 import { renderWithLocale } from '@/__tests__/localization';
+import Footer from './Footer';
 
 describe('Localization tests for Footer', () => {
   it('displays info in English', () => {

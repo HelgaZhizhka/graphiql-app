@@ -3,8 +3,8 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
 import { logInWithEmail } from '@/services/firebase/firebase';
 import { LocaleProvider } from '@/contexts/Locale/LocaleContext';
-import SignInForm from './SignInForm';
 import { renderWithLocale } from '@/__tests__/localization';
+import SignInForm from './SignInForm';
 
 jest.mock('@/services/firebase/firebase', () => ({
   logInWithEmail: jest.fn(),

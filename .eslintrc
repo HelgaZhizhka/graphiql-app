@@ -23,6 +23,8 @@
   },
   "plugins": ["@typescript-eslint", "react", "prettier", "react-hooks"],
   "rules": {
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "no-comment": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "comma-dangle": ["error", "only-multiline"],

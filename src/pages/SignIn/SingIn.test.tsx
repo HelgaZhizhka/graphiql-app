@@ -1,13 +1,10 @@
 import '@testing-library/jest-dom';
 import { render, screen, waitFor } from '@testing-library/react';
-
-import SignIn from './SignIn';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import { LOCALE_STRINGS } from '@/contexts/Locale/constants';
-
-import '@testing-library/jest-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { LocaleProvider } from '@/contexts/Locale/LocaleContext';
+import SignIn from './SignIn';
 
 jest.mock('@/services/firebase/firebase', () => ({
   resetPassword: jest.fn(),

@@ -30,7 +30,7 @@ export const logInWithEmail = async (email: string, password: string) => {
     store.dispatch(setSuccess('login'));
   } catch (err: unknown) {
     if (err instanceof FirebaseError) {
-      console.log(err);
+      console.error(err);
       store.dispatch(setError(err.code));
     } else {
       console.error(err);
