@@ -40,15 +40,6 @@
   background-color: var(--component-bg);
 }
 
-// .col,
-// .editor,
-// .tabs {
-//   @media screen and (max-width: 1023px) {
-//     width: 100%;
-//     height: auto;
-//   }
-// }
-
 .btnSend,
 .btnPretty {
   position: absolute;
@@ -62,4 +53,13 @@
 
 .btnPretty {
   top: 5px;
+}
+
+.title {
+  margin: 0;
+  padding: 0 20px;
+
+  @media screen and (min-width: 1024px) {
+    display: none;
+  }
 }

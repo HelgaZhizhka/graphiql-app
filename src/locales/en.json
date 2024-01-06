@@ -22,6 +22,8 @@
   "buttonConnect": "Connect",
   "tabsTitleVariables": "Query Variables",
   "tabsTitleHeaders": "HTTP Headers",
+  "titleEditor": "Query editor",
+  "titleResponse": "Response viewer",
   "schemaTitle": "Schema",
   "documentationTitle": "Documentation Explorer",
   "documentationSubTitle": "A GraphQL schema provides a root type for each kind of operation.",

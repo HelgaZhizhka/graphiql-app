@@ -22,6 +22,8 @@
   "buttonConnect": "Подключить",
   "tabsTitleVariables": "Переменные",
   "tabsTitleHeaders": "Заголовки",
+  "titleEditor": "Редактор запросов",
+  "titleResponse": "Ответ",
   "schemaTitle": "Схема",
   "documentationTitle": "Документация",
   "documentationSubTitle": "Схема GraphQL предоставляет тип для каждого вида операций.",
