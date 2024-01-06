@@ -14,6 +14,7 @@ import { FetchError } from '@/utils/interfaces';
 import { setError } from '@/store/slices/messageSlice';
 import { useLazyFetchSchemaQuery, useSendQueryMutation } from '@/store/api/apiService';
 import { setSchema, clearSchema } from '@/store/slices/schemaSlice';
+import { useLocale } from '@/contexts/Locale/LocaleProvider';
 import { InputEndpoint } from '@/components/InputEndpoint';
 import { CodeEditor } from '@/components/CodeEditor';
 import { EditorTabs } from '@/components/EditorTabs';
@@ -41,6 +42,9 @@ const Main: React.FC = () => {
     initialState
   );
   const { apiUrl, code, variables, headers, response } = state;
+
+  const { state: localeState } = useLocale();
+  const { strings } = localeState;
 
   const dispatch = useAppDispatch();
   const [sendQuery] = useSendQueryMutation();
@@ -146,6 +150,7 @@ const Main: React.FC = () => {
             className={styles.editor}
             style={!isSmallScreen ? { height: `${editorHeightPercent}%` } : {}}
           >
+            <h3 className={styles.title}>{strings.titleEditor}</h3>
             <Button
               className={styles.btnPretty}
               variant="outlined"
@@ -202,6 +207,7 @@ const Main: React.FC = () => {
               : { height: '300px', marginBottom: '20px' }
           }
         >
+          <h3 className={styles.title}>{strings.titleResponse}</h3>
           <CodeEditorMemo initialValue={`${response}`} readOnly={true} data-testid="response" />
         </div>
       </div>

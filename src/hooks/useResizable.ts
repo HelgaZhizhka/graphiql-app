@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 
-export const useResizableHeight = (minHeightPercent = 20, maxHeightPercent = 80) => {
-  const [editorHeightPercent, setEditorHeightPercent] = useState(50);
+export const useResizableHeight = (minHeightPercent = 15, maxHeightPercent = 80) => {
+  const [editorHeightPercent, setEditorHeightPercent] = useState(80);
 
   const handleResizeHeight = useCallback(
     (deltaY: number, containerHeight: number) => {
