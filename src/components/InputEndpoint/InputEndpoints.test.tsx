@@ -14,14 +14,19 @@ describe('InputEndpoint Component', () => {
     render(
       <Router>
         <LocaleProvider>
-          <InputEndpoint initialValue="" onSubmit={mockOnSubmit} onClear={mockOnClear} />
+          <InputEndpoint
+            initialValue=""
+            onSubmit={mockOnSubmit}
+            onClear={mockOnClear}
+            onSchemaRequest={jest.fn()}
+          />
         </LocaleProvider>
       </Router>
     );
 
     await waitFor(() => {
       expect(screen.getByLabelText(/Type API with Cors support/i)).toBeInTheDocument();
-      expect(screen.getByText(/Connect/i)).toBeInTheDocument();
+      expect(screen.getByText(/Ok/i)).toBeInTheDocument();
     });
   });
 
@@ -29,7 +34,12 @@ describe('InputEndpoint Component', () => {
     render(
       <Router>
         <LocaleProvider>
-          <InputEndpoint initialValue={mockApiUrl} onSubmit={mockOnSubmit} onClear={mockOnClear} />
+          <InputEndpoint
+            initialValue={mockApiUrl}
+            onSubmit={mockOnSubmit}
+            onClear={mockOnClear}
+            onSchemaRequest={jest.fn()}
+          />
         </LocaleProvider>
       </Router>
     );
@@ -38,7 +48,7 @@ describe('InputEndpoint Component', () => {
       target: { value: mockApiUrl },
     });
 
-    fireEvent.submit(screen.getByText(/Connect/i));
+    fireEvent.submit(screen.getByText(/Ok/i));
 
     await waitFor(() => {
       expect(mockOnSubmit).toHaveBeenCalledWith(mockApiUrl);
@@ -53,6 +63,7 @@ describe('InputEndpoint Component', () => {
             initialValue="https://api.example.com"
             onSubmit={mockOnSubmit}
             onClear={mockOnClear}
+            onSchemaRequest={jest.fn()}
           />
         </LocaleProvider>
       </Router>

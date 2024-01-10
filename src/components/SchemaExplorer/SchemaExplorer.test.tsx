@@ -13,7 +13,7 @@ import { formatSchemaString } from './SchemaExplorer';
 import SchemaExplorer from './SchemaExplorer';
 
 describe('SchemaExplorer', () => {
-  it('renders "Schema is coming soon..." when printSchema is empty', () => {
+  it('renders "Schema" when printSchema is empty', () => {
     const store = configureStore({
       reducer: {
         schema: schemaReducer,
@@ -36,7 +36,7 @@ describe('SchemaExplorer', () => {
       </ThemeProvider>
     );
 
-    expect(screen.getByText(/Schema is coming soon/i)).toBeInTheDocument();
+    expect(screen.getByText(/Schema/i)).toBeInTheDocument();
   });
 
   it('renders formatted schema when printSchema is not empty', async () => {

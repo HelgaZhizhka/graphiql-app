@@ -29,7 +29,7 @@ describe('Testing SideBar Component', () => {
       </Provider>
     );
 
-    const button = screen.getByText(/Schema/i);
+    const button = screen.getByText(/Open/i);
     fireEvent.click(button);
 
     await waitFor(() => {
@@ -47,7 +47,7 @@ describe('Testing SideBar Component', () => {
       </Provider>
     );
 
-    const button = screen.getByText(/Schema/i);
+    const button = screen.getByText(/Open/i);
     fireEvent.click(button);
     const closeButton = screen.getByLabelText('close');
     fireEvent.click(closeButton);
@@ -64,7 +64,7 @@ describe('Testing SideBar Component', () => {
       </Provider>
     );
 
-    const button = screen.getByText(/Schema/i);
+    const button = screen.getByText(/Open/i);
     fireEvent.click(button);
 
     await waitFor(() => {
