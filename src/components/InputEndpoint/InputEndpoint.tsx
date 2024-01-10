@@ -11,10 +11,11 @@ import styles from './InputEndpoint.module.scss';
 type Props = {
   initialValue: string;
   onSubmit(value: string): void;
+  onSchemaRequest(): void;
   onClear(): void;
 };
 
-const InputEndpoint: React.FC<Props> = ({ initialValue, onSubmit, onClear }) => {
+const InputEndpoint: React.FC<Props> = ({ initialValue, onSubmit, onClear, onSchemaRequest }) => {
   const { state } = useLocale();
   const { strings } = state;
 
@@ -57,6 +58,14 @@ const InputEndpoint: React.FC<Props> = ({ initialValue, onSubmit, onClear }) => 
               disabled={!values.url || !!errors.url}
             >
               {strings.buttonConnect}
+            </Button>
+            <Button
+              className={styles.button}
+              variant="contained"
+              color="secondary"
+              onClick={onSchemaRequest}
+            >
+              {strings.buttonSchema}
             </Button>
             {values.url && <ClearButton onClear={onClear} />}
           </div>

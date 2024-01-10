@@ -50,12 +50,11 @@ const Main: React.FC = () => {
   const [sendQuery] = useSendQueryMutation();
   const [fetchSchema, { isLoading }] = useLazyFetchSchemaQuery();
 
-  const isSchemaLoading = isLoading || !apiUrl;
+  const isSchemaLoading = isLoading;
 
-  const handleApiSubmit = async (newApiUrl: string) => {
-    mainDispatch({ type: 'SET_API_URL', payload: newApiUrl });
+  const handleSchemaRequest = async () => {
     try {
-      const schemaData = await fetchSchema(newApiUrl).unwrap();
+      const schemaData = await fetchSchema(apiUrl).unwrap();
       dispatch(setSchema(schemaData as Writable<IntrospectionQuery>));
     } catch (err: unknown) {
       if (typeof err === 'object' && err !== null && 'error' in err) {
@@ -70,6 +69,10 @@ const Main: React.FC = () => {
       dispatch(clearSchema());
       console.error(err);
     }
+  };
+
+  const handleApiSubmit = async (newApiUrl: string) => {
+    mainDispatch({ type: 'SET_API_URL', payload: newApiUrl });
   };
 
   const handleSendQuery = async () => {
@@ -98,6 +101,7 @@ const Main: React.FC = () => {
         } else {
           const error = JSON.stringify(responseData.error.data, null, 2);
           mainDispatch({ type: 'SET_RESPONSE', payload: error });
+          dispatch(setError('responseError'));
         }
       } else {
         console.error('Unexpected response:', responseData);
@@ -135,6 +139,7 @@ const Main: React.FC = () => {
           <InputEndpointMemo
             initialValue={apiUrl}
             onSubmit={handleApiSubmit}
+            onSchemaRequest={handleSchemaRequest}
             onClear={handleClearUrl}
           />
         </Container>

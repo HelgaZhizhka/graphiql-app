@@ -27,6 +27,7 @@ const messages: Messages = {
       fetchQuery: 'Error sending query',
       parsingError: 'Error parsing variable / header field',
       emptyQuery: 'Query is incorrect',
+      responseError: 'Response error from API not found, please check your query',
     },
   },
   RU: {
@@ -54,6 +55,7 @@ const messages: Messages = {
       fetchQuery: 'Ошибка отправки запроса',
       parsingError: 'Ошибка парсинга поля переменных / заголовка',
       emptyQuery: 'Запрос некорректен',
+      responseError: 'Ошибка ответ от API не найден, пожалуйста, проверьте ваш запрос',
     },
   },
 };
@@ -82,6 +84,7 @@ type MessageTypes = {
     fetchCORS: string;
     parsingError: string;
     emptyQuery: string;
+    responseError: string;
   };
 };
 
@@ -129,6 +132,8 @@ const getErrorMessage = (code: string, lang: string) => {
       return messages[lang].error.parsingError;
     case 'emptyQuery':
       return messages[lang].error.emptyQuery;
+    case 'responseError':
+      return messages[lang].error.responseError;
     default:
       return messages[lang].error.unknown;
   }
