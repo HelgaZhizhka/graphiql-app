@@ -1,0 +1,65 @@
+.root {
+  position: relative;
+}
+
+.container {
+  @media screen and (min-width: 1024px) {
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - 270px);
+  }
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.input {
+  background-color: var(--component-bg);
+  padding: 10px 0;
+}
+
+.editor {
+  position: relative;
+  padding-right: 80px;
+
+  @media screen and (max-width: 1023px) {
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+  }
+}
+
+.tabs {
+  position: relative;
+  flex-grow: 1;
+  z-index: 11;
+  background-color: var(--component-bg);
+}
+
+.btnSend,
+.btnPretty {
+  position: absolute;
+  z-index: 10;
+  right: 5px;
+}
+
+.btnSend {
+  top: 50px;
+}
+
+.btnPretty {
+  top: 5px;
+}
+
+.title {
+  margin: 0;
+  padding: 0 20px;
+
+  @media screen and (min-width: 1024px) {
+    display: none;
+  }
+}

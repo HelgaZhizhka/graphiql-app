@@ -1,0 +1,43 @@
+html {
+  font-size: 100%;
+}
+
+body {
+  background-color: var(--body-bg);
+  font-family: var(--font-family);
+  font-size: 1rem;
+  color: var(--color-text);
+  line-height: var(--line-height);
+}
+
+@include headings {
+  font-family: var(--font-family);
+  font-weight: 600;
+  line-height: var(--line-height);
+  color: var(--color-text);
+}
+
+a {
+  font-weight: 500;
+  color: var(--color-link);
+  text-decoration: none;
+  transition: color 0.25s ease-in-out;
+}
+
+a:hover {
+  color: var(--color-link-hover);
+}
+
+.text-brand {
+  color: var(--color-brand);
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.footer {
+  margin: auto 0 0 0;
+}

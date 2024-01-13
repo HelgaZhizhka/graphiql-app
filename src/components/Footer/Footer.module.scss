@@ -1,0 +1,49 @@
+.root {
+  padding: 20px 0;
+  text-align: center;
+  background-color: var(--color-violet);
+  color: var(--color-light);
+}
+
+.link {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.logo {
+  display: block;
+  width: 100px;
+  margin: 10px auto;
+}
+
+.logoTeam {
+  display: inline-block;
+  width: 50px;
+  margin-top: -10px;
+}
+
+.icon {
+  margin-right: 5px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.title {
+  margin: 0 5px;
+  font-weight: 600;
+  color: var(--color-dogwood);
+}
+
+.col,
+.title,
+.contacts {
+  display: inline-flex;
+  align-items: center;
+}
+
+.col,
+.contacts {
+  @media screen and (max-width: 575px) {
+    display: block;
+  }
+}
