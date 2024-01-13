@@ -104,6 +104,7 @@ const Main: React.FC = () => {
           dispatch(setError('responseError'));
         }
       } else {
+        dispatch(setError('fetchSchema'));
         console.error('Unexpected response:', responseData);
       }
     } catch (err) {
