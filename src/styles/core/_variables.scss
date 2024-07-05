@@ -1,0 +1,54 @@
+:root {
+  --color-white: #fff;
+  --color-black: #000;
+  --color-light: #f2f2f2;
+  --color-brand: #f6009c;
+  --color-link: var(--color-brand);
+  --color-link-hover: #ba0678;
+  --color-silver: #bebbbb;
+  --color-dogwood: #fac9b8;
+  --color-violet: #444054;
+  --color-dark-purple: #2f243a;
+  --color-error: #b11b1b;
+  --color-success: #1bb12b;
+  --color-warning: #b1751b;
+  --body-bg: var(--color-light);
+  --component-bg: var(--color-light);
+  --color-text: #161616;
+  --color-title: var(--color-dark-purple);
+  --color-placeholder: #999;
+  --border-color: var(--color-dark-purple);
+  --header-bg: var(--color-light);
+  --header-animate-bg: var(--color-white);
+  --vscode-editorGutter-background: var(--color-silver);
+
+  --font-family: 'Source Sans 3', Helvetica, Arial, sans-serif;
+  --line-height: 1.5;
+  --font-weight: 400;
+
+  color-scheme: light dark;
+  color: var(--color-text);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  --z-index-header: 100;
+  --z-index-loader: 200;
+  --z-index-sidebar: 1130;
+  --z-index-modal: 400;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --body-bg: #242424;
+    --component-bg: #312f2f;
+    --color-text: rgba(255, 255, 255, 0.87);
+    --border-color: var(--color-light);
+    --color-title: var(--color-dogwood);
+    --header-bg: var(--color-violet);
+    --header-animate-bg: var(--color-dark-purple);
+  }
+}

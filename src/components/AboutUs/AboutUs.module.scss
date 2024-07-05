@@ -1,0 +1,32 @@
+.personVideoEven,
+.personVideoOdd {
+  max-width: 300px;
+  padding: 10px;
+  box-shadow: 12px 12px 10px #ccc;
+
+  @media screen and (min-width: 1024px) {
+    max-width: 100%;
+  }
+}
+
+.personVideoEven {
+  transform: rotate(2deg);
+}
+
+.personVideoOdd {
+  transform: rotate(-2deg);
+}
+
+.name {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  margin-right: 8px;
+}
