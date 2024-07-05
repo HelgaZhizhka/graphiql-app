@@ -3,7 +3,7 @@
 
 ## GraphiQL is a playground/IDE for graphQL requests. Application supports any open, user-specified GraphQL API that supports CORS
 
-[graphiql-playground.netlify.app/](https://graphiql-playground.netlify.app/)
+[graphiql-playground.netlify.app](https://graphiql-playground.netlify.app)
 
 ## The technology stack used:
 
