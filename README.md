@@ -1,32 +1,49 @@
 
 # GraphQL Playground React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## GraphiQL is a playground/IDE for graphQL requests. Application supports any open, user-specified GraphQL API that supports CORS
 
-Currently, two official plugins are available:
+[graphiql-playground.netlify.app/](https://graphiql-playground.netlify.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## The technology stack used:
 
-## Expanding the ESLint configuration
+- GitHub
+- GitHub Projects
+- Vite
+- React
+- TypeScript
+- Firebase
+- ESLint
+- Prettier
+- Husky
+- Jest
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Libraries used:
+- Material UI
+- Formik
+- Jsdom
+- Redux toolkit
+- React-router-dom
+- Sass
+- Yup
 
-- Configure the top-level `parserOptions` property like this:
+## Key pages in the application include:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-};
-```
+- Welcome page
+- User registration/authentication.
+- RESTfull client, which includes:
+  - method selector
+  - text input for the endpoint url
+  - request editor
+  - headers editor
+  - response section
+- GraphiQL client, which includes:
+  - text input for the endpoint url
+  - request editor
+  - variables editor
+  - headers editor
+  - text input for the endpoint which is used for getting the documentation (sdl)
+  - documentation explorer
+  - response section
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
 
